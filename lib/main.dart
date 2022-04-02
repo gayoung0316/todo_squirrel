@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:todo_squirrel/onboarding.dart';
 
 void main() {
@@ -10,9 +11,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Squirrel ToDo List',
-      home: OnboardingPage(),
+    return ScreenUtilInit(
+      builder: () => const MaterialApp(
+        title: 'Squirrel ToDo List',
+        home: OnboardingPage(),
+        debugShowCheckedModeBanner: false,
+      ),
     );
   }
 }

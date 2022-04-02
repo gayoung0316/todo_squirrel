@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.todo_squirrel">
+    package="com.todo_squirrel">
    <application
         android:label="todo_squirrel"
         android:name="${applicationName}"

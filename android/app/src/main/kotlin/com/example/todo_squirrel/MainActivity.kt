@@ -1,4 +1,4 @@
-package com.example.todo_squirrel
+package com.todo_squirrel
 
 import io.flutter.embedding.android.FlutterActivity
 
