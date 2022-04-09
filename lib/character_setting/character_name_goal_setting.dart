@@ -1,8 +1,5 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:speech_bubble/speech_bubble.dart';
 import 'package:todo_squirrel/model/squirrel_Character.dart';
 
 class CharacterNameGoalSettingPage extends StatefulWidget {
