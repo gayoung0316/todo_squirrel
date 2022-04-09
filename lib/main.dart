@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:todo_squirrel/onboarding.dart';
-
 import 'character_setting/character_select.dart';
 
 void main() {
