@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:todo_squirrel/character_setting/character_date_setting.dart';
+import 'package:todo_squirrel/character_setting/character_alarm_setting.dart';
 import 'package:todo_squirrel/components/triangle_clipper.dart';
-import 'package:todo_squirrel/model/squirrel_Character.dart';
 
-class CharacterNameGoalSettingPage extends StatefulWidget {
-  const CharacterNameGoalSettingPage({Key? key, required this.characterIdx})
+class CharacterDateSetting extends StatefulWidget {
+  const CharacterDateSetting({Key? key, required this.characterIdx})
       : super(key: key);
 
   final int characterIdx;
 
   @override
-  State<CharacterNameGoalSettingPage> createState() =>
-      _CharacterNameGoalSettingPageState();
+  State<CharacterDateSetting> createState() => _CharacterDateSettingState();
 }
 
-class _CharacterNameGoalSettingPageState
-    extends State<CharacterNameGoalSettingPage> {
+class _CharacterDateSettingState extends State<CharacterDateSetting> {
   late ScrollController _scrollController;
 
   @override
@@ -45,7 +42,10 @@ class _CharacterNameGoalSettingPageState
               Padding(
                 padding: EdgeInsets.only(top: 57.h, left: 20.w),
                 child: InkWell(
-                  onTap: () => Navigator.pop(context),
+                  onTap: () {
+                    Navigator.pop(context);
+                    FocusScope.of(context).unfocus();
+                  },
                   child: Image.asset(
                     'assets/icons/arrow_left.png',
                     width: 24.w,
@@ -70,7 +70,7 @@ class _CharacterNameGoalSettingPageState
                             ),
                             alignment: Alignment.center,
                             child: Text(
-                              '“ 내 이름과 너의 목표를 적어줘! “',
+                              '“ 언제까지 할거야? “',
                               textScaleFactor: 1.0,
                               style: TextStyle(
                                 color: const Color.fromRGBO(0, 122, 83, 1),
@@ -105,7 +105,7 @@ class _CharacterNameGoalSettingPageState
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          '내 이름은',
+                          '오늘부터',
                           textScaleFactor: 1.0,
                           style: TextStyle(
                             color: const Color.fromRGBO(255, 255, 255, 1),
@@ -113,7 +113,7 @@ class _CharacterNameGoalSettingPageState
                             fontWeight: FontWeight.w800,
                           ),
                         ),
-                        SizedBox(width: 14.w),
+                        SizedBox(width: 10.w),
                         Container(
                           decoration: BoxDecoration(
                             border: Border(
@@ -123,10 +123,11 @@ class _CharacterNameGoalSettingPageState
                               ),
                             ),
                           ),
-                          width: 146.w,
+                          width: 60.w,
                           child: TextField(
                             textAlign: TextAlign.center,
-                            maxLength: 8,
+                            maxLength: 2,
+                            keyboardType: TextInputType.number,
                             style: TextStyle(
                               color: const Color.fromRGBO(255, 255, 255, 0.5),
                               fontSize: 20.sp,
@@ -134,7 +135,7 @@ class _CharacterNameGoalSettingPageState
                             ),
                             onTap: () {
                               _scrollController.animateTo(
-                                140.h,
+                                100.h,
                                 duration: const Duration(milliseconds: 500),
                                 curve: Curves.ease,
                               );
@@ -143,8 +144,6 @@ class _CharacterNameGoalSettingPageState
                               isCollapsed: true,
                               contentPadding: EdgeInsets.only(bottom: 6.h),
                               counterText: '',
-                              hintText: squirrelCharacter[widget.characterIdx]
-                                  ['character_name'],
                               hintStyle: TextStyle(
                                 color: const Color.fromRGBO(255, 255, 255, 0.5),
                                 fontSize: 20.sp,
@@ -154,9 +153,9 @@ class _CharacterNameGoalSettingPageState
                             ),
                           ),
                         ),
-                        SizedBox(width: 14.w),
+                        SizedBox(width: 10.w),
                         Text(
-                          '이고,',
+                          '일 동안!',
                           textScaleFactor: 1.0,
                           style: TextStyle(
                             color: const Color.fromRGBO(255, 255, 255, 1),
@@ -166,71 +165,21 @@ class _CharacterNameGoalSettingPageState
                         ),
                       ],
                     ),
-                    SizedBox(height: 40.h),
-                    SizedBox(
-                      width: 292.w,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text(
-                            '내 목표는',
-                            textScaleFactor: 1.0,
-                            style: TextStyle(
-                              color: const Color.fromRGBO(255, 255, 255, 1),
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.w800,
-                            ),
-                          ),
-                          Container(
-                            width: 202.w,
-                            margin: EdgeInsets.only(left: 8.w),
-                            decoration: BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(
-                                  color: const Color.fromRGBO(255, 255, 255, 1),
-                                  width: 1.w,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 18.h),
-                    SizedBox(
-                      width: 292.w,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Container(
-                            width: 232.w,
-                            margin: EdgeInsets.only(right: 14.w),
-                            decoration: BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(
-                                  color: const Color.fromRGBO(255, 255, 255, 1),
-                                  width: 1.w,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Text(
-                            '이야.',
-                            textScaleFactor: 1.0,
-                            style: TextStyle(
-                              color: const Color.fromRGBO(255, 255, 255, 1),
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.w800,
-                            ),
-                          ),
-                        ],
+                    SizedBox(height: 20.h),
+                    Text(
+                      '*최소 7일에서 최대 31일까지 설정 할 수 있어',
+                      textScaleFactor: 1.0,
+                      style: TextStyle(
+                        color: const Color.fromRGBO(255, 255, 255, 0.58),
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
                     InkWell(
                       onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => CharacterDateSetting(
+                          builder: (context) => CharacterAlarmSetting(
                             characterIdx: widget.characterIdx,
                           ),
                         ),
@@ -238,7 +187,7 @@ class _CharacterNameGoalSettingPageState
                       child: Container(
                         width: 76.w,
                         height: 42.h,
-                        margin: EdgeInsets.only(top: 60.h),
+                        margin: EdgeInsets.only(top: 125.h),
                         decoration: BoxDecoration(
                           color: const Color.fromRGBO(255, 255, 255, 0.5),
                           borderRadius: BorderRadius.circular(21.w),
@@ -257,7 +206,7 @@ class _CharacterNameGoalSettingPageState
                     )
                   ],
                 ),
-              ),
+              )
             ],
           ),
         ),

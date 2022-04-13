@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'character_setting/character_select.dart';
+import 'package:todo_squirrel/onboarding.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,10 +15,12 @@ class MyApp extends StatelessWidget {
       designSize: const Size(428, 926),
       builder: () => MaterialApp(
         title: 'Squirrel ToDo List',
-        home: const CharacterSelectPage(),
+        home: const OnboardingPage(),
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           fontFamily: 'NanumSquareRound',
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
         ),
       ),
     );

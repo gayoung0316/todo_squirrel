@@ -120,20 +120,19 @@ class SignInPage extends StatelessWidget {
             )
           ],
         ),
-        child: Stack(
-          alignment: Alignment.center,
+        padding: EdgeInsets.only(left: 20.w),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Positioned(
-              left: 20.w,
-              child: Image.asset(
-                'assets/icons/${loginType}_login.png',
-                width: 36.w,
-                height: 36.w,
-              ),
+            Image.asset(
+              'assets/icons/${loginType}_login.png',
+              width: 36.w,
+              height: 36.w,
             ),
             Container(
               width: 204.w,
               alignment: Alignment.center,
+              margin: EdgeInsets.symmetric(horizontal: 10.w),
               child: Text(
                 '$loginTypeName 계정으로 로그인',
                 textScaleFactor: 1.0,
@@ -143,6 +142,10 @@ class SignInPage extends StatelessWidget {
                 ),
               ),
             ),
+            SizedBox(
+              width: 36.w,
+              height: 36.w,
+            )
           ],
         ),
       ),
