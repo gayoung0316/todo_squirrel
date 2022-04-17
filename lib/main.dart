@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_squirrel/onboarding.dart';
+import 'package:todo_squirrel/providers/character_setting_provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => CharacterSettingProvider(),
+        ),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -19,8 +30,8 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           fontFamily: 'NanumSquareRound',
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
+          // splashColor: Colors.transparent,
+          // highlightColor: Colors.transparent,
         ),
       ),
     );

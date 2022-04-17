@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:todo_squirrel/character_setting/character_date_setting.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_squirrel/components/triangle_clipper.dart';
+import 'package:todo_squirrel/model/squirrel_Character.dart';
+import 'package:todo_squirrel/providers/character_setting_provider.dart';
 
 import 'character_setting_info.dart';
 
 class CharacterAlarmSetting extends StatefulWidget {
-  const CharacterAlarmSetting({Key? key, required this.characterIdx})
-      : super(key: key);
-  final int characterIdx;
+  const CharacterAlarmSetting({Key? key}) : super(key: key);
 
   @override
   State<CharacterAlarmSetting> createState() => _CharacterAlarmSettingState();
@@ -17,6 +16,10 @@ class CharacterAlarmSetting extends StatefulWidget {
 
 class _CharacterAlarmSettingState extends State<CharacterAlarmSetting> {
   late ScrollController _scrollController;
+  late CharacterSettingProvider characterSettingProvider;
+
+  final TextEditingController _hourController = TextEditingController();
+  final TextEditingController _minuteController = TextEditingController();
 
   @override
   void initState() {
@@ -32,10 +35,14 @@ class _CharacterAlarmSettingState extends State<CharacterAlarmSetting> {
 
   @override
   Widget build(BuildContext context) {
+    characterSettingProvider = Provider.of<CharacterSettingProvider>(context);
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        backgroundColor: const Color.fromRGBO(0, 122, 83, 1),
+        backgroundColor:
+            squirrelCharacter[characterSettingProvider.characterIdx]
+                ['character_color'],
         body: SingleChildScrollView(
           controller: _scrollController,
           child: Column(
@@ -72,7 +79,9 @@ class _CharacterAlarmSettingState extends State<CharacterAlarmSetting> {
                               '“ 알림으로 알려줄까? “',
                               textScaleFactor: 1.0,
                               style: TextStyle(
-                                color: const Color.fromRGBO(0, 122, 83, 1),
+                                color: squirrelCharacter[
+                                        characterSettingProvider.characterIdx]
+                                    ['character_color'],
                                 fontSize: 20.sp,
                                 fontWeight: FontWeight.w800,
                               ),
@@ -95,7 +104,7 @@ class _CharacterAlarmSettingState extends State<CharacterAlarmSetting> {
                     ),
                     SizedBox(height: 38.h),
                     Image.asset(
-                      'assets/images/character_select_squirrel_${widget.characterIdx}.png',
+                      'assets/images/character_select_squirrel_${characterSettingProvider.characterIdx}.png',
                       width: 284.w,
                       height: 284.w,
                     ),
@@ -124,6 +133,7 @@ class _CharacterAlarmSettingState extends State<CharacterAlarmSetting> {
                           ),
                           width: 42.w,
                           child: TextField(
+                            controller: _hourController,
                             textAlign: TextAlign.center,
                             maxLength: 2,
                             keyboardType: TextInputType.number,
@@ -139,6 +149,9 @@ class _CharacterAlarmSettingState extends State<CharacterAlarmSetting> {
                                 duration: const Duration(milliseconds: 500),
                                 curve: Curves.ease,
                               );
+                            },
+                            onChanged: (value) {
+                              setState(() {});
                             },
                             decoration: InputDecoration(
                               isCollapsed: true,
@@ -177,6 +190,7 @@ class _CharacterAlarmSettingState extends State<CharacterAlarmSetting> {
                           ),
                           width: 42.w,
                           child: TextField(
+                            controller: _minuteController,
                             textAlign: TextAlign.center,
                             maxLength: 2,
                             keyboardType: TextInputType.number,
@@ -191,6 +205,9 @@ class _CharacterAlarmSettingState extends State<CharacterAlarmSetting> {
                                 duration: const Duration(milliseconds: 500),
                                 curve: Curves.ease,
                               );
+                            },
+                            onChanged: (value) {
+                              setState(() {});
                             },
                             decoration: InputDecoration(
                               isCollapsed: true,
@@ -226,19 +243,29 @@ class _CharacterAlarmSettingState extends State<CharacterAlarmSetting> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           InkWell(
-                            onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => CharacterSettingInfo(
-                                  characterIdx: widget.characterIdx,
-                                ),
-                              ),
-                            ),
+                            onTap: () {
+                              if (_hourController.text.isEmpty &&
+                                  _minuteController.text.isEmpty) {
+                                characterSettingProvider.characterHour == 00;
+                                characterSettingProvider.characterMinute == 00;
+
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const CharacterSettingInfo(),
+                                  ),
+                                );
+                              }
+                            },
                             child: Container(
                               width: 112.w,
                               height: 42.h,
                               decoration: BoxDecoration(
-                                color: const Color.fromRGBO(255, 255, 255, 1),
+                                color: _hourController.text.isEmpty &&
+                                        _minuteController.text.isEmpty
+                                    ? const Color.fromRGBO(255, 255, 255, 1)
+                                    : const Color.fromRGBO(255, 255, 255, 0.5),
                                 borderRadius: BorderRadius.circular(21.w),
                               ),
                               alignment: Alignment.center,
@@ -246,7 +273,9 @@ class _CharacterAlarmSettingState extends State<CharacterAlarmSetting> {
                                 '건너뛰기',
                                 textScaleFactor: 1.0,
                                 style: TextStyle(
-                                  color: const Color.fromRGBO(0, 122, 83, 1),
+                                  color: squirrelCharacter[
+                                          characterSettingProvider.characterIdx]
+                                      ['character_color'],
                                   fontSize: 20.sp,
                                   fontWeight: FontWeight.w800,
                                 ),
@@ -255,19 +284,35 @@ class _CharacterAlarmSettingState extends State<CharacterAlarmSetting> {
                           ),
                           SizedBox(width: 18.w),
                           InkWell(
-                            onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => CharacterSettingInfo(
-                                  characterIdx: widget.characterIdx,
-                                ),
-                              ),
-                            ),
+                            onTap: () {
+                              if (_hourController.text.isNotEmpty ||
+                                  _minuteController.text.isNotEmpty) {
+                                characterSettingProvider.characterHour =
+                                    _hourController.text.isNotEmpty
+                                        ? int.parse(_hourController.text)
+                                        : 00;
+                                characterSettingProvider.characterMinute =
+                                    _minuteController.text.isNotEmpty
+                                        ? int.parse(_minuteController.text)
+                                        : 00;
+
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const CharacterSettingInfo(),
+                                  ),
+                                );
+                              }
+                            },
                             child: Container(
                               width: 76.w,
                               height: 42.h,
                               decoration: BoxDecoration(
-                                color: const Color.fromRGBO(255, 255, 255, 0.5),
+                                color: _hourController.text.isNotEmpty ||
+                                        _minuteController.text.isNotEmpty
+                                    ? const Color.fromRGBO(255, 255, 255, 1)
+                                    : const Color.fromRGBO(255, 255, 255, 0.5),
                                 borderRadius: BorderRadius.circular(21.w),
                               ),
                               alignment: Alignment.center,
@@ -275,7 +320,9 @@ class _CharacterAlarmSettingState extends State<CharacterAlarmSetting> {
                                 '다음',
                                 textScaleFactor: 1.0,
                                 style: TextStyle(
-                                  color: const Color.fromRGBO(0, 122, 83, 0.5),
+                                  color: squirrelCharacter[
+                                          characterSettingProvider.characterIdx]
+                                      ['character_color'],
                                   fontSize: 20.sp,
                                   fontWeight: FontWeight.w800,
                                 ),

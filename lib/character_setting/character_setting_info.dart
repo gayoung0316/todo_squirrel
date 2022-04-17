@@ -1,22 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_squirrel/components/triangle_clipper.dart';
+import 'package:todo_squirrel/home/home.dart';
+import 'package:todo_squirrel/home/main_home.dart';
 import 'package:todo_squirrel/model/squirrel_Character.dart';
+import 'package:todo_squirrel/providers/character_setting_provider.dart';
 
 class CharacterSettingInfo extends StatefulWidget {
-  const CharacterSettingInfo({Key? key, required this.characterIdx})
-      : super(key: key);
-  final int characterIdx;
+  const CharacterSettingInfo({Key? key}) : super(key: key);
 
   @override
   State<CharacterSettingInfo> createState() => _CharacterSettingInfoState();
 }
 
 class _CharacterSettingInfoState extends State<CharacterSettingInfo> {
+  late CharacterSettingProvider characterSettingProvider;
+
   @override
   Widget build(BuildContext context) {
+    characterSettingProvider = Provider.of<CharacterSettingProvider>(context);
+
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(0, 122, 83, 1),
+      backgroundColor: squirrelCharacter[characterSettingProvider.characterIdx]
+          ['character_color'],
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,10 +56,11 @@ class _CharacterSettingInfoState extends State<CharacterSettingInfo> {
                           ),
                           alignment: Alignment.center,
                           child: Text(
-                            '“ 안녕 난 ${squirrelCharacter[widget.characterIdx]['character_name']}야 잘 부탁해! “',
+                            '“ 안녕 난 ${characterSettingProvider.characterName}야 잘 부탁해! “',
                             textScaleFactor: 1.0,
                             style: TextStyle(
-                              color: const Color.fromRGBO(0, 122, 83, 1),
+                              color: squirrelCharacter[characterSettingProvider
+                                  .characterIdx]['character_color'],
                               fontSize: 20.sp,
                               fontWeight: FontWeight.w800,
                             ),
@@ -75,15 +83,14 @@ class _CharacterSettingInfoState extends State<CharacterSettingInfo> {
                   ),
                   SizedBox(height: 38.h),
                   Image.asset(
-                    'assets/images/character_select_squirrel_${widget.characterIdx}.png',
+                    'assets/images/character_select_squirrel_${characterSettingProvider.characterIdx}.png',
                     width: 284.w,
                     height: 284.w,
                   ),
                   SizedBox(height: 30.h),
                   characterInfo(
                     title: '이름',
-                    content: squirrelCharacter[widget.characterIdx]
-                        ['character_name'],
+                    content: characterSettingProvider.characterName,
                   ),
                   SizedBox(height: 34.h),
                   characterInfo(
@@ -93,29 +100,43 @@ class _CharacterSettingInfoState extends State<CharacterSettingInfo> {
                   SizedBox(height: 34.h),
                   characterInfo(
                     title: '날짜',
-                    content: '2022.04.08~2022.04.14',
+                    content:
+                        '${DateTime.now().year}.${DateTime.now().month < 10 ? '0${DateTime.now().month}' : DateTime.now().month}.${DateTime.now().day}~${DateTime.now().add(Duration(days: characterSettingProvider.characterDate)).toString().split('-')[0]}.${DateTime.now().add(Duration(days: characterSettingProvider.characterDate)).toString().split('-')[1]}.${DateTime.now().add(Duration(days: characterSettingProvider.characterDate)).toString().split('-')[2].split(' ')[0]}',
                   ),
                   SizedBox(height: 34.h),
                   characterInfo(
                     title: '알람',
-                    content: '15:00',
+                    content:
+                        '${characterSettingProvider.characterHour}:${characterSettingProvider.characterMinute == 0 ? '00' : characterSettingProvider.characterMinute}',
                   ),
-                  Container(
-                    width: 112.w,
-                    height: 42.h,
-                    margin: EdgeInsets.only(top: 41.h),
-                    decoration: BoxDecoration(
-                      color: const Color.fromRGBO(255, 255, 255, 1),
-                      borderRadius: BorderRadius.circular(21.w),
-                    ),
-                    alignment: Alignment.center,
-                    child: Text(
-                      '시작하기',
-                      textScaleFactor: 1.0,
-                      style: TextStyle(
-                        color: const Color.fromRGBO(0, 122, 83, 1),
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.w800,
+                  SizedBox(height: 41.h),
+                  InkWell(
+                    onTap: () {
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const MainScreens(),
+                        ),
+                        (route) => false,
+                      );
+                    },
+                    child: Container(
+                      width: 112.w,
+                      height: 42.h,
+                      decoration: BoxDecoration(
+                        color: const Color.fromRGBO(255, 255, 255, 1),
+                        borderRadius: BorderRadius.circular(21.w),
+                      ),
+                      alignment: Alignment.center,
+                      child: Text(
+                        '시작하기',
+                        textScaleFactor: 1.0,
+                        style: TextStyle(
+                          color: squirrelCharacter[characterSettingProvider
+                              .characterIdx]['character_color'],
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.w800,
+                        ),
                       ),
                     ),
                   )
@@ -153,6 +174,7 @@ class _CharacterSettingInfoState extends State<CharacterSettingInfo> {
                 color: const Color.fromRGBO(255, 255, 255, 1),
                 fontSize: 16.sp,
                 fontWeight: FontWeight.w400,
+                height: 1.3,
               ),
             ),
           ),

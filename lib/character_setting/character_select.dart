@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_squirrel/character_setting/character_name_goal_setting.dart';
 import 'package:todo_squirrel/model/squirrel_Character.dart';
+import 'package:todo_squirrel/providers/character_setting_provider.dart';
 
 class CharacterSelectPage extends StatefulWidget {
   const CharacterSelectPage({Key? key}) : super(key: key);
@@ -13,9 +15,12 @@ class CharacterSelectPage extends StatefulWidget {
 class _CharacterSelectPageState extends State<CharacterSelectPage> {
   final PageController _pageController = PageController(viewportFraction: 0.87);
   int _characterIdx = 0;
+  late CharacterSettingProvider characterSettingProvider;
 
   @override
   Widget build(BuildContext context) {
+    characterSettingProvider = Provider.of<CharacterSettingProvider>(context);
+
     return Scaffold(
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
@@ -118,17 +123,18 @@ class _CharacterSelectPageState extends State<CharacterSelectPage> {
                 ],
               ),
             ),
+            SizedBox(height: 45.h),
             InkWell(
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => CharacterNameGoalSettingPage(
-                    characterIdx: _characterIdx,
+              onTap: () {
+                characterSettingProvider.characterIdx = _characterIdx;
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const CharacterNameGoalSettingPage(),
                   ),
-                ),
-              ),
+                );
+              },
               child: Container(
-                margin: EdgeInsets.only(top: 45.h),
                 padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
                 decoration: BoxDecoration(
                   color: const Color.fromRGBO(255, 255, 255, 1),

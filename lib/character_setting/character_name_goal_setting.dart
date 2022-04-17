@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_squirrel/character_setting/character_date_setting.dart';
 import 'package:todo_squirrel/components/triangle_clipper.dart';
 import 'package:todo_squirrel/model/squirrel_Character.dart';
+import 'package:todo_squirrel/providers/character_setting_provider.dart';
 
 class CharacterNameGoalSettingPage extends StatefulWidget {
-  const CharacterNameGoalSettingPage({Key? key, required this.characterIdx})
-      : super(key: key);
-
-  final int characterIdx;
-
+  const CharacterNameGoalSettingPage({Key? key}) : super(key: key);
   @override
   State<CharacterNameGoalSettingPage> createState() =>
       _CharacterNameGoalSettingPageState();
@@ -18,6 +16,9 @@ class CharacterNameGoalSettingPage extends StatefulWidget {
 class _CharacterNameGoalSettingPageState
     extends State<CharacterNameGoalSettingPage> {
   late ScrollController _scrollController;
+  late CharacterSettingProvider characterSettingProvider;
+
+  final TextEditingController _nameController = TextEditingController();
 
   @override
   void initState() {
@@ -33,10 +34,14 @@ class _CharacterNameGoalSettingPageState
 
   @override
   Widget build(BuildContext context) {
+    characterSettingProvider = Provider.of<CharacterSettingProvider>(context);
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        backgroundColor: const Color.fromRGBO(0, 122, 83, 1),
+        backgroundColor:
+            squirrelCharacter[characterSettingProvider.characterIdx]
+                ['character_color'],
         body: SingleChildScrollView(
           controller: _scrollController,
           child: Column(
@@ -73,7 +78,9 @@ class _CharacterNameGoalSettingPageState
                               '“ 내 이름과 너의 목표를 적어줘! “',
                               textScaleFactor: 1.0,
                               style: TextStyle(
-                                color: const Color.fromRGBO(0, 122, 83, 1),
+                                color: squirrelCharacter[
+                                        characterSettingProvider.characterIdx]
+                                    ['character_color'],
                                 fontSize: 20.sp,
                                 fontWeight: FontWeight.w800,
                               ),
@@ -96,7 +103,7 @@ class _CharacterNameGoalSettingPageState
                     ),
                     SizedBox(height: 38.h),
                     Image.asset(
-                      'assets/images/character_select_squirrel_${widget.characterIdx}.png',
+                      'assets/images/character_select_squirrel_${characterSettingProvider.characterIdx}.png',
                       width: 284.w,
                       height: 284.w,
                     ),
@@ -125,6 +132,7 @@ class _CharacterNameGoalSettingPageState
                           ),
                           width: 146.w,
                           child: TextField(
+                            controller: _nameController,
                             textAlign: TextAlign.center,
                             maxLength: 8,
                             style: TextStyle(
@@ -143,7 +151,8 @@ class _CharacterNameGoalSettingPageState
                               isCollapsed: true,
                               contentPadding: EdgeInsets.only(bottom: 6.h),
                               counterText: '',
-                              hintText: squirrelCharacter[widget.characterIdx]
+                              hintText: squirrelCharacter[
+                                      characterSettingProvider.characterIdx]
                                   ['character_name'],
                               hintStyle: TextStyle(
                                 color: const Color.fromRGBO(255, 255, 255, 0.5),
@@ -226,21 +235,31 @@ class _CharacterNameGoalSettingPageState
                         ],
                       ),
                     ),
+                    SizedBox(height: 60.h),
                     InkWell(
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => CharacterDateSetting(
-                            characterIdx: widget.characterIdx,
+                      onTap: () {
+                        if (_nameController.text.isNotEmpty) {
+                          characterSettingProvider.characterName =
+                              _nameController.text;
+                        } else {
+                          characterSettingProvider.characterName =
+                              squirrelCharacter[characterSettingProvider
+                                  .characterIdx]['character_name'];
+                        }
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const CharacterDateSetting(),
                           ),
-                        ),
-                      ),
+                        );
+                      },
                       child: Container(
                         width: 76.w,
                         height: 42.h,
-                        margin: EdgeInsets.only(top: 60.h),
                         decoration: BoxDecoration(
-                          color: const Color.fromRGBO(255, 255, 255, 0.5),
+                          color: _nameController.text.isEmpty
+                              ? const Color.fromRGBO(255, 255, 255, 0.5)
+                              : const Color.fromRGBO(255, 255, 255, 1),
                           borderRadius: BorderRadius.circular(21.w),
                         ),
                         alignment: Alignment.center,
@@ -248,7 +267,8 @@ class _CharacterNameGoalSettingPageState
                           '다음',
                           textScaleFactor: 1.0,
                           style: TextStyle(
-                            color: const Color.fromRGBO(0, 122, 83, 0.5),
+                            color: squirrelCharacter[characterSettingProvider
+                                .characterIdx]['character_color'],
                             fontSize: 20.sp,
                             fontWeight: FontWeight.w800,
                           ),

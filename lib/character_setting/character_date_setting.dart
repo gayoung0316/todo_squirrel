@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_squirrel/character_setting/character_alarm_setting.dart';
 import 'package:todo_squirrel/components/triangle_clipper.dart';
+import 'package:todo_squirrel/model/squirrel_Character.dart';
+import 'package:todo_squirrel/providers/character_setting_provider.dart';
 
 class CharacterDateSetting extends StatefulWidget {
-  const CharacterDateSetting({Key? key, required this.characterIdx})
-      : super(key: key);
-
-  final int characterIdx;
+  const CharacterDateSetting({Key? key}) : super(key: key);
 
   @override
   State<CharacterDateSetting> createState() => _CharacterDateSettingState();
@@ -15,6 +15,8 @@ class CharacterDateSetting extends StatefulWidget {
 
 class _CharacterDateSettingState extends State<CharacterDateSetting> {
   late ScrollController _scrollController;
+  late CharacterSettingProvider characterSettingProvider;
+  final TextEditingController _dateController = TextEditingController();
 
   @override
   void initState() {
@@ -30,10 +32,14 @@ class _CharacterDateSettingState extends State<CharacterDateSetting> {
 
   @override
   Widget build(BuildContext context) {
+    characterSettingProvider = Provider.of<CharacterSettingProvider>(context);
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        backgroundColor: const Color.fromRGBO(0, 122, 83, 1),
+        backgroundColor:
+            squirrelCharacter[characterSettingProvider.characterIdx]
+                ['character_color'],
         body: SingleChildScrollView(
           controller: _scrollController,
           child: Column(
@@ -73,7 +79,9 @@ class _CharacterDateSettingState extends State<CharacterDateSetting> {
                               '“ 언제까지 할거야? “',
                               textScaleFactor: 1.0,
                               style: TextStyle(
-                                color: const Color.fromRGBO(0, 122, 83, 1),
+                                color: squirrelCharacter[
+                                        characterSettingProvider.characterIdx]
+                                    ['character_color'],
                                 fontSize: 20.sp,
                                 fontWeight: FontWeight.w800,
                               ),
@@ -96,7 +104,7 @@ class _CharacterDateSettingState extends State<CharacterDateSetting> {
                     ),
                     SizedBox(height: 38.h),
                     Image.asset(
-                      'assets/images/character_select_squirrel_${widget.characterIdx}.png',
+                      'assets/images/character_select_squirrel_${characterSettingProvider.characterIdx}.png',
                       width: 284.w,
                       height: 284.w,
                     ),
@@ -125,6 +133,7 @@ class _CharacterDateSettingState extends State<CharacterDateSetting> {
                           ),
                           width: 60.w,
                           child: TextField(
+                            controller: _dateController,
                             textAlign: TextAlign.center,
                             maxLength: 2,
                             keyboardType: TextInputType.number,
@@ -149,6 +158,7 @@ class _CharacterDateSettingState extends State<CharacterDateSetting> {
                                 fontSize: 20.sp,
                                 fontWeight: FontWeight.w400,
                               ),
+                              hintText: '7',
                               border: InputBorder.none,
                             ),
                           ),
@@ -175,19 +185,26 @@ class _CharacterDateSettingState extends State<CharacterDateSetting> {
                         fontWeight: FontWeight.w400,
                       ),
                     ),
+                    SizedBox(height: 125.h),
                     InkWell(
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => CharacterAlarmSetting(
-                            characterIdx: widget.characterIdx,
+                      onTap: () {
+                        if (_dateController.text.isEmpty) {
+                          characterSettingProvider.characterDate = 7;
+                        } else {
+                          characterSettingProvider.characterDate =
+                              int.parse(_dateController.text);
+                        }
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const CharacterAlarmSetting(),
                           ),
-                        ),
-                      ),
+                        );
+                      },
                       child: Container(
                         width: 76.w,
                         height: 42.h,
-                        margin: EdgeInsets.only(top: 125.h),
                         decoration: BoxDecoration(
                           color: const Color.fromRGBO(255, 255, 255, 0.5),
                           borderRadius: BorderRadius.circular(21.w),
@@ -197,7 +214,8 @@ class _CharacterDateSettingState extends State<CharacterDateSetting> {
                           '다음',
                           textScaleFactor: 1.0,
                           style: TextStyle(
-                            color: const Color.fromRGBO(0, 122, 83, 0.5),
+                            color: squirrelCharacter[characterSettingProvider
+                                .characterIdx]['character_color'],
                             fontSize: 20.sp,
                             fontWeight: FontWeight.w800,
                           ),
