@@ -37,6 +37,8 @@ dependencies:
   flutter_screenutil: ^5.3.1
   smooth_page_indicator: ^1.0.0+2
   provider: ^6.0.2
+  kakao_flutter_sdk: ^1.1.0 # 전체 추가
+  # kakao_flutter_sdk_user: ^1.1.0 # 카카오 로그인
 
 dev_dependencies:
   flutter_test:

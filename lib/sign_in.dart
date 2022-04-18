@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:todo_squirrel/character_setting/character_select.dart';
+import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
+
+import 'character_setting/character_select.dart';
 
 class SignInPage extends StatelessWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -97,12 +99,20 @@ class SignInPage extends StatelessWidget {
     required String loginTypeName,
   }) {
     return InkWell(
-      onTap: () => Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const CharacterSelectPage(),
-        ),
-      ),
+      onTap: () async {
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (context) => const CharacterSelectPage(),
+        //   ),
+        // );
+        try {
+          OAuthToken token = await UserApi.instance.loginWithKakaoTalk();
+          print('카카오톡으로 로그인 성공 ${token.accessToken}');
+        } catch (error) {
+          print('카카오톡으로 로그인 실패 $error');
+        }
+      },
       child: Container(
         width: 316.w,
         height: 60.h,

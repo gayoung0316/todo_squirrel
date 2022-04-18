@@ -50,6 +50,7 @@ class _CharacterDateSettingState extends State<CharacterDateSetting> {
                 child: InkWell(
                   onTap: () {
                     Navigator.pop(context);
+                    _dateController.clear();
                     FocusScope.of(context).unfocus();
                   },
                   child: Image.asset(

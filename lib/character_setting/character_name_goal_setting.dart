@@ -19,6 +19,7 @@ class _CharacterNameGoalSettingPageState
   late CharacterSettingProvider characterSettingProvider;
 
   final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _goalController = TextEditingController();
 
   @override
   void initState() {
@@ -50,7 +51,12 @@ class _CharacterNameGoalSettingPageState
               Padding(
                 padding: EdgeInsets.only(top: 57.h, left: 20.w),
                 child: InkWell(
-                  onTap: () => Navigator.pop(context),
+                  onTap: () {
+                    Navigator.pop(context);
+                    _nameController.clear();
+                    _goalController.clear();
+                    FocusScope.of(context).unfocus();
+                  },
                   child: Image.asset(
                     'assets/icons/arrow_left.png',
                     width: 24.w,
@@ -177,9 +183,9 @@ class _CharacterNameGoalSettingPageState
                     ),
                     SizedBox(height: 40.h),
                     SizedBox(
-                      width: 292.w,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
+                      width: 286.w,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             '내 목표는',
@@ -190,9 +196,8 @@ class _CharacterNameGoalSettingPageState
                               fontWeight: FontWeight.w800,
                             ),
                           ),
+                          SizedBox(height: 10.h),
                           Container(
-                            width: 202.w,
-                            margin: EdgeInsets.only(left: 8.w),
                             decoration: BoxDecoration(
                               border: Border(
                                 bottom: BorderSide(
@@ -201,41 +206,44 @@ class _CharacterNameGoalSettingPageState
                                 ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 18.h),
-                    SizedBox(
-                      width: 292.w,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Container(
-                            width: 232.w,
-                            margin: EdgeInsets.only(right: 14.w),
-                            decoration: BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(
-                                  color: const Color.fromRGBO(255, 255, 255, 1),
-                                  width: 1.w,
+                            width: 286.w,
+                            child: TextField(
+                              controller: _goalController,
+                              textAlign: TextAlign.center,
+                              maxLength: 24,
+                              style: TextStyle(
+                                color: const Color.fromRGBO(255, 255, 255, 0.5),
+                                fontSize: 20.sp,
+                                fontWeight: FontWeight.w400,
+                              ),
+                              onTap: () {
+                                _scrollController.animateTo(
+                                  140.h,
+                                  duration: const Duration(milliseconds: 500),
+                                  curve: Curves.ease,
+                                );
+                              },
+                              onChanged: (value) {
+                                setState(() {});
+                              },
+                              decoration: InputDecoration(
+                                isCollapsed: true,
+                                contentPadding: EdgeInsets.only(bottom: 6.h),
+                                counterText: '',
+                                hintStyle: TextStyle(
+                                  color:
+                                      const Color.fromRGBO(255, 255, 255, 0.5),
+                                  fontSize: 20.sp,
+                                  fontWeight: FontWeight.w400,
                                 ),
+                                border: InputBorder.none,
                               ),
                             ),
                           ),
-                          Text(
-                            '이야.',
-                            textScaleFactor: 1.0,
-                            style: TextStyle(
-                              color: const Color.fromRGBO(255, 255, 255, 1),
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.w800,
-                            ),
-                          ),
                         ],
                       ),
                     ),
-                    SizedBox(height: 60.h),
+                    SizedBox(height: 63.h),
                     InkWell(
                       onTap: () {
                         if (_nameController.text.isNotEmpty) {
@@ -246,18 +254,23 @@ class _CharacterNameGoalSettingPageState
                               squirrelCharacter[characterSettingProvider
                                   .characterIdx]['character_name'];
                         }
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const CharacterDateSetting(),
-                          ),
-                        );
+                        if (_goalController.text.isNotEmpty) {
+                          characterSettingProvider.characterGoal =
+                              _goalController.text;
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const CharacterDateSetting(),
+                            ),
+                          );
+                        }
                       },
                       child: Container(
                         width: 76.w,
                         height: 42.h,
                         decoration: BoxDecoration(
-                          color: _nameController.text.isEmpty
+                          color: _goalController.text.isEmpty
                               ? const Color.fromRGBO(255, 255, 255, 0.5)
                               : const Color.fromRGBO(255, 255, 255, 1),
                           borderRadius: BorderRadius.circular(21.w),

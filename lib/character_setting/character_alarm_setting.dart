@@ -51,7 +51,12 @@ class _CharacterAlarmSettingState extends State<CharacterAlarmSetting> {
               Padding(
                 padding: EdgeInsets.only(top: 57.h, left: 20.w),
                 child: InkWell(
-                  onTap: () => Navigator.pop(context),
+                  onTap: () {
+                    Navigator.pop(context);
+                    _hourController.clear();
+                    _minuteController.clear();
+                    FocusScope.of(context).unfocus();
+                  },
                   child: Image.asset(
                     'assets/icons/arrow_left.png',
                     width: 24.w,

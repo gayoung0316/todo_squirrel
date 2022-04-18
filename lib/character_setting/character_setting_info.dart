@@ -3,9 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_squirrel/components/triangle_clipper.dart';
 import 'package:todo_squirrel/home/home.dart';
-import 'package:todo_squirrel/home/main_home.dart';
 import 'package:todo_squirrel/model/squirrel_Character.dart';
 import 'package:todo_squirrel/providers/character_setting_provider.dart';
+import 'package:todo_squirrel/providers/home_provider.dart';
 
 class CharacterSettingInfo extends StatefulWidget {
   const CharacterSettingInfo({Key? key}) : super(key: key);
@@ -16,10 +16,13 @@ class CharacterSettingInfo extends StatefulWidget {
 
 class _CharacterSettingInfoState extends State<CharacterSettingInfo> {
   late CharacterSettingProvider characterSettingProvider;
+  late HomeProvider homeProvider;
 
   @override
   Widget build(BuildContext context) {
     characterSettingProvider = Provider.of<CharacterSettingProvider>(context);
+    // homeProvider = Provider.of<HomeProvider>(context);
+    homeProvider = Provider.of<HomeProvider>(context);
 
     return Scaffold(
       backgroundColor: squirrelCharacter[characterSettingProvider.characterIdx]
@@ -95,7 +98,7 @@ class _CharacterSettingInfoState extends State<CharacterSettingInfo> {
                   SizedBox(height: 34.h),
                   characterInfo(
                     title: '목표',
-                    content: '물 많이 마시기 물 많이 마시기 물많이 마',
+                    content: characterSettingProvider.characterGoal,
                   ),
                   SizedBox(height: 34.h),
                   characterInfo(
@@ -107,11 +110,12 @@ class _CharacterSettingInfoState extends State<CharacterSettingInfo> {
                   characterInfo(
                     title: '알람',
                     content:
-                        '${characterSettingProvider.characterHour}:${characterSettingProvider.characterMinute == 0 ? '00' : characterSettingProvider.characterMinute}',
+                        '${characterSettingProvider.characterHour == 0 ? '00' : characterSettingProvider.characterHour}:${characterSettingProvider.characterMinute == 0 ? '00' : characterSettingProvider.characterMinute}',
                   ),
                   SizedBox(height: 41.h),
                   InkWell(
                     onTap: () {
+                      homeProvider.pageIdx = 2;
                       Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(

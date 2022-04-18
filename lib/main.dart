@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_squirrel/onboarding.dart';
 import 'package:todo_squirrel/providers/character_setting_provider.dart';
+import 'package:todo_squirrel/providers/home_provider.dart';
 
 void main() {
+  KakaoSdk.init(nativeAppKey: '313453dcd00af72db1ed29fa43ba57e5');
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(
           create: (_) => CharacterSettingProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => HomeProvider(),
         ),
       ],
       child: const MyApp(),
