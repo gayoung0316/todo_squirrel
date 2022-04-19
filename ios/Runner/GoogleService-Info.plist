@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>337798697885-h21cvfdjjrtg5u77soqe5h12qmv70jdh.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.337798697885-h21cvfdjjrtg5u77soqe5h12qmv70jdh</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>337798697885-3r21g4k2t8h23chm6u1qtan94r0pvhaa.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyB0agruBxiw_1zPywC2MG05QxmykZCZppA</string>
+	<key>GCM_SENDER_ID</key>
+	<string>337798697885</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.todoSquirrel</string>
+	<key>PROJECT_ID</key>
+	<string>todo-squirrel</string>
+	<key>STORAGE_BUCKET</key>
+	<string>todo-squirrel.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:337798697885:ios:b1d3b5d8d96f78c0e1d574</string>
+</dict>
+</plist>

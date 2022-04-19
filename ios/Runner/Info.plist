@@ -27,7 +27,15 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>kakao313453dcd00af72db1ed29fa43ba57e5</string>
+				<string>com.googleusercontent.apps.337798697885-h21cvfdjjrtg5u77soqe5h12qmv70jdh</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.337798697885-h21cvfdjjrtg5u77soqe5h12qmv70jdh</string>
 			</array>
 		</dict>
 	</array>

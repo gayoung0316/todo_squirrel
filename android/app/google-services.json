@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "337798697885",
+    "project_id": "todo-squirrel",
+    "storage_bucket": "todo-squirrel.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:337798697885:android:e4d0b0eb1f6af211e1d574",
+        "android_client_info": {
+          "package_name": "com.todo_squirrel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "337798697885-3r21g4k2t8h23chm6u1qtan94r0pvhaa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.todo_squirrel",
+            "certificate_hash": "1445c8831e6fe92243f29b43372625750aff6cb3"
+          }
+        },
+        {
+          "client_id": "337798697885-hfqtvs69gs7kc7nabbc53aakjtmfgl04.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAL092DUeEZUaULgOA5WKZAs2rw6znhFTM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "337798697885-hfqtvs69gs7kc7nabbc53aakjtmfgl04.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
