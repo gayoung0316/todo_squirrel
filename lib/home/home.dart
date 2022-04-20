@@ -6,9 +6,11 @@ import 'package:todo_squirrel/home/failure_goal.dart';
 import 'package:todo_squirrel/home/main_home.dart';
 import 'package:todo_squirrel/home/setting_main.dart';
 import 'package:todo_squirrel/home/success_goal.dart';
-import 'package:todo_squirrel/model/squirrel_Character.dart';
+import 'package:todo_squirrel/model/squirrel_character.dart';
 import 'package:todo_squirrel/providers/character_setting_provider.dart';
 import 'package:todo_squirrel/providers/home_provider.dart';
+
+import 'character_goal_check.dart';
 
 class MainScreens extends StatefulWidget {
   const MainScreens({Key? key}) : super(key: key);
@@ -92,6 +94,7 @@ class _MainScreensState extends State<MainScreens> {
               ],
             ),
           ),
+          const CharacterGoalCheck(),
         ],
       ),
     );

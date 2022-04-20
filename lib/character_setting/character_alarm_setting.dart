@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_squirrel/components/triangle_clipper.dart';
-import 'package:todo_squirrel/model/squirrel_Character.dart';
+import 'package:todo_squirrel/model/squirrel_character.dart';
 import 'package:todo_squirrel/providers/character_setting_provider.dart';
 
 import 'character_setting_info.dart';

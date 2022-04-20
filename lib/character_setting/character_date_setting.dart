@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_squirrel/character_setting/character_alarm_setting.dart';
 import 'package:todo_squirrel/components/triangle_clipper.dart';
-import 'package:todo_squirrel/model/squirrel_Character.dart';
+import 'package:todo_squirrel/model/squirrel_character.dart';
 import 'package:todo_squirrel/providers/character_setting_provider.dart';
 
 class CharacterDateSetting extends StatefulWidget {
@@ -154,12 +154,12 @@ class _CharacterDateSettingState extends State<CharacterDateSetting> {
                               isCollapsed: true,
                               contentPadding: EdgeInsets.only(bottom: 6.h),
                               counterText: '',
-                              hintStyle: TextStyle(
-                                color: const Color.fromRGBO(255, 255, 255, 0.5),
-                                fontSize: 20.sp,
-                                fontWeight: FontWeight.w400,
-                              ),
-                              hintText: '7',
+                              // hintStyle: TextStyle(
+                              //   color: const Color.fromRGBO(255, 255, 255, 0.5),
+                              //   fontSize: 20.sp,
+                              //   fontWeight: FontWeight.w400,
+                              // ),
+                              // hintText: '7',
                               border: InputBorder.none,
                             ),
                           ),
@@ -189,25 +189,30 @@ class _CharacterDateSettingState extends State<CharacterDateSetting> {
                     SizedBox(height: 125.h),
                     InkWell(
                       onTap: () {
-                        if (_dateController.text.isEmpty) {
-                          characterSettingProvider.characterDate = 7;
-                        } else {
+                        if (_dateController.text.isNotEmpty &&
+                            int.parse(_dateController.text) > 6 &&
+                            int.parse(_dateController.text) < 32) {
                           characterSettingProvider.characterDate =
                               int.parse(_dateController.text);
-                        }
 
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const CharacterAlarmSetting(),
-                          ),
-                        );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const CharacterAlarmSetting(),
+                            ),
+                          );
+                        }
                       },
                       child: Container(
                         width: 76.w,
                         height: 42.h,
                         decoration: BoxDecoration(
-                          color: const Color.fromRGBO(255, 255, 255, 0.5),
+                          color: _dateController.text.isNotEmpty &&
+                                  int.parse(_dateController.text) > 6 &&
+                                  int.parse(_dateController.text) < 32
+                              ? const Color.fromRGBO(255, 255, 255, 1)
+                              : const Color.fromRGBO(255, 255, 255, 0.5),
                           borderRadius: BorderRadius.circular(21.w),
                         ),
                         alignment: Alignment.center,

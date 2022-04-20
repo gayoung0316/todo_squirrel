@@ -1,9 +1,9 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
-
-// import '../../character_setting/character_select.dart';
+import 'package:todo_squirrel/character_setting/character_select.dart';
 
 GoogleSignIn _googleSignIn = GoogleSignIn(
   // Optional clientId
@@ -17,12 +17,22 @@ GoogleSignIn _googleSignIn = GoogleSignIn(
 class SignInPage extends StatelessWidget {
   const SignInPage({Key? key}) : super(key: key);
 
-  Future<void> _handleSignIn() async {
+  Future<void> _googleLogIn() async {
     try {
       var result = await _googleSignIn.signIn();
-      print(result);
+      log('구글로 로그인 성공 $result');
     } catch (error) {
-      print(error);
+      log('구글로 로그인 실패 $error');
+    }
+  }
+
+  Future<void> _kakaoLogIn() async {
+    try {
+      print('여기');
+      OAuthToken token = await UserApi.instance.loginWithKakaoTalk();
+      log('카카오톡으로 로그인 성공 ${token.accessToken}');
+    } catch (error) {
+      log('카카오톡으로 로그인 실패 $error');
     }
   }
 
@@ -41,13 +51,13 @@ class SignInPage extends StatelessWidget {
             SizedBox(height: 56.h),
             loginPlatformButton(
               context: context,
-              loginType: 'kakao',
+              loginType: 0,
               loginTypeName: '카카오톡',
             ),
             SizedBox(height: 26.h),
             loginPlatformButton(
               context: context,
-              loginType: 'google',
+              loginType: 1,
               loginTypeName: '구글',
             ),
             SizedBox(height: 36.h),
@@ -114,30 +124,29 @@ class SignInPage extends StatelessWidget {
 
   Widget loginPlatformButton({
     required BuildContext context,
-    required String loginType,
+    required int loginType,
     required String loginTypeName,
   }) {
     return InkWell(
       onTap: () async {
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) => const CharacterSelectPage(),
-        //   ),
-        // );
-        // try {
-        //   OAuthToken token = await UserApi.instance.loginWithKakaoTalk();
-        //   print('카카오톡으로 로그인 성공 ${token.accessToken}');
-        // } catch (error) {
-        //   print('카카오톡으로 로그인 실패 $error');
-        // }
-        _handleSignIn();
+        if (loginType == 0) {
+          _kakaoLogIn();
+        } else {
+          _googleLogIn();
+        }
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const CharacterSelectPage(),
+          ),
+          (route) => false,
+        );
       },
       child: Container(
         width: 316.w,
         height: 60.h,
         decoration: BoxDecoration(
-          color: loginType == 'kakao'
+          color: loginType == 0
               ? const Color.fromRGBO(255, 232, 18, 1)
               : const Color.fromRGBO(245, 245, 245, 1),
           borderRadius: BorderRadius.circular(30.w),
@@ -155,7 +164,7 @@ class SignInPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Image.asset(
-              'assets/icons/${loginType}_login.png',
+              'assets/icons/${loginType == 0 ? 'kakao' : 'google'}_login.png',
               width: 36.w,
               height: 36.w,
             ),
