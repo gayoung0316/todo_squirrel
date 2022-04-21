@@ -28,7 +28,6 @@ class SignInPage extends StatelessWidget {
 
   Future<void> _kakaoLogIn() async {
     try {
-      print('여기');
       OAuthToken token = await UserApi.instance.loginWithKakaoTalk();
       log('카카오톡으로 로그인 성공 ${token.accessToken}');
     } catch (error) {
@@ -130,9 +129,9 @@ class SignInPage extends StatelessWidget {
     return InkWell(
       onTap: () async {
         if (loginType == 0) {
-          _kakaoLogIn();
+          await _kakaoLogIn();
         } else {
-          _googleLogIn();
+          await _googleLogIn();
         }
         Navigator.pushAndRemoveUntil(
           context,
