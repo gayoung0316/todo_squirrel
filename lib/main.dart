@@ -36,8 +36,8 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           fontFamily: 'NanumSquareRound',
-          // splashColor: Colors.transparent,
-          // highlightColor: Colors.transparent,
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
         ),
       ),
     );
