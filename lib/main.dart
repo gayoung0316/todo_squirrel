@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:provider/provider.dart';
+import 'package:todo_squirrel/home/calender_goal.dart';
 import 'package:todo_squirrel/prologue/onboarding.dart';
+import 'package:todo_squirrel/providers/calender_goal_provider.dart';
 import 'package:todo_squirrel/providers/character_setting_provider.dart';
 import 'package:todo_squirrel/providers/home_provider.dart';
 
@@ -16,6 +18,9 @@ void main() {
         ),
         ChangeNotifierProvider(
           create: (_) => HomeProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => CalenderGoalProvider(),
         ),
       ],
       child: const MyApp(),
@@ -32,7 +37,7 @@ class MyApp extends StatelessWidget {
       designSize: const Size(428, 926),
       builder: () => MaterialApp(
         title: 'Squirrel ToDo List',
-        home: const OnboardingPage(),
+        home: const CalenderGoalPage(),
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           fontFamily: 'NanumSquareRound',
