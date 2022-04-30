@@ -25,11 +25,26 @@ class CharacterSettingProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // 선택한 메인 캐릭터 목표를 진행할 날짜
-  int _characterDate = 0;
-  int get characterDate => _characterDate;
-  set characterDate(int value) {
-    _characterDate = value;
+  // 선택한 메인 캐릭터 목표를 시작한 날짜
+  late DateTime _characterStartDate;
+  DateTime get characterStartDate => _characterStartDate;
+  set characterStartDate(DateTime value) {
+    _characterStartDate = value;
+    notifyListeners();
+  }
+
+  // 선택한 메인 캐릭터 목표가 끝나는 날짜
+  late DateTime _characterEndDate;
+  DateTime get characterEndDate => _characterEndDate;
+  set characterEndDate(DateTime value) {
+    _characterEndDate = value;
+    notifyListeners();
+  }
+
+  int _characterRangeDate = 0;
+  int get characterRangeDate => _characterRangeDate;
+  set characterRangeDate(int value) {
+    _characterRangeDate = value;
     notifyListeners();
   }
 

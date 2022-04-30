@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_squirrel/character_setting/character_alarm_setting.dart';
@@ -51,6 +52,10 @@ class _CharacterDateSettingState extends State<CharacterDateSetting> {
                   onTap: () {
                     Navigator.pop(context);
                     _dateController.clear();
+                    characterSettingProvider.characterStartDate =
+                        DateTime.now();
+                    characterSettingProvider.characterEndDate = DateTime.now();
+                    characterSettingProvider.characterRangeDate = 0;
                     FocusScope.of(context).unfocus();
                   },
                   child: Image.asset(
@@ -150,16 +155,13 @@ class _CharacterDateSettingState extends State<CharacterDateSetting> {
                                 curve: Curves.ease,
                               );
                             },
+                            onChanged: (value) {
+                              setState(() {});
+                            },
                             decoration: InputDecoration(
                               isCollapsed: true,
                               contentPadding: EdgeInsets.only(bottom: 6.h),
                               counterText: '',
-                              // hintStyle: TextStyle(
-                              //   color: const Color.fromRGBO(255, 255, 255, 0.5),
-                              //   fontSize: 20.sp,
-                              //   fontWeight: FontWeight.w400,
-                              // ),
-                              // hintText: '7',
                               border: InputBorder.none,
                             ),
                           ),
@@ -192,7 +194,13 @@ class _CharacterDateSettingState extends State<CharacterDateSetting> {
                         if (_dateController.text.isNotEmpty &&
                             int.parse(_dateController.text) > 6 &&
                             int.parse(_dateController.text) < 32) {
-                          characterSettingProvider.characterDate =
+                          characterSettingProvider.characterStartDate =
+                              DateTime.parse(
+                                  '${DateTime.now().year}-${DateTime.now().month < 10 ? '0${DateTime.now().month}' : DateTime.now().month}-${DateTime.now().day}');
+                          characterSettingProvider.characterEndDate =
+                              DateTime.parse(
+                                  '${DateTime.now().add(Duration(days: int.parse(_dateController.text))).toString().split('-')[0]}-${DateTime.now().add(Duration(days: int.parse(_dateController.text))).toString().split('-')[1]}-${DateTime.now().add(Duration(days: int.parse(_dateController.text))).toString().split('-')[2].split(' ')[0]}');
+                          characterSettingProvider.characterRangeDate =
                               int.parse(_dateController.text);
 
                           Navigator.push(

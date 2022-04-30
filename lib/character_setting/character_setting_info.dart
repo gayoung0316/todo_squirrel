@@ -102,10 +102,9 @@ class _CharacterSettingInfoState extends State<CharacterSettingInfo> {
                   ),
                   SizedBox(height: 34.h),
                   characterInfo(
-                    title: '날짜',
-                    content:
-                        '${DateTime.now().year}.${DateTime.now().month < 10 ? '0${DateTime.now().month}' : DateTime.now().month}.${DateTime.now().day}~${DateTime.now().add(Duration(days: characterSettingProvider.characterDate)).toString().split('-')[0]}.${DateTime.now().add(Duration(days: characterSettingProvider.characterDate)).toString().split('-')[1]}.${DateTime.now().add(Duration(days: characterSettingProvider.characterDate)).toString().split('-')[2].split(' ')[0]}',
-                  ),
+                      title: '날짜',
+                      content:
+                          '${characterSettingProvider.characterStartDate.toString().split(' ')[0].replaceAll('-', '.')}~${characterSettingProvider.characterEndDate.toString().split(' ')[0].replaceAll('-', '.')}'),
                   SizedBox(height: 34.h),
                   characterInfo(
                     title: '알람',

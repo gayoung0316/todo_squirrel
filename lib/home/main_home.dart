@@ -81,7 +81,8 @@ class _MainHomePageState extends State<MainHomePage> {
                     ),
                     alignment: Alignment.center,
                     child: Text(
-                      '3일째 도전중',
+                      // '3일째 도전중',
+                      '${(characterSettingProvider.characterEndDate.difference(DateTime.now()).inDays - characterSettingProvider.characterRangeDate).toString().replaceAll('-', '')}일째 도전 중',
                       textScaleFactor: 1,
                       style: TextStyle(
                         color: const Color.fromRGBO(255, 255, 255, 1),
