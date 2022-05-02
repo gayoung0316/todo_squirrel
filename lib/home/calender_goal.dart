@@ -15,6 +15,64 @@ class CalenderGoalPage extends StatefulWidget {
 
 class _CalenderGoalPageState extends State<CalenderGoalPage> {
   late CharacterSettingProvider characterSettingProvider;
+  List<Map> list = [
+    {
+      'dateTime': DateTime(2022, 5, 2),
+      'success': false,
+    },
+    {
+      'dateTime': DateTime(2022, 5, 3),
+      'success': false,
+    },
+    {
+      'dateTime': DateTime(2022, 5, 4),
+      'success': true,
+    },
+    {
+      'dateTime': DateTime(2022, 5, 5),
+      'success': true,
+    },
+    {
+      'dateTime': DateTime(2022, 5, 6),
+      'success': false,
+    },
+    {
+      'dateTime': DateTime(2022, 5, 7),
+      'success': false,
+    },
+    {
+      'dateTime': DateTime(2022, 5, 8),
+      'success': false,
+    },
+    {
+      'dateTime': DateTime(2022, 5, 9),
+      'success': false,
+    },
+    {
+      'dateTime': DateTime(2022, 5, 10),
+      'success': false,
+    },
+    {
+      'dateTime': DateTime(2022, 5, 22),
+      'success': false,
+    },
+    {
+      'dateTime': DateTime(2022, 5, 23),
+      'success': true,
+    },
+    {
+      'dateTime': DateTime(2022, 5, 24),
+      'success': true,
+    },
+    {
+      'dateTime': DateTime(2022, 5, 25),
+      'success': false,
+    },
+    {
+      'dateTime': DateTime(2022, 5, 26),
+      'success': false,
+    },
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -79,6 +137,102 @@ class _CalenderGoalPageState extends State<CalenderGoalPage> {
           rightChevronVisible: false,
           titleCentered: true,
         ),
+        calendarBuilders: CalendarBuilders(
+          defaultBuilder: (context, day, focusedDay) {
+            return Visibility(
+              visible: list
+                  .where((element) =>
+                      element['dateTime'].toString().split(' ')[0] ==
+                      day.toString().split(' ')[0])
+                  .toList()
+                  .isEmpty,
+              child: Center(
+                child: Text(
+                  day.day.toString(),
+                  textScaleFactor: 1.0,
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w800,
+                    // color: Colors.transparent,
+                    color: const Color.fromRGBO(255, 255, 255, 1),
+                  ),
+                ),
+              ),
+            );
+          },
+          todayBuilder: (context, day, focusedDay) {
+            return Stack(
+              alignment: Alignment.topCenter,
+              children: [
+                Container(
+                  width: 4.w,
+                  height: 4.w,
+                  margin: EdgeInsets.only(top: 4.h),
+                  decoration: const BoxDecoration(
+                    color: Color.fromRGBO(255, 255, 255, 1),
+                    shape: BoxShape.circle,
+                  ),
+                ),
+                Center(
+                  child: Text(
+                    list
+                            .where((element) =>
+                                element['dateTime'].toString().split(' ')[0] ==
+                                day.toString().split(' ')[0])
+                            .toList()
+                            .isNotEmpty
+                        ? ''
+                        : day.day.toString(),
+                    textScaleFactor: 1.0,
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w800,
+                      // color: Colors.transparent,
+                      color: const Color.fromRGBO(255, 255, 255, 1),
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
+          markerBuilder: (context, day, events) {
+            return Stack(
+              children: [
+                ...list.map((e) {
+                  return Visibility(
+                    visible: e['dateTime'].toString().split(' ')[0] ==
+                        day.toString().split(' ')[0],
+                    child: Center(
+                      child: Container(
+                        alignment: Alignment.center,
+                        width: 30.w,
+                        height: 30.w,
+                        decoration: BoxDecoration(
+                          color: e['success']
+                              ? const Color.fromRGBO(255, 255, 255, 1)
+                              : const Color.fromRGBO(255, 255, 255, 0.3),
+                          borderRadius: BorderRadius.circular(12.w),
+                          shape: BoxShape.rectangle,
+                        ),
+                        child: Text(
+                          day.day.toString(),
+                          textScaleFactor: 1.0,
+                          style: TextStyle(
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w800,
+                            color: e['success']
+                                ? Colors.black
+                                : const Color.fromRGBO(255, 255, 255, 0.1),
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                })
+              ],
+            );
+          },
+        ),
         // 기본 포맷
         calendarFormat: CalendarFormat.month,
         // 시작 날짜
@@ -87,44 +241,10 @@ class _CalenderGoalPageState extends State<CalenderGoalPage> {
         lastDay: DateTime.utc(2100, 12, 31),
         // 포커스 될 날짜
         focusedDay: DateTime.now(),
-        rangeStartDay: DateTime.utc(2022, 4, 12),
-        // rangeStartDay: characterSettingProvider.characterStartDate,
-        rangeEndDay: DateTime.utc(2022, 4, 18),
-        // rangeEndDay: characterSettingProvider.characterEndDate,
         calendarStyle: CalendarStyle(
           outsideDaysVisible: false,
-          rangeEndDecoration: BoxDecoration(
-            color: const Color.fromRGBO(255, 255, 255, 1).withOpacity(0.3),
-            borderRadius: BorderRadius.circular(12.w),
-            shape: BoxShape.rectangle,
-          ),
           cellMargin: EdgeInsets.zero,
           cellPadding: EdgeInsets.zero,
-          withinRangeDecoration: BoxDecoration(
-            color: const Color.fromRGBO(255, 255, 255, 1).withOpacity(0.3),
-            borderRadius: BorderRadius.circular(12.w),
-            shape: BoxShape.rectangle,
-          ),
-          rangeStartDecoration: BoxDecoration(
-            color: const Color.fromRGBO(255, 255, 255, 1).withOpacity(0.3),
-            borderRadius: BorderRadius.circular(12.w),
-            shape: BoxShape.rectangle,
-          ),
-          rangeStartTextStyle: TextStyle(
-            fontSize: 14.sp,
-            fontWeight: FontWeight.w800,
-            color: const Color.fromRGBO(255, 255, 255, 1),
-          ),
-          rangeEndTextStyle: TextStyle(
-            fontSize: 14.sp,
-            fontWeight: FontWeight.w800,
-            color: const Color.fromRGBO(255, 255, 255, 1),
-          ),
-          withinRangeTextStyle: TextStyle(
-            fontSize: 14.sp,
-            fontWeight: FontWeight.w800,
-            color: const Color.fromRGBO(255, 255, 255, 1),
-          ),
           rangeHighlightColor: Colors.transparent,
           todayTextStyle: TextStyle(
             fontSize: 14.sp,
@@ -141,7 +261,6 @@ class _CalenderGoalPageState extends State<CalenderGoalPage> {
             fontWeight: FontWeight.w800,
             color: const Color.fromRGBO(255, 255, 255, 1),
           ),
-          isTodayHighlighted: true,
         ),
       ),
     );
