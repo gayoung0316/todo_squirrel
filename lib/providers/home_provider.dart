@@ -14,6 +14,32 @@ class HomeProvider extends ChangeNotifier {
   PanelController get characterGoalCheckController =>
       _characterGoalCheckController;
 
+  final PanelController _calenderGoalCheckController = PanelController();
+  PanelController get calenderGoalCheckController =>
+      _calenderGoalCheckController;
+
+  num _calenderGoalCheckControllerPosition = 0.0;
+  num get calenderGoalCheckControllerPosition =>
+      _calenderGoalCheckControllerPosition;
+  set calenderGoalCheckControllerPosition(num value) {
+    _calenderGoalCheckControllerPosition = value;
+    notifyListeners();
+  }
+
+  bool _calenderGoalCheckMemo = false;
+  bool get calenderGoalCheckMemo => _calenderGoalCheckMemo;
+  set calenderGoalCheckMemo(bool value) {
+    _calenderGoalCheckMemo = value;
+    notifyListeners();
+  }
+
+  int _calenderGoalSuccess = 0;
+  int get calenderGoalSuccess => _calenderGoalSuccess;
+  set calenderGoalSuccess(int value) {
+    _calenderGoalSuccess = value;
+    notifyListeners();
+  }
+
   bool _isButtonTapped = false;
   bool get isButtonTapped => _isButtonTapped;
   set isButtonTapped(bool value) {

@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
       designSize: const Size(428, 926),
       builder: () => MaterialApp(
         title: 'Squirrel ToDo List',
-        home: const CalenderGoalPage(),
+        home: const OnboardingPage(),
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           fontFamily: 'NanumSquareRound',
