@@ -71,8 +71,7 @@ class _CalenderGoalCheckState extends State<CalenderGoalCheck> {
                           ),
                           alignment: Alignment.center,
                           child: Text(
-                            // '수행',
-                            MediaQuery.of(context).viewInsets.bottom.toString(),
+                            '수행',
                             textScaleFactor: 1.0,
                             style: TextStyle(
                               color: homeProvider.calenderGoalSuccess == 1
@@ -154,7 +153,6 @@ class _CalenderGoalCheckState extends State<CalenderGoalCheck> {
                       onChanged: (value) {
                         setState(() {
                           print(MediaQuery.of(context).viewInsets.bottom);
-                          print(context);
                         });
                       },
                       decoration: InputDecoration(
