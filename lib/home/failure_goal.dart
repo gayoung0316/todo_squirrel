@@ -74,6 +74,18 @@ class _FailureGoalPageState extends State<FailureGoalPage> {
             ),
           ),
           SizedBox(height: 26.h),
+
+          // Text(
+          //   '소중한 아이들을\n우울하게 돌려보내지 말아줘',
+          //   textScaleFactor: 1.0,
+          //   textAlign: TextAlign.center,
+          //   style: TextStyle(
+          //     fontWeight: FontWeight.w800,
+          //     color: const Color.fromRGBO(255, 255, 255, 1),
+          //     fontSize: 20.sp,
+          //   ),
+          // )
+
           FailureCharacterBox(
             characterIdx: 0,
             characterGoal: '낮잠 안 자기',
