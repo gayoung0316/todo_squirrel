@@ -180,19 +180,23 @@ class _CalenderGoalPageState extends State<CalenderGoalPage> {
                                   ),
                                   alignment: Alignment.center,
                                   child: Text(
-                                    // '수행',
-                                    MediaQuery.of(context)
-                                        .viewInsets
-                                        .bottom
-                                        .toString(),
+                                    '수행',
                                     textScaleFactor: 1.0,
                                     style: TextStyle(
                                       color:
                                           homeProvider.calenderGoalSuccess == 1
                                               ? const Color.fromRGBO(
-                                                  255, 255, 255, 1)
+                                                  255,
+                                                  255,
+                                                  255,
+                                                  1,
+                                                )
                                               : const Color.fromRGBO(
-                                                  158, 158, 158, 1),
+                                                  158,
+                                                  158,
+                                                  158,
+                                                  1,
+                                                ),
                                       fontSize: 16.sp,
                                       fontWeight: FontWeight.w700,
                                     ),
