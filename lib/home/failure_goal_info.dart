@@ -95,94 +95,73 @@ class _FailureGoalInfoPageState extends State<FailureGoalInfoPage> {
                     child: ListView(
                       padding: EdgeInsets.zero,
                       children: [
-                        SizedBox(
-                          height: 14.h,
-                          child: Text(
-                            '이름',
-                            textScaleFactor: 1.0,
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              color: const Color.fromRGBO(102, 102, 102, 1),
-                              fontWeight: FontWeight.w400,
-                            ),
+                        Text(
+                          '이름',
+                          textScaleFactor: 1.0,
+                          style: TextStyle(
+                            fontSize: 14.sp,
+                            color: const Color.fromRGBO(102, 102, 102, 1),
+                            fontWeight: FontWeight.w400,
                           ),
                         ),
                         SizedBox(height: 4.h),
-                        SizedBox(
-                          height: 22.h,
-                          child: Text(
-                            '토리',
-                            textScaleFactor: 1.0,
-                            style: TextStyle(
-                              fontSize: 20.sp,
-                              color: const Color.fromRGBO(64, 51, 42, 1),
-                              fontWeight: FontWeight.w800,
-                            ),
+                        Text(
+                          '토리',
+                          textScaleFactor: 1.0,
+                          style: TextStyle(
+                            fontSize: 20.sp,
+                            color: const Color.fromRGBO(64, 51, 42, 1),
+                            fontWeight: FontWeight.w800,
                           ),
                         ),
                         SizedBox(height: 16.h),
-                        SizedBox(
-                          height: 14.h,
-                          child: Text(
-                            '목표',
-                            textScaleFactor: 1.0,
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              color: const Color.fromRGBO(102, 102, 102, 1),
-                              fontWeight: FontWeight.w400,
-                            ),
+                        Text(
+                          '목표',
+                          textScaleFactor: 1.0,
+                          style: TextStyle(
+                            fontSize: 14.sp,
+                            color: const Color.fromRGBO(102, 102, 102, 1),
+                            fontWeight: FontWeight.w400,
                           ),
                         ),
                         SizedBox(height: 4.h),
-                        SizedBox(
-                          height: 22.h,
-                          child: Text(
-                            widget.characterGoal,
-                            textScaleFactor: 1.0,
-                            style: TextStyle(
-                              fontSize: 20.sp,
-                              color: const Color.fromRGBO(64, 51, 42, 1),
-                              fontWeight: FontWeight.w800,
-                            ),
+                        Text(
+                          widget.characterGoal,
+                          textScaleFactor: 1.0,
+                          style: TextStyle(
+                            fontSize: 20.sp,
+                            color: const Color.fromRGBO(64, 51, 42, 1),
+                            fontWeight: FontWeight.w800,
                           ),
                         ),
                         SizedBox(height: 16.h),
-                        SizedBox(
-                          height: 14.h,
-                          child: Text(
-                            '시각 날짜, 종료 날짜',
-                            textScaleFactor: 1.0,
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              color: const Color.fromRGBO(102, 102, 102, 1),
-                              fontWeight: FontWeight.w400,
-                            ),
+                        Text(
+                          '시각 날짜, 종료 날짜',
+                          textScaleFactor: 1.0,
+                          style: TextStyle(
+                            fontSize: 14.sp,
+                            color: const Color.fromRGBO(102, 102, 102, 1),
+                            fontWeight: FontWeight.w400,
                           ),
                         ),
                         SizedBox(height: 4.h),
-                        SizedBox(
-                          height: 22.h,
-                          child: Text(
-                            '${widget.characterStartGoal}~${widget.characterEndGoal}',
-                            textScaleFactor: 1.0,
-                            style: TextStyle(
-                              fontSize: 20.sp,
-                              color: const Color.fromRGBO(64, 51, 42, 1),
-                              fontWeight: FontWeight.w800,
-                            ),
+                        Text(
+                          '${widget.characterStartGoal}~${widget.characterEndGoal}',
+                          textScaleFactor: 1.0,
+                          style: TextStyle(
+                            fontSize: 20.sp,
+                            color: const Color.fromRGBO(64, 51, 42, 1),
+                            fontWeight: FontWeight.w800,
                           ),
                         ),
                         SizedBox(height: 16.h),
-                        SizedBox(
-                          height: 14.h,
-                          child: Text(
-                            '목표 달성률',
-                            textScaleFactor: 1.0,
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              color: const Color.fromRGBO(102, 102, 102, 1),
-                              fontWeight: FontWeight.w400,
-                            ),
+                        Text(
+                          '목표 달성률',
+                          textScaleFactor: 1.0,
+                          style: TextStyle(
+                            fontSize: 14.sp,
+                            color: const Color.fromRGBO(102, 102, 102, 1),
+                            fontWeight: FontWeight.w400,
                           ),
                         ),
                         SizedBox(height: 31.h),
