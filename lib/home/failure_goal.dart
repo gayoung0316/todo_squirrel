@@ -24,6 +24,7 @@ class _FailureGoalPageState extends State<FailureGoalPage> {
       backgroundColor: squirrelCharacter[characterSettingProvider.characterIdx]
           ['failure_backcolor'],
       body: ListView(
+        physics: const BouncingScrollPhysics(),
         padding: EdgeInsets.zero,
         children: [
           SizedBox(
@@ -43,31 +44,15 @@ class _FailureGoalPageState extends State<FailureGoalPage> {
                   top: 57.h,
                   left: 20.w,
                   right: 20.w,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      InkWell(
-                        onTap: () => Navigator.pop(context),
-                        child: Image.asset(
-                          'assets/icons/arrow_left.png',
-                          width: 24.w,
-                          height: 24.w,
-                        ),
-                      ),
-                      Text(
-                        '우울한 숲',
-                        textScaleFactor: 1.0,
-                        style: TextStyle(
-                          color: const Color.fromRGBO(255, 255, 255, 1),
-                          fontSize: 24.sp,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 24.w,
-                        height: 24.w,
-                      )
-                    ],
+                  child: Text(
+                    '우울한 숲',
+                    textScaleFactor: 1.0,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: const Color.fromRGBO(255, 255, 255, 1),
+                      fontSize: 24.sp,
+                      fontWeight: FontWeight.w800,
+                    ),
                   ),
                 ),
               ],

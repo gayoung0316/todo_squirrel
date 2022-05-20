@@ -1,5 +1,3 @@
-// import 'package:flutter/material.dart';
-
 import 'dart:ui';
 
 List<Map<String, dynamic>> squirrelCharacter = [

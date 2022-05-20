@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_squirrel/components/triangle_clipper.dart';
 import 'package:todo_squirrel/home/home.dart';
 import 'package:todo_squirrel/home/test_screen.dart';
@@ -16,6 +17,7 @@ class CharacterSettingInfo extends StatefulWidget {
 }
 
 class _CharacterSettingInfoState extends State<CharacterSettingInfo> {
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   late CharacterSettingProvider characterSettingProvider;
   late HomeProvider homeProvider;
 
@@ -114,7 +116,16 @@ class _CharacterSettingInfoState extends State<CharacterSettingInfo> {
                   ),
                   SizedBox(height: 41.h),
                   InkWell(
-                    onTap: () {
+                    onTap: () async {
+                      final SharedPreferences prefs = await _prefs;
+                      final bool isShowCoachMarks = prefs.getBool('isShowCoachMarks') ?? true;
+
+                      if(isShowCoachMarks) {
+                        prefs.setBool('isShowCoachMarks', true);
+                        homeProvider.isShowCoachMarks = true;
+                        homeProvider.coachMarksNumber = 1;
+                      }
+
                       homeProvider.pageIdx = 2;
                       Navigator.pushAndRemoveUntil(
                         context,

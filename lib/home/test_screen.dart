@@ -16,7 +16,7 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
       body: Stack(
         children: const [
           MainScreens(),
-          CharacterGoalCheck(),
+          // CharacterGoalCheck(),
         ],
       ),
     );

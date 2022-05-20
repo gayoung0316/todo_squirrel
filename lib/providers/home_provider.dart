@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class HomeProvider extends ChangeNotifier {
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+
   // 하단바 페이지 인덱스
   int _pageIdx = 0;
   int get pageIdx => _pageIdx;
@@ -44,6 +47,20 @@ class HomeProvider extends ChangeNotifier {
   bool get isButtonTapped => _isButtonTapped;
   set isButtonTapped(bool value) {
     _isButtonTapped = value;
+    notifyListeners();
+  }
+
+  bool _isShowCoachMarks = false;
+  bool get isShowCoachMarks => _isShowCoachMarks;
+  set isShowCoachMarks(bool value) {
+    _isShowCoachMarks = value;
+    notifyListeners();
+  }
+
+  int _coachMarksNumber = 1;
+  int get coachMarksNumber => _coachMarksNumber;
+  set coachMarksNumber(int value) {
+    _coachMarksNumber = value;
     notifyListeners();
   }
 }

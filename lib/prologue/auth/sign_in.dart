@@ -6,8 +6,6 @@ import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:todo_squirrel/character_setting/character_select.dart';
 
 GoogleSignIn _googleSignIn = GoogleSignIn(
-  // Optional clientId
-  // clientId: '479882132969-9i9aqik3jfjd7qhci1nqf0bm2g71rm1u.apps.googleusercontent.com',
   scopes: <String>[
     'email',
     'https://www.googleapis.com/auth/contacts.readonly',
@@ -17,21 +15,25 @@ GoogleSignIn _googleSignIn = GoogleSignIn(
 class SignInPage extends StatelessWidget {
   const SignInPage({Key? key}) : super(key: key);
 
-  Future<void> _googleLogIn() async {
+  Future<bool> _googleLogIn() async {
     try {
       var result = await _googleSignIn.signIn();
       log('구글로 로그인 성공 $result');
+      return true;
     } catch (error) {
       log('구글로 로그인 실패 $error');
+      return false;
     }
   }
 
-  Future<void> _kakaoLogIn() async {
+  Future<bool> _kakaoLogIn() async {
     try {
       OAuthToken token = await UserApi.instance.loginWithKakaoTalk();
       log('카카오톡으로 로그인 성공 ${token.accessToken}');
+      return true;
     } catch (error) {
       log('카카오톡으로 로그인 실패 $error');
+      return false;
     }
   }
 

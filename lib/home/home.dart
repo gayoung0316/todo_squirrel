@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_squirrel/home/calender_goal.dart';
 import 'package:todo_squirrel/home/failure_goal.dart';
 import 'package:todo_squirrel/home/main_home.dart';
@@ -9,8 +10,9 @@ import 'package:todo_squirrel/home/success_goal.dart';
 import 'package:todo_squirrel/model/squirrel_character.dart';
 import 'package:todo_squirrel/providers/character_setting_provider.dart';
 import 'package:todo_squirrel/providers/home_provider.dart';
-
+import 'package:custom_top_navigator/custom_top_navigator.dart';
 import 'character_goal_check.dart';
+import 'coach_marks_page.dart';
 
 class MainScreens extends StatefulWidget {
   const MainScreens({Key? key}) : super(key: key);
@@ -22,6 +24,7 @@ class MainScreens extends StatefulWidget {
 class _MainScreensState extends State<MainScreens> {
   late CharacterSettingProvider characterSettingProvider;
   late HomeProvider homeProvider;
+  GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   @override
   Widget build(BuildContext context) {
@@ -29,24 +32,27 @@ class _MainScreensState extends State<MainScreens> {
     homeProvider = Provider.of<HomeProvider>(context);
 
     return Scaffold(
-      // extendBody: true,
-      // extendBody: true,
-      body: Stack(
+      body: homeProvider.isShowCoachMarks ? const CoachMarksPage()
+      : Stack(
         alignment: Alignment.bottomCenter,
         children: [
           IndexedStack(
             index: homeProvider.pageIdx,
-            children: const [
-              CalenderGoalPage(),
-              FailureGoalPage(),
-              MainHomePage(),
-              SuccessGoalPage(),
-              SettingMainPage(),
+            children: [
+              const CalenderGoalPage(),
+              CustomTopNavigator(
+                navigatorKey: navigatorKey,
+                home: const FailureGoalPage(),
+                pageRoute: PageRoutes.materialPageRoute,
+              ),
+              const MainHomePage(),
+              const SuccessGoalPage(),
+              const SettingMainPage(),
             ],
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: homeProvider.isShowCoachMarks ? null : BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         elevation: 10,
         showSelectedLabels: false,
@@ -81,7 +87,6 @@ class _MainScreensState extends State<MainScreens> {
                   ),
                 ),
                 Image.asset(
-                  // icon!,
                   'assets/icons/calender.png',
                   width: 30.w,
                   height: 30.w,
@@ -205,7 +210,6 @@ class _MainScreensState extends State<MainScreens> {
                   ),
                 ),
                 Image.asset(
-                  // icon!,
                   'assets/icons/setting.png',
                   width: 30.w,
                   height: 30.w,
@@ -221,46 +225,5 @@ class _MainScreensState extends State<MainScreens> {
         ],
       ),
     );
-  }
-
-  Widget _buildBottomNavigationBarItem({
-    String? icon,
-    bool isActive = false,
-    int? index,
-  }) {
-    return InkWell(
-      onTap: () {
-        setState(() {
-          homeProvider.pageIdx = index!;
-        });
-      },
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Visibility(
-            child: Container(
-              width: 44.w,
-              height: 44.w,
-              decoration: BoxDecoration(
-                color: homeProvider.pageIdx == index
-                    ? squirrelCharacter[characterSettingProvider.characterIdx]
-                        ['character_color']
-                    : Colors.transparent,
-                shape: BoxShape.circle,
-              ),
-            ),
-          ),
-          Image.asset(
-            icon!,
-            width: 30.w,
-            height: 30.w,
-            color: homeProvider.pageIdx == index
-                ? Colors.white
-                : squirrelCharacter[characterSettingProvider.characterIdx]
-                    ['character_color'],
-          ),
-        ],
-      ),
-    );
-  }
+  }  
 }

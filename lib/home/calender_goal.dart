@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:todo_squirrel/home/calender_goal_check.dart';
+import 'package:todo_squirrel/model/month.dart';
 import 'package:todo_squirrel/model/squirrel_character.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:todo_squirrel/providers/character_setting_provider.dart';
@@ -89,23 +90,7 @@ class _CalenderGoalPageState extends State<CalenderGoalPage> {
       backgroundColor: squirrelCharacter[characterSettingProvider.characterIdx]
           ['character_color'],
       body: Stack(
-        // alignment: Alignment.bottomCenter,
         children: [
-          Positioned(
-            top: 60.h,
-            left: 20.w,
-            child: InkWell(
-              onTap: () {
-                Navigator.pop(context);
-                // homeProvider.calenderGoalCheckController.open();
-              },
-              child: Image.asset(
-                'assets/icons/arrow_left.png',
-                width: 24.w,
-                height: 24.w,
-              ),
-            ),
-          ),
           calenderWidget(),
           SlidingUpPanel(
             backdropEnabled: true,
@@ -115,7 +100,6 @@ class _CalenderGoalPageState extends State<CalenderGoalPage> {
               topRight: Radius.circular(35.w),
             ),
             onPanelSlide: (position) {
-              // print(position);
               homeProvider.calenderGoalCheckControllerPosition = position;
             },
             onPanelClosed: () {
@@ -558,12 +542,9 @@ class _CalenderGoalPageState extends State<CalenderGoalPage> {
 
   Widget calenderWidget() {
     return Container(
-      // color: Colors.red,
       padding: EdgeInsets.only(top: 53.h, left: 30.w, right: 30.w),
       child: TableCalendar(
-        // 날짜 한 칸이 자지하는 크기
         rowHeight: 58.h,
-        // 요일 칸이 차지하는 크기
         daysOfWeekHeight: 50.h,
         daysOfWeekStyle: DaysOfWeekStyle(
           weekdayStyle: TextStyle(
@@ -587,6 +568,31 @@ class _CalenderGoalPageState extends State<CalenderGoalPage> {
           titleCentered: true,
         ),
         calendarBuilders: CalendarBuilders(
+          headerTitleBuilder: (context, day) {
+            return Column(
+              children: [
+                Text(
+                  month[day.month - 1],
+                  textScaleFactor: 1.0,
+                  style: TextStyle(
+                    color: const Color.fromRGBO(255, 255, 255, 1),
+                    fontSize: 24.sp,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+                SizedBox(height: 6.h),
+                Text(
+                  day.year.toString(),
+                  textScaleFactor: 1.0,
+                  style: TextStyle(
+                    color: const Color.fromRGBO(255, 255, 255, 1),
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w300,
+                  ),
+                ),
+              ],
+            );
+          },
           defaultBuilder: (context, day, focusedDay) {
             return Visibility(
               visible: list

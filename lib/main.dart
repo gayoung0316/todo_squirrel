@@ -6,6 +6,7 @@ import 'package:todo_squirrel/home/calender_goal.dart';
 import 'package:todo_squirrel/prologue/onboarding.dart';
 import 'package:todo_squirrel/providers/character_setting_provider.dart';
 import 'package:todo_squirrel/providers/home_provider.dart';
+import 'package:todo_squirrel/splash_page.dart';
 
 void main() {
   KakaoSdk.init(nativeAppKey: '313453dcd00af72db1ed29fa43ba57e5');
@@ -33,14 +34,16 @@ class MyApp extends StatelessWidget {
       designSize: const Size(428, 926),
       builder: () => MaterialApp(
         title: 'Squirrel ToDo List',
-        home: const OnboardingPage(),
+        home: const SplashPage(),
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           fontFamily: 'NanumSquareRound',
-          // splashColor: Colors.transparent,
-          // highlightColor: Colors.transparent,
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
         ),
       ),
     );
   }
 }
+
+
