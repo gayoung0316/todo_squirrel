@@ -69,7 +69,7 @@ class _FailureGoalInfoPageState extends State<FailureGoalInfoPage> {
               alignment: Alignment.bottomCenter,
               children: [
                 Container(
-                  height: 440.h,
+                  height: 346.h,
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                     color: const Color.fromRGBO(255, 255, 255, 1),
@@ -88,136 +88,161 @@ class _FailureGoalInfoPageState extends State<FailureGoalInfoPage> {
                   ),
                   child: Padding(
                     padding: EdgeInsets.only(
-                      left: 30.w,
-                      right: 20.w,
+                      // left: 30.w,
+                      // right: 20.w,
                       top: 61.h,
                     ),
                     child: ListView(
+                      physics: const BouncingScrollPhysics(),
                       padding: EdgeInsets.zero,
                       children: [
-                        Text(
-                          '이름',
-                          textScaleFactor: 1.0,
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            color: const Color.fromRGBO(102, 102, 102, 1),
-                            fontWeight: FontWeight.w400,
+                        Padding(
+                          padding: EdgeInsets.only(left: 30.w),
+                          child: Text(
+                            '이름',
+                            textScaleFactor: 1.0,
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              color: const Color.fromRGBO(102, 102, 102, 1),
+                              fontWeight: FontWeight.w400,
+                            ),
                           ),
                         ),
                         SizedBox(height: 4.h),
-                        Text(
-                          '토리',
-                          textScaleFactor: 1.0,
-                          style: TextStyle(
-                            fontSize: 20.sp,
-                            color: const Color.fromRGBO(64, 51, 42, 1),
-                            fontWeight: FontWeight.w800,
+                        Padding(
+                          padding: EdgeInsets.only(left: 30.w),
+                          child: Text(
+                            '토리',
+                            textScaleFactor: 1.0,
+                            style: TextStyle(
+                              fontSize: 20.sp,
+                              color: const Color.fromRGBO(64, 51, 42, 1),
+                              fontWeight: FontWeight.w800,
+                            ),
                           ),
                         ),
                         SizedBox(height: 16.h),
-                        Text(
-                          '목표',
-                          textScaleFactor: 1.0,
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            color: const Color.fromRGBO(102, 102, 102, 1),
-                            fontWeight: FontWeight.w400,
+                        Padding(
+                          padding: EdgeInsets.only(left: 30.w),
+                          child: Text(
+                            '목표',
+                            textScaleFactor: 1.0,
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              color: const Color.fromRGBO(102, 102, 102, 1),
+                              fontWeight: FontWeight.w400,
+                            ),
                           ),
                         ),
                         SizedBox(height: 4.h),
-                        Text(
-                          widget.characterGoal,
-                          textScaleFactor: 1.0,
-                          style: TextStyle(
-                            fontSize: 20.sp,
-                            color: const Color.fromRGBO(64, 51, 42, 1),
-                            fontWeight: FontWeight.w800,
+                        Padding(
+                          padding: EdgeInsets.only(left: 30.w),
+                          child: Text(
+                            widget.characterGoal,
+                            textScaleFactor: 1.0,
+                            style: TextStyle(
+                              fontSize: 20.sp,
+                              color: const Color.fromRGBO(64, 51, 42, 1),
+                              fontWeight: FontWeight.w800,
+                            ),
                           ),
                         ),
                         SizedBox(height: 16.h),
-                        Text(
-                          '시각 날짜, 종료 날짜',
-                          textScaleFactor: 1.0,
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            color: const Color.fromRGBO(102, 102, 102, 1),
-                            fontWeight: FontWeight.w400,
+                        Padding(
+                          padding: EdgeInsets.only(left: 30.w),
+                          child: Text(
+                            '시각 날짜, 종료 날짜',
+                            textScaleFactor: 1.0,
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              color: const Color.fromRGBO(102, 102, 102, 1),
+                              fontWeight: FontWeight.w400,
+                            ),
                           ),
                         ),
                         SizedBox(height: 4.h),
-                        Text(
-                          '${widget.characterStartGoal}~${widget.characterEndGoal}',
-                          textScaleFactor: 1.0,
-                          style: TextStyle(
-                            fontSize: 20.sp,
-                            color: const Color.fromRGBO(64, 51, 42, 1),
-                            fontWeight: FontWeight.w800,
+                        Padding(
+                          padding: EdgeInsets.only(left: 30.w),
+                          child: Text(
+                            '${widget.characterStartGoal}~${widget.characterEndGoal}',
+                            textScaleFactor: 1.0,
+                            style: TextStyle(
+                              fontSize: 20.sp,
+                              color: const Color.fromRGBO(64, 51, 42, 1),
+                              fontWeight: FontWeight.w800,
+                            ),
                           ),
                         ),
                         SizedBox(height: 16.h),
-                        Text(
-                          '목표 달성률',
-                          textScaleFactor: 1.0,
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            color: const Color.fromRGBO(102, 102, 102, 1),
-                            fontWeight: FontWeight.w400,
+                        Padding(
+                          padding: EdgeInsets.only(left: 30.w),
+                          child: Text(
+                            '목표 달성률',
+                            textScaleFactor: 1.0,
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              color: const Color.fromRGBO(102, 102, 102, 1),
+                              fontWeight: FontWeight.w400,
+                            ),
                           ),
                         ),
                         SizedBox(height: 31.h),
-                        Row(
-                          children: [
-                            Text(
-                              '0',
-                              textScaleFactor: 1.0,
-                              style: TextStyle(
-                                color: squirrelCharacter[
-                                        characterSettingProvider.characterIdx]
-                                    ['character_color'],
-                                fontSize: 20.sp,
-                                fontWeight: FontWeight.w400,
+                        Padding(
+                          padding: EdgeInsets.only(left: 30.w),
+                          child: Row(
+                            children: [
+                              Text(
+                                '0',
+                                textScaleFactor: 1.0,
+                                style: TextStyle(
+                                  color: squirrelCharacter[
+                                          characterSettingProvider.characterIdx]
+                                      ['character_color'],
+                                  fontSize: 20.sp,
+                                  fontWeight: FontWeight.w400,
+                                ),
                               ),
-                            ),
-                            SizedBox(width: 10.w),
-                            SizedBox(
-                              width: 290.w,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10.w),
-                                child: SliderTheme(
-                                  data: SliderThemeData(
-                                    overlayShape:
-                                        SliderComponentShape.noOverlay,
-                                    thumbShape: RoundSliderThumbShape(
-                                      enabledThumbRadius: 8.w,
+                              SizedBox(width: 10.w),
+                              SizedBox(
+                                width: 290.w,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10.w),
+                                  child: SliderTheme(
+                                    data: SliderThemeData(
+                                      overlayShape:
+                                          SliderComponentShape.noOverlay,
+                                      thumbShape: RoundSliderThumbShape(
+                                        enabledThumbRadius: 8.w,
+                                      ),
                                     ),
-                                  ),
-                                  child: Slider(
-                                    min: 0,
-                                    max: 100,
-                                    value: widget.characterGoalSuccessPercent,
-                                    inactiveColor:
-                                        const Color.fromRGBO(223, 223, 223, 1),
-                                    activeColor: squirrelCharacter[
-                                        characterSettingProvider
-                                            .characterIdx]['character_color'],
-                                    onChanged: (value) {},
+                                    child: Slider(
+                                      min: 0,
+                                      max: 100,
+                                      value: widget.characterGoalSuccessPercent,
+                                      inactiveColor:
+                                          const Color.fromRGBO(223, 223, 223, 1),
+                                      activeColor: squirrelCharacter[
+                                          characterSettingProvider
+                                              .characterIdx]['character_color'],
+                                      onChanged: (value) {},
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            SizedBox(width: 5.w),
-                            Text(
-                              '${widget.characterGoalSuccessPercent.floor()}%',
-                              textScaleFactor: 1.0,
-                              style: TextStyle(
-                                color: squirrelCharacter[
-                                        characterSettingProvider.characterIdx]
-                                    ['character_color'],
-                                fontSize: 20.sp,
-                                fontWeight: FontWeight.w400,
+                              SizedBox(width: 5.w),
+                              Text(
+                                '${widget.characterGoalSuccessPercent.floor()}%',
+                                textScaleFactor: 1.0,
+                                style: TextStyle(
+                                  color: squirrelCharacter[
+                                          characterSettingProvider.characterIdx]
+                                      ['character_color'],
+                                  fontSize: 20.sp,
+                                  fontWeight: FontWeight.w400,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                         SizedBox(height: 40.h),
                         Row(
@@ -265,7 +290,7 @@ class _FailureGoalInfoPageState extends State<FailureGoalInfoPage> {
                             Container(
                               width: 61.w,
                               height: 50.h,
-                              margin: EdgeInsets.only(left: 14.w),
+                              // margin: EdgeInsets.only(left: 14.w),
                               decoration: BoxDecoration(
                                 color: const Color.fromRGBO(255, 255, 255, 1),
                                 borderRadius: BorderRadius.circular(20.w),
@@ -287,7 +312,8 @@ class _FailureGoalInfoPageState extends State<FailureGoalInfoPage> {
                               ),
                             ),
                           ],
-                        )
+                        ),
+                        SizedBox(height: 30.h),
                       ],
                     ),
                   ),
