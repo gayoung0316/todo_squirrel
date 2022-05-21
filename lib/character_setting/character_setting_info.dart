@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_squirrel/components/triangle_clipper.dart';
-import 'package:todo_squirrel/home/home.dart';
 import 'package:todo_squirrel/home/test_screen.dart';
 import 'package:todo_squirrel/model/squirrel_character.dart';
 import 'package:todo_squirrel/providers/character_setting_provider.dart';
@@ -118,9 +117,10 @@ class _CharacterSettingInfoState extends State<CharacterSettingInfo> {
                   InkWell(
                     onTap: () async {
                       final SharedPreferences prefs = await _prefs;
-                      final bool isShowCoachMarks = prefs.getBool('isShowCoachMarks') ?? true;
+                      final bool isShowCoachMarks =
+                          prefs.getBool('isShowCoachMarks') ?? true;
 
-                      if(isShowCoachMarks) {
+                      if (isShowCoachMarks) {
                         prefs.setBool('isShowCoachMarks', true);
                         homeProvider.isShowCoachMarks = true;
                         homeProvider.coachMarksNumber = 1;

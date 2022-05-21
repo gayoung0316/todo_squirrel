@@ -150,11 +150,6 @@ class _CalenderGoalCheckState extends State<CalenderGoalCheck> {
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w400,
                       ),
-                      onChanged: (value) {
-                        setState(() {
-                          print(MediaQuery.of(context).viewInsets.bottom);
-                        });
-                      },
                       decoration: InputDecoration(
                         isCollapsed: true,
                         contentPadding: EdgeInsets.all(10.w),

@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class HomeProvider extends ChangeNotifier {
-  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-
   // 하단바 페이지 인덱스
   int _pageIdx = 0;
   int get pageIdx => _pageIdx;

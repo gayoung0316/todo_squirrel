@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:todo_squirrel/home/calender_goal_check.dart';
 import 'package:todo_squirrel/model/month.dart';
 import 'package:todo_squirrel/model/squirrel_character.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -262,12 +261,6 @@ class _CalenderGoalPageState extends State<CalenderGoalPage> {
                                 fontSize: 14.sp,
                                 fontWeight: FontWeight.w400,
                               ),
-                              onChanged: (value) {
-                                setState(() {
-                                  print(
-                                      MediaQuery.of(context).viewInsets.bottom);
-                                });
-                              },
                               decoration: InputDecoration(
                                 isCollapsed: true,
                                 contentPadding: EdgeInsets.all(10.w),

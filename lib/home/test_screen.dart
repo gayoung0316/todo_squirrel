@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:todo_squirrel/home/character_goal_check.dart';
 import 'package:todo_squirrel/home/home.dart';
 
 class HomeScreenPage extends StatefulWidget {

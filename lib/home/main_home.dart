@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_squirrel/model/squirrel_character.dart';
 import 'package:todo_squirrel/providers/character_setting_provider.dart';
 import 'package:todo_squirrel/providers/home_provider.dart';
@@ -16,10 +15,9 @@ class MainHomePage extends StatefulWidget {
 }
 
 class _MainHomePageState extends State<MainHomePage> {
-  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   late CharacterSettingProvider characterSettingProvider;
   late HomeProvider homeProvider;
-  
+
   int textlines(String text) {
     final TextPainter textPainter = TextPainter(
       text: TextSpan(
@@ -37,7 +35,7 @@ class _MainHomePageState extends State<MainHomePage> {
     List<LineMetrics> countLines = textPainter.computeLineMetrics();
     return countLines.length;
   }
-  
+
   @override
   Widget build(BuildContext context) {
     characterSettingProvider = Provider.of<CharacterSettingProvider>(context);

@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_squirrel/home/calender_goal.dart';
-import 'package:todo_squirrel/prologue/onboarding.dart';
 import 'package:todo_squirrel/providers/character_setting_provider.dart';
 import 'package:todo_squirrel/providers/home_provider.dart';
 import 'package:todo_squirrel/splash_page.dart';
@@ -45,5 +43,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
