@@ -119,9 +119,10 @@ class _CharacterSettingInfoState extends State<CharacterSettingInfo> {
                 InkWell(
                   onTap: () async {
                     final SharedPreferences prefs = await _prefs;
-                    final bool isShowCoachMarks = prefs.getBool('isShowCoachMarks') ?? true;
+                    final bool isShowCoachMarks =
+                        prefs.getBool('isShowCoachMarks') ?? true;
 
-                    if(isShowCoachMarks) {
+                    if (isShowCoachMarks) {
                       prefs.setBool('isShowCoachMarks', true);
                       homeProvider.isShowCoachMarks = true;
                       homeProvider.coachMarksNumber = 1;

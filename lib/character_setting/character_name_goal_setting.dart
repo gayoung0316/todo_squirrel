@@ -127,7 +127,7 @@ class _CharacterNameGoalSettingPageState
                           textAlign: TextAlign.center,
                           maxLength: 8,
                           style: TextStyle(
-                            color: const Color.fromRGBO(255, 255, 255, 0.5),
+                            color: const Color.fromRGBO(255, 255, 255, 1),
                             fontSize: 20.sp,
                             fontWeight: FontWeight.w400,
                           ),
@@ -187,7 +187,7 @@ class _CharacterNameGoalSettingPageState
                             textAlign: TextAlign.center,
                             maxLength: 24,
                             style: TextStyle(
-                              color: const Color.fromRGBO(255, 255, 255, 0.5),
+                              color: const Color.fromRGBO(255, 255, 255, 1),
                               fontSize: 20.sp,
                               fontWeight: FontWeight.w400,
                             ),

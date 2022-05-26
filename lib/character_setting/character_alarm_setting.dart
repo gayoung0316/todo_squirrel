@@ -131,7 +131,7 @@ class _CharacterAlarmSettingState extends State<CharacterAlarmSetting> {
                           keyboardType: TextInputType.number,
                           textInputAction: TextInputAction.next,
                           style: TextStyle(
-                            color: const Color.fromRGBO(255, 255, 255, 0.5),
+                            color: const Color.fromRGBO(255, 255, 255, 1),
                             fontSize: 20.sp,
                             fontWeight: FontWeight.w400,
                           ),
@@ -180,7 +180,7 @@ class _CharacterAlarmSettingState extends State<CharacterAlarmSetting> {
                           maxLength: 2,
                           keyboardType: TextInputType.number,
                           style: TextStyle(
-                            color: const Color.fromRGBO(255, 255, 255, 0.5),
+                            color: const Color.fromRGBO(255, 255, 255, 1),
                             fontSize: 20.sp,
                             fontWeight: FontWeight.w400,
                           ),
