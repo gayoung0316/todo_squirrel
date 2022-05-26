@@ -3,19 +3,21 @@ import 'package:flutter_swipe_action_cell/core/cell.dart';
 import 'package:flutter_swipe_action_cell/core/controller.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:todo_squirrel/home/failure_goal_info.dart';
+import 'package:todo_squirrel/widget/character_goal_info.dart';
 import 'package:todo_squirrel/model/squirrel_character.dart';
 import 'package:todo_squirrel/providers/character_setting_provider.dart';
 
-class FailureCharacterBox extends StatefulWidget {
+class CharacterGoalBox extends StatefulWidget {
+  final bool isFailGoalCharacter;
   final int characterIdx;
   final String characterGoal;
   final String characterStartGoal;
   final String characterEndGoal;
   final double characterGoalSuccessPercent;
 
-  const FailureCharacterBox({
+  const CharacterGoalBox({
     Key? key,
+    this.isFailGoalCharacter = false,
     required this.characterIdx,
     required this.characterGoal,
     required this.characterStartGoal,
@@ -24,10 +26,10 @@ class FailureCharacterBox extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<FailureCharacterBox> createState() => _FailureCharacterBoxState();
+  State<CharacterGoalBox> createState() => _CharacterGoalBoxState();
 }
 
-class _FailureCharacterBoxState extends State<FailureCharacterBox> {
+class _CharacterGoalBoxState extends State<CharacterGoalBox> {
   late CharacterSettingProvider characterSettingProvider;
   SwipeActionController swipeActionController = SwipeActionController();
 
@@ -276,6 +278,7 @@ class _FailureCharacterBoxState extends State<FailureCharacterBox> {
             context,
             MaterialPageRoute(
               builder: (context) => FailureGoalInfoPage(
+                isFailureGoal: widget.isFailGoalCharacter,
                 characterGoal: widget.characterGoal,
                 characterStartGoal: widget.characterStartGoal,
                 characterEndGoal: widget.characterEndGoal,
@@ -310,9 +313,9 @@ class _FailureCharacterBoxState extends State<FailureCharacterBox> {
               child: Row(
                 children: [
                   Image.asset(
-                    'assets/images/failure_character_${widget.characterIdx}.png',
-                    width: 103.w,
-                    height: 91.h,
+                    'assets/images/${widget.isFailGoalCharacter ? 'failure_character' : 'success_goal_character'}_${widget.characterIdx}.png',
+                    width: widget.isFailGoalCharacter ? 100.w : 103.w,
+                    height: widget.isFailGoalCharacter ? 100.w : 91.h,
                   ),
                   SizedBox(width: 46.w),
                   Column(

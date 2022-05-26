@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_squirrel/home/calender_goal.dart';
-import 'package:todo_squirrel/home/failure_goal.dart';
-import 'package:todo_squirrel/home/main_home.dart';
-import 'package:todo_squirrel/home/setting_main.dart';
-import 'package:todo_squirrel/home/success_goal.dart';
+import 'package:todo_squirrel/calender_goal/calender_goal.dart';
+import 'package:todo_squirrel/failure_goal/failure_goal.dart';
+import 'package:todo_squirrel/home/character_main_home.dart';
+import 'package:todo_squirrel/setting/setting_main.dart';
+import 'package:todo_squirrel/success_goal/success_goal.dart';
 import 'package:todo_squirrel/model/squirrel_character.dart';
 import 'package:todo_squirrel/providers/character_setting_provider.dart';
 import 'package:todo_squirrel/providers/home_provider.dart';
 import 'package:custom_top_navigator/custom_top_navigator.dart';
-import 'coach_marks_page.dart';
+import '../widget/coach_marks_page.dart';
 
 class MainScreens extends StatefulWidget {
   const MainScreens({Key? key}) : super(key: key);
@@ -22,7 +22,8 @@ class MainScreens extends StatefulWidget {
 class _MainScreensState extends State<MainScreens> {
   late CharacterSettingProvider characterSettingProvider;
   late HomeProvider homeProvider;
-  GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+  GlobalKey<NavigatorState> failuerGoalNavigatorKey = GlobalKey<NavigatorState>();
+  GlobalKey<NavigatorState> successGoalNavigatorKey = GlobalKey<NavigatorState>();
 
   @override
   Widget build(BuildContext context) {
@@ -40,12 +41,16 @@ class _MainScreensState extends State<MainScreens> {
                   children: [
                     const CalenderGoalPage(),
                     CustomTopNavigator(
-                      navigatorKey: navigatorKey,
+                      navigatorKey: failuerGoalNavigatorKey,
                       home: const FailureGoalPage(),
                       pageRoute: PageRoutes.materialPageRoute,
                     ),
                     const MainHomePage(),
-                    const SuccessGoalPage(),
+                    CustomTopNavigator(
+                      navigatorKey: successGoalNavigatorKey,
+                      home: const SuccessGoalPage(),
+                      pageRoute: PageRoutes.materialPageRoute,
+                    ),
                     const SettingMainPage(),
                   ],
                 ),

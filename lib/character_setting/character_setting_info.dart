@@ -3,8 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_squirrel/components/triangle_clipper.dart';
-import 'package:todo_squirrel/home/home.dart';
-import 'package:todo_squirrel/home/test_screen.dart';
+import 'package:todo_squirrel/home/home_screen.dart';
 import 'package:todo_squirrel/model/squirrel_character.dart';
 import 'package:todo_squirrel/providers/character_setting_provider.dart';
 import 'package:todo_squirrel/providers/home_provider.dart';
@@ -169,7 +168,7 @@ class _CharacterSettingInfoState extends State<CharacterSettingInfo> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 90.w),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
             title,

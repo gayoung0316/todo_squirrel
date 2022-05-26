@@ -4,7 +4,7 @@ import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_squirrel/providers/character_setting_provider.dart';
 import 'package:todo_squirrel/providers/home_provider.dart';
-import 'package:todo_squirrel/splash_page.dart';
+import 'package:todo_squirrel/prologue/splash_page.dart';
 
 void main() {
   KakaoSdk.init(nativeAppKey: '313453dcd00af72db1ed29fa43ba57e5');

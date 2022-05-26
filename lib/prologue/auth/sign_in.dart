@@ -40,85 +40,101 @@ class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          children: [
-            Container(
-              width: 388.w,
-              height: 316.h,
-              margin: EdgeInsets.only(top: 188.h),
-              color: const Color.fromRGBO(205, 240, 174, 1),
+      body: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          SizedBox(height: 152.h),
+          Text(
+            'WELLCOME!',
+            textScaleFactor: 1.0,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: const Color.fromRGBO(64, 51, 42, 1),
+              fontWeight: FontWeight.w800,
+              fontSize: 46.sp,
             ),
-            SizedBox(height: 56.h),
-            loginPlatformButton(
-              context: context,
-              loginType: 0,
-              loginTypeName: '카카오톡',
-            ),
-            SizedBox(height: 26.h),
-            loginPlatformButton(
-              context: context,
-              loginType: 1,
-              loginTypeName: '구글',
-            ),
-            SizedBox(height: 36.h),
-            Column(
-              children: [
-                Text(
-                  '회원가입 없이 이용 가능하며 첫 로그인시',
-                  textScaleFactor: 1.0,
-                  style: TextStyle(
-                    color: const Color.fromRGBO(97, 97, 97, 1),
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w300,
-                  ),
+          ),
+          SizedBox(height: 30.h),
+          Container(
+            color: Colors.pink,
+            width: 302.w,
+            height: 232.h,
+          ),
+          SizedBox(height: 56.h),
+          loginPlatformButton(
+            context: context,
+            loginType: 0,
+            loginTypeName: '카카오톡',
+          ),
+          SizedBox(height: 26.h),
+          loginPlatformButton(
+            context: context,
+            loginType: 1,
+            loginTypeName: '구글',
+          ),
+          SizedBox(height: 26.h),
+          loginPlatformButton(
+            context: context,
+            loginType: 2,
+            loginTypeName: 'Apple',
+          ),
+          SizedBox(height: 36.h),
+          Column(
+            children: [
+              Text(
+                '회원가입 없이 이용 가능하며 첫 로그인시',
+                textScaleFactor: 1.0,
+                style: TextStyle(
+                  color: const Color.fromRGBO(97, 97, 97, 1),
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w300,
                 ),
-                SizedBox(height: 4.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      '이용약관',
-                      textScaleFactor: 1.0,
-                      style: TextStyle(
-                        color: const Color.fromRGBO(126, 140, 255, 1),
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w700,
-                      ),
+              ),
+              SizedBox(height: 4.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    '이용약관',
+                    textScaleFactor: 1.0,
+                    style: TextStyle(
+                      color: const Color.fromRGBO(126, 140, 255, 1),
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w700,
                     ),
-                    Text(
-                      ' 및 ',
-                      textScaleFactor: 1.0,
-                      style: TextStyle(
-                        color: const Color.fromRGBO(97, 97, 97, 1),
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w300,
-                      ),
+                  ),
+                  Text(
+                    ' 및 ',
+                    textScaleFactor: 1.0,
+                    style: TextStyle(
+                      color: const Color.fromRGBO(97, 97, 97, 1),
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w300,
                     ),
-                    Text(
-                      '개인정보처리방침',
-                      textScaleFactor: 1.0,
-                      style: TextStyle(
-                        color: const Color.fromRGBO(126, 140, 255, 1),
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w700,
-                      ),
+                  ),
+                  Text(
+                    '개인정보처리방침',
+                    textScaleFactor: 1.0,
+                    style: TextStyle(
+                      color: const Color.fromRGBO(126, 140, 255, 1),
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w700,
                     ),
-                    Text(
-                      ' 동의로 간주됩니다.',
-                      textScaleFactor: 1.0,
-                      style: TextStyle(
-                        color: const Color.fromRGBO(97, 97, 97, 1),
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w300,
-                      ),
+                  ),
+                  Text(
+                    ' 동의로 간주됩니다.',
+                    textScaleFactor: 1.0,
+                    style: TextStyle(
+                      color: const Color.fromRGBO(97, 97, 97, 1),
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w300,
                     ),
-                  ],
-                )
-              ],
-            ),
-          ],
-        ),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -146,10 +162,13 @@ class SignInPage extends StatelessWidget {
       child: Container(
         width: 316.w,
         height: 60.h,
+        margin: EdgeInsets.symmetric(horizontal: 56.w),
         decoration: BoxDecoration(
           color: loginType == 0
               ? const Color.fromRGBO(255, 232, 18, 1)
-              : const Color.fromRGBO(245, 245, 245, 1),
+              : loginType == 1
+              ? const Color.fromRGBO(245, 245, 245, 1)
+              : const Color.fromRGBO(0, 0, 0, 1),
           borderRadius: BorderRadius.circular(30.w),
           boxShadow: const [
             BoxShadow(
@@ -179,6 +198,7 @@ class SignInPage extends StatelessWidget {
                 style: TextStyle(
                   fontWeight: FontWeight.w800,
                   fontSize: 16.sp,
+                  color: loginType == 2 ? const Color.fromRGBO(255, 255, 255, 1) : const Color.fromRGBO(0, 0, 0, 1)
                 ),
               ),
             ),
