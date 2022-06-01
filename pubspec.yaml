@@ -45,6 +45,7 @@ dependencies:
   flutter_swipe_action_cell: ^2.2.1
   custom_top_navigator: ^0.0.3
   shared_preferences: ^2.0.15
+  sign_in_with_apple: ^4.0.0
 
 dev_dependencies:
   flutter_test:

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:todo_squirrel/character_setting/character_select.dart';
 
 GoogleSignIn _googleSignIn = GoogleSignIn(
@@ -146,18 +147,25 @@ class SignInPage extends StatelessWidget {
   }) {
     return InkWell(
       onTap: () async {
-        if (loginType == 0) {
-          await _kakaoLogIn();
-        } else {
-          await _googleLogIn();
-        }
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const CharacterSelectPage(),
-          ),
-          (route) => false,
+        // if (loginType == 0) {
+        //   await _kakaoLogIn();
+        // } else {
+        //   await _googleLogIn();
+        // }
+        // Navigator.pushAndRemoveUntil(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (context) => const CharacterSelectPage(),
+        //   ),
+        //   (route) => false,
+        // );
+        final credential = await SignInWithApple.getAppleIDCredential(
+          scopes: [
+            AppleIDAuthorizationScopes.email,
+            AppleIDAuthorizationScopes.fullName,
+          ],
         );
+        print(credential);
       },
       child: Container(
         width: 316.w,
@@ -167,8 +175,8 @@ class SignInPage extends StatelessWidget {
           color: loginType == 0
               ? const Color.fromRGBO(255, 232, 18, 1)
               : loginType == 1
-              ? const Color.fromRGBO(245, 245, 245, 1)
-              : const Color.fromRGBO(0, 0, 0, 1),
+                  ? const Color.fromRGBO(245, 245, 245, 1)
+                  : const Color.fromRGBO(0, 0, 0, 1),
           borderRadius: BorderRadius.circular(30.w),
           boxShadow: const [
             BoxShadow(
@@ -196,10 +204,11 @@ class SignInPage extends StatelessWidget {
                 '$loginTypeName 계정으로 로그인',
                 textScaleFactor: 1.0,
                 style: TextStyle(
-                  fontWeight: FontWeight.w800,
-                  fontSize: 16.sp,
-                  color: loginType == 2 ? const Color.fromRGBO(255, 255, 255, 1) : const Color.fromRGBO(0, 0, 0, 1)
-                ),
+                    fontWeight: FontWeight.w800,
+                    fontSize: 16.sp,
+                    color: loginType == 2
+                        ? const Color.fromRGBO(255, 255, 255, 1)
+                        : const Color.fromRGBO(0, 0, 0, 1)),
               ),
             ),
             SizedBox(
