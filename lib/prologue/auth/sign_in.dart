@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:todo_squirrel/character_setting/character_select.dart';
 
@@ -13,28 +14,51 @@ GoogleSignIn _googleSignIn = GoogleSignIn(
   ],
 );
 
-class SignInPage extends StatelessWidget {
+class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
 
-  Future<bool> _googleLogIn() async {
+  @override
+  State<SignInPage> createState() => _SignInPageState();
+}
+
+class _SignInPageState extends State<SignInPage> {
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+
+  Future<String> _googleLogIn() async {
     try {
       var result = await _googleSignIn.signIn();
       log('구글로 로그인 성공 $result');
-      return true;
+      return result!.id;
     } catch (error) {
       log('구글로 로그인 실패 $error');
-      return false;
+      return '';
     }
   }
 
-  Future<bool> _kakaoLogIn() async {
+  Future<String> _kakaoLogIn() async {
     try {
       OAuthToken token = await UserApi.instance.loginWithKakaoTalk();
       log('카카오톡으로 로그인 성공 ${token.accessToken}');
-      return true;
+      return token.accessToken;
     } catch (error) {
       log('카카오톡으로 로그인 실패 $error');
-      return false;
+      return '';
+    }
+  }
+
+  Future<String?> _appleLogin() async {
+    try {
+      final credential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+      );
+      log('애플 로그인 성공 : $credential');
+      return credential.identityToken;
+    } catch (e) {
+      log('애플 로그인 실패 : $e');
+      return '';
     }
   }
 
@@ -147,25 +171,26 @@ class SignInPage extends StatelessWidget {
   }) {
     return InkWell(
       onTap: () async {
-        // if (loginType == 0) {
-        //   await _kakaoLogIn();
-        // } else {
-        //   await _googleLogIn();
-        // }
-        // Navigator.pushAndRemoveUntil(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) => const CharacterSelectPage(),
-        //   ),
-        //   (route) => false,
-        // );
-        final credential = await SignInWithApple.getAppleIDCredential(
-          scopes: [
-            AppleIDAuthorizationScopes.email,
-            AppleIDAuthorizationScopes.fullName,
-          ],
+        final SharedPreferences prefs = await _prefs;
+        
+        if (loginType == 0) {
+          await _kakaoLogIn();
+          prefs.setString('login-token', '');
+        } else if(loginType == 1) {
+          await _googleLogIn();
+          prefs.setString('login-token', '');
+        } else if(loginType == 2) {
+          await _appleLogin();
+          prefs.setString('login-token', '');
+        }
+        
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const CharacterSelectPage(),
+          ),
+          (route) => false,
         );
-        print(credential);
       },
       child: Container(
         width: 316.w,

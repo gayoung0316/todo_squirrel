@@ -172,7 +172,7 @@ class _CharacterDateSettingState extends State<CharacterDateSetting> {
                           int.parse(_dateController.text) < 32) {
                         characterSettingProvider.characterStartDate =
                             DateTime.parse(
-                                '${DateTime.now().year}-0${DateTime.now().month}-${DateTime.now().day}');
+                                '${DateTime.now().year}-${DateTime.now().month < 10 ? '0${DateTime.now().month}' : '${DateTime.now().month}'}-${DateTime.now().day < 10 ? '0${DateTime.now().day}' : '${DateTime.now().day}'}');
                         characterSettingProvider.characterEndDate = DateTime.parse(
                             '${DateTime.now().add(Duration(days: int.parse(_dateController.text))).toString().split('-')[0]}-${DateTime.now().add(Duration(days: int.parse(_dateController.text))).toString().split('-')[1]}-${DateTime.now().add(Duration(days: int.parse(_dateController.text))).toString().split('-')[2].split(' ')[0]}');
                         characterSettingProvider.characterRangeDate =
