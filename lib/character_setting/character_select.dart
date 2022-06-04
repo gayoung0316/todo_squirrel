@@ -40,7 +40,18 @@ class _CharacterSelectPageState extends State<CharacterSelectPage> {
                 ),
               ),
             ),
-            SizedBox(
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20.w),
+                boxShadow: [
+                  BoxShadow(
+                    color: const Color(0x29000000),
+                    offset: const Offset(0, 5),
+                    blurRadius: 15.w,
+                    spreadRadius: 0,
+                  ),
+                ],
+              ),
               height: 633.h,
               child: PageView(
                 scrollDirection: Axis.horizontal,
@@ -57,14 +68,6 @@ class _CharacterSelectPageState extends State<CharacterSelectPage> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20.w),
                         color: item['character_color'],
-                        boxShadow: [
-                          BoxShadow(
-                            color: const Color(0x29000000),
-                            offset: const Offset(0, 5),
-                            blurRadius: 15.w,
-                            spreadRadius: 0,
-                          ),
-                        ],
                       ),
                       child: Column(
                         children: [

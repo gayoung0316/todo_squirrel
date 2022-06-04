@@ -172,18 +172,18 @@ class _SignInPageState extends State<SignInPage> {
     return InkWell(
       onTap: () async {
         final SharedPreferences prefs = await _prefs;
-        
+
         if (loginType == 0) {
           await _kakaoLogIn();
           prefs.setString('login-token', '');
-        } else if(loginType == 1) {
+        } else if (loginType == 1) {
           await _googleLogIn();
           prefs.setString('login-token', '');
-        } else if(loginType == 2) {
+        } else if (loginType == 2) {
           await _appleLogin();
           prefs.setString('login-token', '');
         }
-        
+
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
