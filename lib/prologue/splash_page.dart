@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_squirrel/prologue/onboarding.dart';
 
 class SplashPage extends StatefulWidget {
@@ -10,16 +11,24 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+
   @override
   void initState() {
-    Timer(const Duration(milliseconds: 3000), () {
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const OnboardingPage(),
-        ),
-        (route) => false,
-      );
+    Timer(const Duration(milliseconds: 3000), () async {
+      final SharedPreferences prefs = await _prefs;
+      var result = prefs.getString('login-token');
+      print(result);
+
+      if (result == null) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const OnboardingPage(),
+          ),
+          (route) => false,
+        );
+      }
     });
     super.initState();
   }

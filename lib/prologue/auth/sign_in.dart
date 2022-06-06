@@ -6,6 +6,7 @@ import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:todo_squirrel/character_setting/character_select.dart';
+import 'package:todo_squirrel/repositories/sign.dart';
 
 GoogleSignIn _googleSignIn = GoogleSignIn(
   scopes: <String>[
@@ -23,12 +24,15 @@ class SignInPage extends StatefulWidget {
 
 class _SignInPageState extends State<SignInPage> {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  final Sign _sign = Sign();
 
-  Future<String> _googleLogIn() async {
+  Future<Object?> _googleLogIn() async {
     try {
       var result = await _googleSignIn.signIn();
       log('구글로 로그인 성공 $result');
-      return result!.id;
+
+      var googleToken = await _sign.signIn(platform: 1, token: result!.id);
+      return googleToken;
     } catch (error) {
       log('구글로 로그인 실패 $error');
       return '';
@@ -38,7 +42,11 @@ class _SignInPageState extends State<SignInPage> {
   Future<String> _kakaoLogIn() async {
     try {
       OAuthToken token = await UserApi.instance.loginWithKakaoTalk();
-      log('카카오톡으로 로그인 성공 ${token.accessToken}');
+      log('카카오톡으로 로그인 성공 ${token.idToken}');
+
+      var kakaoToken =
+          await _sign.signIn(platform: 1, token: token.accessToken);
+      print(kakaoToken);
       return token.accessToken;
     } catch (error) {
       log('카카오톡으로 로그인 실패 $error');
@@ -54,7 +62,7 @@ class _SignInPageState extends State<SignInPage> {
           AppleIDAuthorizationScopes.fullName,
         ],
       );
-      log('애플 로그인 성공 : $credential');
+      log('애플 로그인 성공 : ${credential.identityToken}');
       return credential.identityToken;
     } catch (e) {
       log('애플 로그인 실패 : $e');
@@ -174,23 +182,36 @@ class _SignInPageState extends State<SignInPage> {
         final SharedPreferences prefs = await _prefs;
 
         if (loginType == 0) {
-          await _kakaoLogIn();
-          prefs.setString('login-token', '');
-        } else if (loginType == 1) {
-          await _googleLogIn();
-          prefs.setString('login-token', '');
-        } else if (loginType == 2) {
-          await _appleLogin();
-          prefs.setString('login-token', '');
+          var result = await _kakaoLogIn();
+          if (result != '') {
+            log('카카오톡 회원가입 완료');
+            // prefs.setString('login-token', result);
+          }
         }
+        // else if (loginType == 1) {
+        //   var result = await _googleLogIn();
+        //   if (result != '') {
+        //     log('구글 회원가입 완료');
+        //     prefs.setString('login-token', result);
+        //   }
+        // } else if (loginType == 2) {
+        //   var result = await _appleLogin();
+        //   if (result != '') {
+        //     log('애플 회원가입 완료');
+        //     prefs.setString('login-token', result!);
+        //   }
+        // }
 
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const CharacterSelectPage(),
-          ),
-          (route) => false,
-        );
+        // var loginToken = prefs.getString('login-token');
+        // if (loginToken != null) {
+        //   Navigator.pushAndRemoveUntil(
+        //     context,
+        //     MaterialPageRoute(
+        //       builder: (context) => const CharacterSelectPage(),
+        //     ),
+        //     (route) => false,
+        //   );
+        // }
       },
       child: Container(
         width: 316.w,
