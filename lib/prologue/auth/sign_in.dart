@@ -32,7 +32,7 @@ class _SignInPageState extends State<SignInPage> {
       log('구글로 로그인 성공 $result');
 
       var googleToken = await _sign.signIn(platform: 1, token: result!.id);
-      return googleToken;
+      return googleToken!.data['token'];
     } catch (error) {
       log('구글로 로그인 실패 $error');
       return '';
@@ -44,10 +44,8 @@ class _SignInPageState extends State<SignInPage> {
       OAuthToken token = await UserApi.instance.loginWithKakaoTalk();
       log('카카오톡으로 로그인 성공 ${token.idToken}');
 
-      var kakaoToken =
-          await _sign.signIn(platform: 1, token: token.accessToken);
-      print(kakaoToken);
-      return token.accessToken;
+      var kakaoToken = await _sign.signIn(platform: 1, token: token.idToken!);
+      return kakaoToken!.data['token'];
     } catch (error) {
       log('카카오톡으로 로그인 실패 $error');
       return '';
@@ -63,7 +61,9 @@ class _SignInPageState extends State<SignInPage> {
         ],
       );
       log('애플 로그인 성공 : ${credential.identityToken}');
-      return credential.identityToken;
+      
+      var appleToken = await _sign.signIn(platform: 1, token: credential.identityToken!);
+      return appleToken!.data['token'];
     } catch (e) {
       log('애플 로그인 실패 : $e');
       return '';

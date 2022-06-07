@@ -16,9 +16,10 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     Timer(const Duration(milliseconds: 3000), () async {
+      print('1');
       final SharedPreferences prefs = await _prefs;
       var result = prefs.getString('login-token');
-      print(result);
+      print(result.runtimeType);
 
       if (result == null) {
         Navigator.pushAndRemoveUntil(
