@@ -31,12 +31,12 @@ class _FailureGoalPageState extends State<FailureGoalPage> {
             child: Stack(
               children: [
                 Positioned(
-                  top: 0,
-                  right: 0,
+                  top: -25.h,
+                  right: -15.w,
                   child: Image.asset(
                     'assets/icons/spider-web.png',
-                    height: 94.h,
-                    width: 141.w,
+                    height: 139.h,
+                    width: 115.w,
                   ),
                 ),
                 Positioned(

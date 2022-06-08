@@ -179,15 +179,15 @@ class _SignInPageState extends State<SignInPage> {
   }) {
     return InkWell(
       onTap: () async {
-        final SharedPreferences prefs = await _prefs;
+        // final SharedPreferences prefs = await _prefs;
 
-        if (loginType == 0) {
-          var result = await _kakaoLogIn();
-          if (result != '') {
-            log('카카오톡 회원가입 완료');
-            // prefs.setString('login-token', result);
-          }
-        }
+        // if (loginType == 0) {
+        //   var result = await _kakaoLogIn();
+        //   if (result != '') {
+        //     log('카카오톡 회원가입 완료');
+        //     // prefs.setString('login-token', result);
+        //   }
+        // }
         // else if (loginType == 1) {
         //   var result = await _googleLogIn();
         //   if (result != '') {
@@ -204,13 +204,13 @@ class _SignInPageState extends State<SignInPage> {
 
         // var loginToken = prefs.getString('login-token');
         // if (loginToken != null) {
-        //   Navigator.pushAndRemoveUntil(
-        //     context,
-        //     MaterialPageRoute(
-        //       builder: (context) => const CharacterSelectPage(),
-        //     ),
-        //     (route) => false,
-        //   );
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const CharacterSelectPage(),
+          ),
+          (route) => false,
+        );
         // }
       },
       child: Container(

@@ -277,8 +277,9 @@ class _CharacterGoalBoxState extends State<CharacterGoalBox> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => FailureGoalInfoPage(
+              builder: (context) => CharacterGoalInfoPage(
                 isFailureGoal: widget.isFailGoalCharacter,
+                characterIdx: widget.characterIdx,
                 characterGoal: widget.characterGoal,
                 characterStartGoal: widget.characterStartGoal,
                 characterEndGoal: widget.characterEndGoal,

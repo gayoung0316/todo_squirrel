@@ -16,19 +16,19 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     Timer(const Duration(milliseconds: 3000), () async {
-      final SharedPreferences prefs = await _prefs;
-      var result = prefs.getString('login-token');
-      print(result);
+      // final SharedPreferences prefs = await _prefs;
+      // var result = prefs.getString('login-token');
+      // print(result);
 
-      if (result == null) {
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const OnboardingPage(),
-          ),
-          (route) => false,
-        );
-      }
+      // if (result == null) {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const OnboardingPage(),
+        ),
+        (route) => false,
+      );
+      // }
     });
     super.initState();
   }
