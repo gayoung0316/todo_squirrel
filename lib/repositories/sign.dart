@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:dio/dio.dart';
 
@@ -38,6 +37,7 @@ class Sign {
 
       return response;
     } catch (e) {
+      print('adf');
       log('회원가입 에러 발생 : $e');
     }
   }
