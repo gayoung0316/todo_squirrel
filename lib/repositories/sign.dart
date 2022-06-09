@@ -20,7 +20,6 @@ class Sign {
   Future<Response?> signIn(
       {required int platform, required String token}) async {
     try {
-      print('sdfasdf');
       const url = "http://13.209.77.164:4001/api/v1/user/login";
       Options options = Options(contentType: 'application/json');
       log('안녕 : 12');
@@ -37,7 +36,6 @@ class Sign {
 
       return response;
     } catch (e) {
-      print('adf');
       log('회원가입 에러 발생 : $e');
     }
   }

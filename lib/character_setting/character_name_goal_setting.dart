@@ -231,23 +231,24 @@ class _CharacterNameGoalSettingPageState
                       width: 112.w,
                       height: 42.h,
                       decoration: BoxDecoration(
-                        color: _nameController.text.isEmpty &&
-                                _goalController.text.isEmpty
-                            ? Colors.transparent
-                            : const Color.fromRGBO(255, 255, 255, 1),
-                        borderRadius: BorderRadius.circular(21.w),
-                        border: Border.all(
-                          color: const Color.fromRGBO(255, 255, 255, 1),
-                        )
-                      ),
+                          color: _nameController.text.isEmpty &&
+                                  _goalController.text.isEmpty
+                              ? Colors.transparent
+                              : const Color.fromRGBO(255, 255, 255, 1),
+                          borderRadius: BorderRadius.circular(21.w),
+                          border: Border.all(
+                            color: const Color.fromRGBO(255, 255, 255, 1),
+                          )),
                       alignment: Alignment.center,
                       child: Text(
                         '다음',
                         textScaleFactor: 1.0,
                         style: TextStyle(
-                          color: _nameController.text.isEmpty && _goalController.text.isEmpty 
-                          ? const Color.fromRGBO(255, 255, 255, 1)
-                          : squirrelCharacter[characterSettingProvider.characterIdx]['character_color'],
+                          color: _nameController.text.isEmpty &&
+                                  _goalController.text.isEmpty
+                              ? const Color.fromRGBO(255, 255, 255, 1)
+                              : squirrelCharacter[characterSettingProvider
+                                  .characterIdx]['character_color'],
                           fontSize: 20.sp,
                           fontWeight: FontWeight.w800,
                         ),

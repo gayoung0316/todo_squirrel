@@ -4,9 +4,9 @@ import 'package:provider/provider.dart';
 import 'package:todo_squirrel/calender_goal/calender_goal.dart';
 import 'package:todo_squirrel/failure_goal/failure_goal.dart';
 import 'package:todo_squirrel/home/character_main_home.dart';
+import 'package:todo_squirrel/model/squirrel_character.dart';
 import 'package:todo_squirrel/setting/setting_main.dart';
 import 'package:todo_squirrel/success_goal/success_goal.dart';
-import 'package:todo_squirrel/model/squirrel_character.dart';
 import 'package:todo_squirrel/providers/character_setting_provider.dart';
 import 'package:todo_squirrel/providers/home_provider.dart';
 import 'package:custom_top_navigator/custom_top_navigator.dart';
@@ -22,8 +22,10 @@ class MainScreens extends StatefulWidget {
 class _MainScreensState extends State<MainScreens> {
   late CharacterSettingProvider characterSettingProvider;
   late HomeProvider homeProvider;
-  GlobalKey<NavigatorState> failuerGoalNavigatorKey = GlobalKey<NavigatorState>();
-  GlobalKey<NavigatorState> successGoalNavigatorKey = GlobalKey<NavigatorState>();
+  GlobalKey<NavigatorState> failuerGoalNavigatorKey =
+      GlobalKey<NavigatorState>();
+  GlobalKey<NavigatorState> successGoalNavigatorKey =
+      GlobalKey<NavigatorState>();
 
   @override
   Widget build(BuildContext context) {

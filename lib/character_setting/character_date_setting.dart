@@ -190,26 +190,26 @@ class _CharacterDateSettingState extends State<CharacterDateSetting> {
                       width: 112.w,
                       height: 42.h,
                       decoration: BoxDecoration(
-                        color: _dateController.text.isNotEmpty &&
-                                int.parse(_dateController.text) > 6 &&
-                                int.parse(_dateController.text) < 32
-                            ? const Color.fromRGBO(255, 255, 255, 1)
-                            : Colors.transparent,
-                        borderRadius: BorderRadius.circular(21.w),
-                        border: Border.all(
-                          color: const Color.fromRGBO(255, 255, 255, 1),
-                        )
-                      ),
+                          color: _dateController.text.isNotEmpty &&
+                                  int.parse(_dateController.text) > 6 &&
+                                  int.parse(_dateController.text) < 32
+                              ? const Color.fromRGBO(255, 255, 255, 1)
+                              : Colors.transparent,
+                          borderRadius: BorderRadius.circular(21.w),
+                          border: Border.all(
+                            color: const Color.fromRGBO(255, 255, 255, 1),
+                          )),
                       alignment: Alignment.center,
                       child: Text(
                         '다음',
                         textScaleFactor: 1.0,
                         style: TextStyle(
                           color: _dateController.text.isNotEmpty &&
-                                int.parse(_dateController.text) > 6 &&
-                                int.parse(_dateController.text) < 32 ?
-                                squirrelCharacter[characterSettingProvider.characterIdx]['character_color']
-                                : const Color.fromRGBO(255, 255, 255, 1),
+                                  int.parse(_dateController.text) > 6 &&
+                                  int.parse(_dateController.text) < 32
+                              ? squirrelCharacter[characterSettingProvider
+                                  .characterIdx]['character_color']
+                              : const Color.fromRGBO(255, 255, 255, 1),
                           fontSize: 20.sp,
                           fontWeight: FontWeight.w800,
                         ),
