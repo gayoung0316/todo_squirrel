@@ -109,7 +109,7 @@ class _SettingMainPageState extends State<SettingMainPage> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(top: 400.h),
+            padding: EdgeInsets.only(top: 420.h),
             child: Text(
               '로그아웃',
               textAlign: TextAlign.center,

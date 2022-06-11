@@ -33,6 +33,7 @@ class _MainScreensState extends State<MainScreens> {
     homeProvider = Provider.of<HomeProvider>(context);
 
     return Scaffold(
+      extendBody: homeProvider.pageIdx == 0 ? false : true,
       body: homeProvider.isShowCoachMarks
           ? const CoachMarksPage()
           : Stack(
@@ -60,177 +61,187 @@ class _MainScreensState extends State<MainScreens> {
             ),
       bottomNavigationBar: homeProvider.isShowCoachMarks
           ? null
-          : BottomNavigationBar(
-              type: BottomNavigationBarType.fixed,
-              elevation: 10,
-              showSelectedLabels: false,
-              showUnselectedLabels: false,
-              currentIndex: homeProvider.pageIdx,
-              backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
-              selectedItemColor:
-                  squirrelCharacter[characterSettingProvider.characterIdx]
-                      ['character_color'],
-              unselectedItemColor: Colors.black54,
-              onTap: (index) {
-                setState(() {
-                  homeProvider.pageIdx = index;
-                });
-              },
-              items: [
-                BottomNavigationBarItem(
-                  icon: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Visibility(
-                        child: Container(
-                          width: 44.w,
-                          height: 44.w,
-                          decoration: BoxDecoration(
-                            color: homeProvider.pageIdx == 0
-                                ? squirrelCharacter[characterSettingProvider
-                                    .characterIdx]['character_color']
-                                : Colors.transparent,
-                            shape: BoxShape.circle,
+          : ClipRRect(
+              borderRadius: BorderRadius.only(
+                topRight: homeProvider.pageIdx == 0
+                    ? const Radius.circular(0)
+                    : Radius.circular(35.w),
+                topLeft: homeProvider.pageIdx == 0
+                    ? const Radius.circular(0)
+                    : Radius.circular(35.w),
+              ),
+              child: BottomNavigationBar(
+                type: BottomNavigationBarType.fixed,
+                elevation: 10.w,
+                showSelectedLabels: false,
+                showUnselectedLabels: false,
+                currentIndex: homeProvider.pageIdx,
+                backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
+                selectedItemColor:
+                    squirrelCharacter[characterSettingProvider.characterIdx]
+                        ['character_color'],
+                unselectedItemColor: Colors.black54,
+                onTap: (index) {
+                  setState(() {
+                    homeProvider.pageIdx = index;
+                  });
+                },
+                items: [
+                  BottomNavigationBarItem(
+                    icon: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Visibility(
+                          child: Container(
+                            width: 44.w,
+                            height: 44.w,
+                            decoration: BoxDecoration(
+                              color: homeProvider.pageIdx == 0
+                                  ? squirrelCharacter[characterSettingProvider
+                                      .characterIdx]['character_color']
+                                  : Colors.transparent,
+                              shape: BoxShape.circle,
+                            ),
                           ),
                         ),
-                      ),
-                      Image.asset(
-                        'assets/icons/calender.png',
-                        width: 30.w,
-                        height: 30.w,
-                        color: homeProvider.pageIdx == 0
-                            ? Colors.white
-                            : squirrelCharacter[characterSettingProvider
-                                .characterIdx]['character_color'],
-                      ),
-                    ],
+                        Image.asset(
+                          'assets/icons/calender.png',
+                          width: 30.w,
+                          height: 30.w,
+                          color: homeProvider.pageIdx == 0
+                              ? Colors.white
+                              : squirrelCharacter[characterSettingProvider
+                                  .characterIdx]['character_color'],
+                        ),
+                      ],
+                    ),
+                    label: '',
                   ),
-                  label: '',
-                ),
-                BottomNavigationBarItem(
-                  icon: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Visibility(
-                        child: Container(
-                          width: 44.w,
-                          height: 44.w,
-                          decoration: BoxDecoration(
-                            color: homeProvider.pageIdx == 1
-                                ? squirrelCharacter[characterSettingProvider
-                                    .characterIdx]['character_color']
-                                : Colors.transparent,
-                            shape: BoxShape.circle,
+                  BottomNavigationBarItem(
+                    icon: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Visibility(
+                          child: Container(
+                            width: 44.w,
+                            height: 44.w,
+                            decoration: BoxDecoration(
+                              color: homeProvider.pageIdx == 1
+                                  ? squirrelCharacter[characterSettingProvider
+                                      .characterIdx]['character_color']
+                                  : Colors.transparent,
+                              shape: BoxShape.circle,
+                            ),
                           ),
                         ),
-                      ),
-                      Image.asset(
-                        // icon!,
-                        'assets/icons/failure-goal.png',
-                        width: 30.w,
-                        height: 30.w,
-                        color: homeProvider.pageIdx == 1
-                            ? Colors.white
-                            : squirrelCharacter[characterSettingProvider
-                                .characterIdx]['character_color'],
-                      ),
-                    ],
+                        Image.asset(
+                          // icon!,
+                          'assets/icons/failure-goal.png',
+                          width: 30.w,
+                          height: 30.w,
+                          color: homeProvider.pageIdx == 1
+                              ? Colors.white
+                              : squirrelCharacter[characterSettingProvider
+                                  .characterIdx]['character_color'],
+                        ),
+                      ],
+                    ),
+                    label: '',
                   ),
-                  label: '',
-                ),
-                BottomNavigationBarItem(
-                  icon: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Visibility(
-                        child: Container(
-                          width: 44.w,
-                          height: 44.w,
-                          decoration: BoxDecoration(
-                            color: homeProvider.pageIdx == 2
-                                ? squirrelCharacter[characterSettingProvider
-                                    .characterIdx]['character_color']
-                                : Colors.transparent,
-                            shape: BoxShape.circle,
+                  BottomNavigationBarItem(
+                    icon: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Visibility(
+                          child: Container(
+                            width: 44.w,
+                            height: 44.w,
+                            decoration: BoxDecoration(
+                              color: homeProvider.pageIdx == 2
+                                  ? squirrelCharacter[characterSettingProvider
+                                      .characterIdx]['character_color']
+                                  : Colors.transparent,
+                              shape: BoxShape.circle,
+                            ),
                           ),
                         ),
-                      ),
-                      Image.asset(
-                        // icon!,
-                        'assets/icons/main-home.png',
-                        width: 30.w,
-                        height: 30.w,
-                        color: homeProvider.pageIdx == 2
-                            ? Colors.white
-                            : squirrelCharacter[characterSettingProvider
-                                .characterIdx]['character_color'],
-                      ),
-                    ],
+                        Image.asset(
+                          // icon!,
+                          'assets/icons/main-home.png',
+                          width: 30.w,
+                          height: 30.w,
+                          color: homeProvider.pageIdx == 2
+                              ? Colors.white
+                              : squirrelCharacter[characterSettingProvider
+                                  .characterIdx]['character_color'],
+                        ),
+                      ],
+                    ),
+                    label: '',
                   ),
-                  label: '',
-                ),
-                BottomNavigationBarItem(
-                  icon: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Visibility(
-                        child: Container(
-                          width: 44.w,
-                          height: 44.w,
-                          decoration: BoxDecoration(
-                            color: homeProvider.pageIdx == 3
-                                ? squirrelCharacter[characterSettingProvider
-                                    .characterIdx]['character_color']
-                                : Colors.transparent,
-                            shape: BoxShape.circle,
+                  BottomNavigationBarItem(
+                    icon: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Visibility(
+                          child: Container(
+                            width: 44.w,
+                            height: 44.w,
+                            decoration: BoxDecoration(
+                              color: homeProvider.pageIdx == 3
+                                  ? squirrelCharacter[characterSettingProvider
+                                      .characterIdx]['character_color']
+                                  : Colors.transparent,
+                              shape: BoxShape.circle,
+                            ),
                           ),
                         ),
-                      ),
-                      Image.asset(
-                        // icon!,
-                        'assets/icons/success-goal.png',
-                        width: 30.w,
-                        height: 30.w,
-                        color: homeProvider.pageIdx == 3
-                            ? Colors.white
-                            : squirrelCharacter[characterSettingProvider
-                                .characterIdx]['character_color'],
-                      ),
-                    ],
+                        Image.asset(
+                          // icon!,
+                          'assets/icons/success-goal.png',
+                          width: 30.w,
+                          height: 30.w,
+                          color: homeProvider.pageIdx == 3
+                              ? Colors.white
+                              : squirrelCharacter[characterSettingProvider
+                                  .characterIdx]['character_color'],
+                        ),
+                      ],
+                    ),
+                    label: '',
                   ),
-                  label: '',
-                ),
-                BottomNavigationBarItem(
-                  icon: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Visibility(
-                        child: Container(
-                          width: 44.w,
-                          height: 44.w,
-                          decoration: BoxDecoration(
-                            color: homeProvider.pageIdx == 4
-                                ? squirrelCharacter[characterSettingProvider
-                                    .characterIdx]['character_color']
-                                : Colors.transparent,
-                            shape: BoxShape.circle,
+                  BottomNavigationBarItem(
+                    icon: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Visibility(
+                          child: Container(
+                            width: 44.w,
+                            height: 44.w,
+                            decoration: BoxDecoration(
+                              color: homeProvider.pageIdx == 4
+                                  ? squirrelCharacter[characterSettingProvider
+                                      .characterIdx]['character_color']
+                                  : Colors.transparent,
+                              shape: BoxShape.circle,
+                            ),
                           ),
                         ),
-                      ),
-                      Image.asset(
-                        'assets/icons/setting.png',
-                        width: 30.w,
-                        height: 30.w,
-                        color: homeProvider.pageIdx == 4
-                            ? Colors.white
-                            : squirrelCharacter[characterSettingProvider
-                                .characterIdx]['character_color'],
-                      ),
-                    ],
+                        Image.asset(
+                          'assets/icons/setting.png',
+                          width: 30.w,
+                          height: 30.w,
+                          color: homeProvider.pageIdx == 4
+                              ? Colors.white
+                              : squirrelCharacter[characterSettingProvider
+                                  .characterIdx]['character_color'],
+                        ),
+                      ],
+                    ),
+                    label: '',
                   ),
-                  label: '',
-                ),
-              ],
+                ],
+              ),
             ),
     );
   }

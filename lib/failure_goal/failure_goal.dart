@@ -27,12 +27,13 @@ class _FailureGoalPageState extends State<FailureGoalPage> {
         padding: EdgeInsets.zero,
         children: [
           SizedBox(
-            height: 94.h,
+            height: 110.h,
             child: Stack(
+              alignment: Alignment.center,
               children: [
                 Positioned(
-                  top: -25.h,
-                  right: -15.w,
+                  top: -20.h,
+                  right: -14.w,
                   child: Image.asset(
                     'assets/icons/spider-web.png',
                     height: 139.h,
@@ -41,8 +42,6 @@ class _FailureGoalPageState extends State<FailureGoalPage> {
                 ),
                 Positioned(
                   top: 57.h,
-                  left: 20.w,
-                  right: 20.w,
                   child: Text(
                     '우울한 숲',
                     textScaleFactor: 1.0,
@@ -80,7 +79,7 @@ class _FailureGoalPageState extends State<FailureGoalPage> {
           //     ],
           //   ),
           // )
-          SizedBox(height: 26.h),
+          SizedBox(height: 15.h),
           FailureCharacterGoalBox(
             characterIdx: 0,
             characterGoal: '낮잠 안 자기',
