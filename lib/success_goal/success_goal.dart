@@ -3,7 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:todo_squirrel/model/squirrel_character.dart';
 import 'package:todo_squirrel/providers/character_setting_provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:todo_squirrel/widget/character_goal_box.dart';
+import 'package:todo_squirrel/widget/failure_character_goal_box.dart';
+import 'package:todo_squirrel/widget/success_character_goal_box.dart';
 
 class SuccessGoalPage extends StatefulWidget {
   const SuccessGoalPage({Key? key}) : super(key: key);
@@ -39,7 +40,7 @@ class _SuccessGoalPageState extends State<SuccessGoalPage> {
             ),
           ),
           SizedBox(height: 35.h),
-          CharacterGoalBox(
+          SuccessCharacterGoalBox(
             characterIdx: 0,
             characterGoal: '낮잠 안 잘거에요',
             characterStartGoal: '2022.03.04',
@@ -47,7 +48,7 @@ class _SuccessGoalPageState extends State<SuccessGoalPage> {
             characterGoalSuccessPercent: double.parse('98'),
           ),
           SizedBox(height: 24.h),
-          CharacterGoalBox(
+          SuccessCharacterGoalBox(
             characterIdx: 1,
             characterGoal: '낮잠 안 자기 >< 낮잠 안 자기낮잠 안 ㅇㄴㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹ자기',
             characterStartGoal: '2022.02.04',
@@ -55,7 +56,7 @@ class _SuccessGoalPageState extends State<SuccessGoalPage> {
             characterGoalSuccessPercent: double.parse('95'),
           ),
           SizedBox(height: 24.h),
-          CharacterGoalBox(
+          SuccessCharacterGoalBox(
             characterIdx: 2,
             characterGoal: '물 많이 마셔야지',
             characterStartGoal: '2022.02.04',
@@ -63,7 +64,7 @@ class _SuccessGoalPageState extends State<SuccessGoalPage> {
             characterGoalSuccessPercent: double.parse('100'),
           ),
           SizedBox(height: 24.h),
-          CharacterGoalBox(
+          SuccessCharacterGoalBox(
             characterIdx: 3,
             characterGoal: '퇴사 시켜줘',
             characterStartGoal: '2022.02.04',
@@ -71,7 +72,7 @@ class _SuccessGoalPageState extends State<SuccessGoalPage> {
             characterGoalSuccessPercent: double.parse('97'),
           ),
           SizedBox(height: 24.h),
-          CharacterGoalBox(
+          SuccessCharacterGoalBox(
             characterIdx: 4,
             characterGoal: '출근 하기',
             characterStartGoal: '2022.05.04',

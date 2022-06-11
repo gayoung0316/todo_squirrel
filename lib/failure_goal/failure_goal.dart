@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:todo_squirrel/model/squirrel_character.dart';
 import 'package:todo_squirrel/providers/character_setting_provider.dart';
-import 'package:todo_squirrel/widget/character_goal_box.dart';
+import 'package:todo_squirrel/widget/failure_character_goal_box.dart';
 
 class FailureGoalPage extends StatefulWidget {
   const FailureGoalPage({Key? key}) : super(key: key);
@@ -81,8 +81,7 @@ class _FailureGoalPageState extends State<FailureGoalPage> {
           //   ),
           // )
           SizedBox(height: 26.h),
-          CharacterGoalBox(
-            isFailGoalCharacter: true,
+          FailureCharacterGoalBox(
             characterIdx: 0,
             characterGoal: '낮잠 안 자기',
             characterStartGoal: '2022.02.04',
@@ -90,8 +89,7 @@ class _FailureGoalPageState extends State<FailureGoalPage> {
             characterGoalSuccessPercent: double.parse('30'),
           ),
           SizedBox(height: 24.h),
-          CharacterGoalBox(
-            isFailGoalCharacter: true,
+          FailureCharacterGoalBox(
             characterIdx: 2,
             characterGoal: '낮잠 안 자기낮잠 안 자기낮잠 안 자기',
             characterStartGoal: '2022.02.04',
@@ -99,8 +97,7 @@ class _FailureGoalPageState extends State<FailureGoalPage> {
             characterGoalSuccessPercent: double.parse('70'),
           ),
           SizedBox(height: 24.h),
-          CharacterGoalBox(
-            isFailGoalCharacter: true,
+          FailureCharacterGoalBox(
             characterIdx: 3,
             characterGoal: '물 많이 마시기',
             characterStartGoal: '2022.02.04',
@@ -108,8 +105,7 @@ class _FailureGoalPageState extends State<FailureGoalPage> {
             characterGoalSuccessPercent: double.parse('90'),
           ),
           SizedBox(height: 24.h),
-          CharacterGoalBox(
-            isFailGoalCharacter: true,
+          FailureCharacterGoalBox(
             characterIdx: 4,
             characterGoal: '퇴사 하기',
             characterStartGoal: '2022.02.04',
@@ -117,8 +113,7 @@ class _FailureGoalPageState extends State<FailureGoalPage> {
             characterGoalSuccessPercent: double.parse('45'),
           ),
           SizedBox(height: 24.h),
-          CharacterGoalBox(
-            isFailGoalCharacter: true,
+          FailureCharacterGoalBox(
             characterIdx: 4,
             characterGoal: '출근 하기',
             characterStartGoal: '2022.02.04',

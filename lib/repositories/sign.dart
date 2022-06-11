@@ -31,7 +31,7 @@ class Sign {
           'token': token,
         },
       );
-
+      log('아ㄴ녕하세요');
       log('안녕 : $response');
 
       return response;

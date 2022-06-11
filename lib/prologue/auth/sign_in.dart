@@ -61,8 +61,9 @@ class _SignInPageState extends State<SignInPage> {
         ],
       );
       log('애플 로그인 성공 : ${credential.identityToken}');
-      
-      var appleToken = await _sign.signIn(platform: 1, token: credential.identityToken!);
+
+      var appleToken =
+          await _sign.signIn(platform: 1, token: credential.identityToken!);
       return appleToken!.data['token'];
     } catch (e) {
       log('애플 로그인 실패 : $e');

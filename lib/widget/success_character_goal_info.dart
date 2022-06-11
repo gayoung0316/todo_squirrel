@@ -4,17 +4,15 @@ import 'package:todo_squirrel/model/squirrel_character.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:todo_squirrel/providers/character_setting_provider.dart';
 
-class CharacterGoalInfoPage extends StatefulWidget {
-  final bool isFailureGoal;
+class SuccessCharacterGoalInfoPage extends StatefulWidget {
   final int characterIdx;
   final String characterStartGoal;
   final String characterEndGoal;
   final String characterGoal;
   final double characterGoalSuccessPercent;
 
-  const CharacterGoalInfoPage({
+  const SuccessCharacterGoalInfoPage({
     Key? key,
-    this.isFailureGoal = false,
     required this.characterIdx,
     required this.characterGoal,
     required this.characterStartGoal,
@@ -23,10 +21,12 @@ class CharacterGoalInfoPage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<CharacterGoalInfoPage> createState() => _CharacterGoalInfoPageState();
+  State<SuccessCharacterGoalInfoPage> createState() =>
+      _SuccessCharacterGoalInfoPageState();
 }
 
-class _CharacterGoalInfoPageState extends State<CharacterGoalInfoPage> {
+class _SuccessCharacterGoalInfoPageState
+    extends State<SuccessCharacterGoalInfoPage> {
   late CharacterSettingProvider characterSettingProvider;
 
   @override
@@ -34,23 +34,17 @@ class _CharacterGoalInfoPageState extends State<CharacterGoalInfoPage> {
     characterSettingProvider = Provider.of<CharacterSettingProvider>(context);
 
     return Scaffold(
-      backgroundColor: widget.isFailureGoal
-          ? squirrelCharacter[characterSettingProvider.characterIdx]
-              ['failure_backcolor']
-          : squirrelCharacter[characterSettingProvider.characterIdx]
-              ['character_color'],
+      backgroundColor: squirrelCharacter[characterSettingProvider.characterIdx]
+          ['character_color'],
       body: Stack(
         children: [
-          Visibility(
-            visible: !widget.isFailureGoal,
-            child: Positioned(
-              top: -10.h,
-              child: Image.asset(
-                'assets/images/success_charact_info_back.png',
-                height: 668.h,
-                width: MediaQuery.of(context).size.width,
-                fit: BoxFit.cover,
-              ),
+          Positioned(
+            top: -10.h,
+            child: Image.asset(
+              'assets/images/success_charact_info_back.png',
+              height: 668.h,
+              width: MediaQuery.of(context).size.width,
+              fit: BoxFit.cover,
             ),
           ),
           Column(
@@ -69,7 +63,7 @@ class _CharacterGoalInfoPageState extends State<CharacterGoalInfoPage> {
                       ),
                     ),
                     Text(
-                      widget.isFailureGoal ? '우울한 숲' : '명예의 전당',
+                      '명예의 전당',
                       textScaleFactor: 1.0,
                       style: TextStyle(
                         color: const Color.fromRGBO(255, 255, 255, 1),
@@ -263,92 +257,90 @@ class _CharacterGoalInfoPageState extends State<CharacterGoalInfoPage> {
                             ),
                           ),
                           SizedBox(height: 40.h),
-                          Visibility(
-                            visible: widget.isFailureGoal,
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                  left: 30.w, right: 20.w, bottom: 30.h),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(
-                                    width: 303.w,
-                                    height: 49.h,
-                                    decoration: BoxDecoration(
-                                      color: squirrelCharacter[
-                                          characterSettingProvider
-                                              .characterIdx]['character_color'],
-                                      borderRadius: BorderRadius.circular(20.w),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: const Color(0x29000000),
-                                          offset: const Offset(1, 2),
-                                          blurRadius: 5.w,
-                                          spreadRadius: 0,
-                                        ),
-                                      ],
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Image.asset(
-                                          'assets/icons/goal-retry.png',
-                                          width: 22.w,
-                                          height: 22.w,
-                                        ),
-                                        SizedBox(width: 9.w),
-                                        Text(
-                                          '목표 재도전',
-                                          textScaleFactor: 1.0,
-                                          style: TextStyle(
-                                            fontSize: 20.sp,
-                                            color: const Color.fromRGBO(
-                                                255, 255, 255, 1),
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                              left: 30.w,
+                              right: 20.w,
+                              bottom: 30.h,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  width: 303.w,
+                                  height: 49.h,
+                                  decoration: BoxDecoration(
+                                    color: squirrelCharacter[
+                                        characterSettingProvider
+                                            .characterIdx]['character_color'],
+                                    borderRadius: BorderRadius.circular(20.w),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: const Color(0x29000000),
+                                        offset: const Offset(1, 2),
+                                        blurRadius: 5.w,
+                                        spreadRadius: 0,
+                                      ),
+                                    ],
                                   ),
-                                  Container(
-                                    width: 61.w,
-                                    height: 50.h,
-                                    decoration: BoxDecoration(
-                                      color: const Color.fromRGBO(
-                                          255, 255, 255, 1),
-                                      borderRadius: BorderRadius.circular(20.w),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: const Color(0x29000000),
-                                          offset: const Offset(1, 2),
-                                          blurRadius: 5.w,
-                                          spreadRadius: 0,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                        'assets/icons/goal-retry.png',
+                                        width: 22.w,
+                                        height: 22.w,
+                                      ),
+                                      SizedBox(width: 9.w),
+                                      Text(
+                                        '목표 재도전',
+                                        textScaleFactor: 1.0,
+                                        style: TextStyle(
+                                          fontSize: 20.sp,
+                                          color: const Color.fromRGBO(
+                                              255, 255, 255, 1),
+                                          fontWeight: FontWeight.w400,
                                         ),
-                                      ],
-                                    ),
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 18.w, vertical: 12.h),
-                                    child: Image.asset(
-                                      'assets/icons/goal-delete.png',
-                                      width: 25.w,
-                                      height: 25.w,
-                                    ),
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
+                                ),
+                                Container(
+                                  width: 61.w,
+                                  height: 50.h,
+                                  decoration: BoxDecoration(
+                                    color:
+                                        const Color.fromRGBO(255, 255, 255, 1),
+                                    borderRadius: BorderRadius.circular(20.w),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: const Color(0x29000000),
+                                        offset: const Offset(1, 2),
+                                        blurRadius: 5.w,
+                                        spreadRadius: 0,
+                                      ),
+                                    ],
+                                  ),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 18.w, vertical: 12.h),
+                                  child: Image.asset(
+                                    'assets/icons/goal-delete.png',
+                                    width: 25.w,
+                                    height: 25.w,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ],
                       ),
                     ),
                     Positioned(
-                      top: widget.isFailureGoal ? 0.h : 70.h,
+                      top: 70.h,
                       child: Image.asset(
-                        'assets/images/${widget.isFailureGoal ? 'failure' : 'success'}_goal_info_character_${widget.characterIdx}.png',
-                        width: !widget.isFailureGoal ? 280.w : 250.w,
-                        height: !widget.isFailureGoal ? 316.h : 415.h,
+                        'assets/images/success_goal_info_character_${widget.characterIdx}.png',
+                        width: 280.w,
+                        height: 316.h,
                       ),
                     ),
                   ],

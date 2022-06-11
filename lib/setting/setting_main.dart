@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_switch/flutter_switch.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:todo_squirrel/model/squirrel_character.dart';
@@ -51,10 +52,23 @@ class _SettingMainPageState extends State<SettingMainPage> {
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-                Container(
+                FlutterSwitch(
                   width: 60.w,
                   height: 34.h,
-                  color: Colors.white,
+                  toggleSize: 26.w,
+                  value: true,
+                  borderRadius: 17.w,
+                  padding: 4.w,
+                  showOnOff: true,
+                  onToggle: (val) {},
+                  activeToggleColor:
+                      squirrelCharacter[characterSettingProvider.characterIdx]
+                          ['character_color'],
+                  activeColor: const Color.fromRGBO(255, 255, 255, 1),
+                  inactiveToggleColor: const Color.fromRGBO(255, 255, 255, 1),
+                  inactiveColor: const Color.fromRGBO(211, 211, 211, 1),
+                  activeText: '',
+                  inactiveText: '',
                 ),
               ],
             ),
@@ -73,14 +87,68 @@ class _SettingMainPageState extends State<SettingMainPage> {
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-                Container(
+                FlutterSwitch(
                   width: 60.w,
                   height: 34.h,
-                  color: Colors.white,
+                  toggleSize: 26.w,
+                  value: false,
+                  borderRadius: 17.w,
+                  padding: 4.w,
+                  showOnOff: true,
+                  onToggle: (val) {},
+                  activeToggleColor:
+                      squirrelCharacter[characterSettingProvider.characterIdx]
+                          ['character_color'],
+                  activeColor: const Color.fromRGBO(255, 255, 255, 1),
+                  inactiveToggleColor: const Color.fromRGBO(255, 255, 255, 1),
+                  inactiveColor: const Color.fromRGBO(211, 211, 211, 1),
+                  activeText: '',
+                  inactiveText: '',
                 ),
               ],
             ),
-          )
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 400.h),
+            child: Text(
+              '로그아웃',
+              textAlign: TextAlign.center,
+              textScaleFactor: 1.0,
+              style: TextStyle(
+                color: const Color.fromRGBO(255, 255, 255, 1),
+                fontSize: 20.sp,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 44.h),
+            child: Column(
+              children: [
+                Text(
+                  '버전 정보',
+                  textAlign: TextAlign.center,
+                  textScaleFactor: 1.0,
+                  style: TextStyle(
+                    color: const Color.fromRGBO(255, 255, 255, 0.4),
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                SizedBox(height: 7.h),
+                Text(
+                  'Powered by Junfman',
+                  textAlign: TextAlign.center,
+                  textScaleFactor: 1.0,
+                  style: TextStyle(
+                    color: const Color.fromRGBO(255, 255, 255, 0.4),
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
