@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:todo_squirrel/model/squirrel_character.dart';
 import 'package:todo_squirrel/providers/character_setting_provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:todo_squirrel/widget/failure_character_goal_box.dart';
 import 'package:todo_squirrel/widget/success_character_goal_box.dart';
 
 class SuccessGoalPage extends StatefulWidget {

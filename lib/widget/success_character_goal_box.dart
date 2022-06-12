@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swipe_action_cell/core/controller.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:todo_squirrel/widget/failure_character_goal_info.dart';
 import 'package:todo_squirrel/model/squirrel_character.dart';
 import 'package:todo_squirrel/providers/character_setting_provider.dart';
 import 'package:todo_squirrel/widget/success_character_goal_info.dart';
