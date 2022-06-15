@@ -78,7 +78,7 @@ class _CharacterNameGoalSettingPageState
                           ),
                         ),
                         Positioned(
-                          bottom: 0,
+                          bottom: 2.h,
                           left: 46.w,
                           child: ClipPath(
                             clipper: TriangleClipper(),

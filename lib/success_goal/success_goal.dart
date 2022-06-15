@@ -23,6 +23,7 @@ class _SuccessGoalPageState extends State<SuccessGoalPage> {
       backgroundColor: squirrelCharacter[characterSettingProvider.characterIdx]
           ['character_color'],
       body: ListView(
+        physics: const BouncingScrollPhysics(),
         padding: EdgeInsets.zero,
         children: [
           Padding(
@@ -38,47 +39,48 @@ class _SuccessGoalPageState extends State<SuccessGoalPage> {
               ),
             ),
           ),
-          SizedBox(height: 35.h),
-          SuccessCharacterGoalBox(
-            characterIdx: 0,
-            characterGoal: '낮잠 안 잘거에요',
-            characterStartGoal: '2022.03.04',
-            characterEndGoal: '2022.04.14',
-            characterGoalSuccessPercent: double.parse('98'),
-          ),
-          SizedBox(height: 24.h),
-          SuccessCharacterGoalBox(
-            characterIdx: 1,
-            characterGoal: '낮잠 안 자기 >< 낮잠 안 자기낮잠 안 ㅇㄴㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹ자기',
-            characterStartGoal: '2022.02.04',
-            characterEndGoal: '2022.02.28',
-            characterGoalSuccessPercent: double.parse('95'),
-          ),
-          SizedBox(height: 24.h),
-          SuccessCharacterGoalBox(
-            characterIdx: 2,
-            characterGoal: '물 많이 마셔야지',
-            characterStartGoal: '2022.02.04',
-            characterEndGoal: '2022.02.17',
-            characterGoalSuccessPercent: double.parse('100'),
-          ),
-          SizedBox(height: 24.h),
-          SuccessCharacterGoalBox(
-            characterIdx: 3,
-            characterGoal: '퇴사 시켜줘',
-            characterStartGoal: '2022.02.04',
-            characterEndGoal: '2022.02.26',
-            characterGoalSuccessPercent: double.parse('97'),
-          ),
-          SizedBox(height: 24.h),
-          SuccessCharacterGoalBox(
-            characterIdx: 4,
-            characterGoal: '출근 하기',
-            characterStartGoal: '2022.05.04',
-            characterEndGoal: '2022.05.28',
-            characterGoalSuccessPercent: double.parse('90'),
-          ),
-          SizedBox(height: 24.h),
+          successGoalListEmptyWidget(),
+          // SizedBox(height: 35.h),
+          // SuccessCharacterGoalBox(
+          //   characterIdx: 0,
+          //   characterGoal: '낮잠 안 잘거에요',
+          //   characterStartGoal: '2022.03.04',
+          //   characterEndGoal: '2022.04.14',
+          //   characterGoalSuccessPercent: double.parse('98'),
+          // ),
+          // SizedBox(height: 24.h),
+          // SuccessCharacterGoalBox(
+          //   characterIdx: 1,
+          //   characterGoal: '낮잠 안 자기 >< 낮잠 안 자기낮잠 안 ㅇㄴㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹ자기',
+          //   characterStartGoal: '2022.02.04',
+          //   characterEndGoal: '2022.02.28',
+          //   characterGoalSuccessPercent: double.parse('95'),
+          // ),
+          // SizedBox(height: 24.h),
+          // SuccessCharacterGoalBox(
+          //   characterIdx: 2,
+          //   characterGoal: '물 많이 마셔야지',
+          //   characterStartGoal: '2022.02.04',
+          //   characterEndGoal: '2022.02.17',
+          //   characterGoalSuccessPercent: double.parse('100'),
+          // ),
+          // SizedBox(height: 24.h),
+          // SuccessCharacterGoalBox(
+          //   characterIdx: 3,
+          //   characterGoal: '퇴사 시켜줘',
+          //   characterStartGoal: '2022.02.04',
+          //   characterEndGoal: '2022.02.26',
+          //   characterGoalSuccessPercent: double.parse('97'),
+          // ),
+          // SizedBox(height: 24.h),
+          // SuccessCharacterGoalBox(
+          //   characterIdx: 4,
+          //   characterGoal: '출근 하기',
+          //   characterStartGoal: '2022.05.04',
+          //   characterEndGoal: '2022.05.28',
+          //   characterGoalSuccessPercent: double.parse('90'),
+          // ),
+          // SizedBox(height: 100.h),
         ],
       ),
     );
@@ -87,11 +89,11 @@ class _SuccessGoalPageState extends State<SuccessGoalPage> {
   Widget successGoalListEmptyWidget() {
     return Column(
       children: [
-        Container(
+        SizedBox(height: 190.h),
+        Image.asset(
+          'assets/images/success_goal_empty.png',
           height: 270.h,
           width: 260.w,
-          color: Colors.white,
-          margin: EdgeInsets.only(top: 190.h),
         ),
         SizedBox(height: 9.h),
         Text(

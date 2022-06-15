@@ -119,7 +119,7 @@ class _FailureGoalPageState extends State<FailureGoalPage> {
             characterEndGoal: '2022.02.14',
             characterGoalSuccessPercent: double.parse('15'),
           ),
-          SizedBox(height: 24.h),
+          SizedBox(height: 100.h),
         ],
       ),
     );

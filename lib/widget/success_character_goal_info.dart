@@ -84,7 +84,7 @@ class _SuccessCharacterGoalInfoPageState
                   alignment: Alignment.bottomCenter,
                   children: [
                     Container(
-                      height: 346.h,
+                      height: 440.h,
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
                         color: const Color.fromRGBO(255, 255, 255, 1),
@@ -251,82 +251,6 @@ class _SuccessCharacterGoalInfoPageState
                                             .characterIdx]['character_color'],
                                     fontSize: 20.sp,
                                     fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: 40.h),
-                          Padding(
-                            padding: EdgeInsets.only(
-                              left: 30.w,
-                              right: 20.w,
-                              bottom: 30.h,
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  width: 303.w,
-                                  height: 49.h,
-                                  decoration: BoxDecoration(
-                                    color: squirrelCharacter[
-                                        characterSettingProvider
-                                            .characterIdx]['character_color'],
-                                    borderRadius: BorderRadius.circular(20.w),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: const Color(0x29000000),
-                                        offset: const Offset(1, 2),
-                                        blurRadius: 5.w,
-                                        spreadRadius: 0,
-                                      ),
-                                    ],
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Image.asset(
-                                        'assets/icons/goal-retry.png',
-                                        width: 22.w,
-                                        height: 22.w,
-                                      ),
-                                      SizedBox(width: 9.w),
-                                      Text(
-                                        '목표 재도전',
-                                        textScaleFactor: 1.0,
-                                        style: TextStyle(
-                                          fontSize: 20.sp,
-                                          color: const Color.fromRGBO(
-                                              255, 255, 255, 1),
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  width: 61.w,
-                                  height: 50.h,
-                                  decoration: BoxDecoration(
-                                    color:
-                                        const Color.fromRGBO(255, 255, 255, 1),
-                                    borderRadius: BorderRadius.circular(20.w),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: const Color(0x29000000),
-                                        offset: const Offset(1, 2),
-                                        blurRadius: 5.w,
-                                        spreadRadius: 0,
-                                      ),
-                                    ],
-                                  ),
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 18.w, vertical: 12.h),
-                                  child: Image.asset(
-                                    'assets/icons/goal-delete.png',
-                                    width: 25.w,
-                                    height: 25.w,
                                   ),
                                 ),
                               ],

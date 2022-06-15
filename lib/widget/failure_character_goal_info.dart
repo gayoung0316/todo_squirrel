@@ -73,7 +73,7 @@ class _FailureCharacterGoalInfoPageState
               alignment: Alignment.bottomCenter,
               children: [
                 Container(
-                  height: 346.h,
+                  height: 440.h,
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                     color: const Color.fromRGBO(255, 255, 255, 1),
@@ -318,6 +318,7 @@ class _FailureCharacterGoalInfoPageState
                           ],
                         ),
                       ),
+                      SizedBox(height: 100.h),
                     ],
                   ),
                 ),
