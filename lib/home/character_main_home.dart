@@ -18,6 +18,8 @@ class _MainHomePageState extends State<MainHomePage> {
   late CharacterSettingProvider characterSettingProvider;
   late HomeProvider homeProvider;
 
+  int nowHour = DateTime.now().hour;
+
   int textlines(String text) {
     final TextPainter textPainter = TextPainter(
       text: TextSpan(
@@ -100,7 +102,7 @@ class _MainHomePageState extends State<MainHomePage> {
                     homeProvider.characterGoalCheckController.open();
                   },
                   child: Image.asset(
-                    'assets/images/character_select_squirrel_${characterSettingProvider.characterIdx}.png',
+                    'assets/images/${nowHour >=6 && nowHour < 8 ? 'character_evening_squirrel_' : 'character_select_squirrel_'}${characterSettingProvider.characterIdx}.png',
                     width: 260.w,
                     height: 260.w,
                   ),

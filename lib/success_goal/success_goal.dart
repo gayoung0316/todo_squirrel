@@ -28,14 +28,17 @@ class _SuccessGoalPageState extends State<SuccessGoalPage> {
         children: [
           Padding(
             padding: EdgeInsets.only(top: 54.h),
-            child: Text(
-              '명예의 전당',
-              textScaleFactor: 1.0,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: const Color.fromRGBO(255, 255, 255, 1),
-                fontWeight: FontWeight.w700,
-                fontSize: 24.sp,
+            child: SizedBox(
+              height: 31.h,
+              child: Text(
+                '명예의 전당',
+                textScaleFactor: 1.0,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: const Color.fromRGBO(255, 255, 255, 1),
+                  fontWeight: FontWeight.w700,
+                  fontSize: 24.sp,
+                ),
               ),
             ),
           ),

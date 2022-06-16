@@ -41,15 +41,18 @@ class _FailureGoalPageState extends State<FailureGoalPage> {
                   ),
                 ),
                 Positioned(
-                  top: 57.h,
-                  child: Text(
-                    '우울한 숲',
-                    textScaleFactor: 1.0,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: const Color.fromRGBO(255, 255, 255, 1),
-                      fontSize: 24.sp,
-                      fontWeight: FontWeight.w800,
+                  top: 54.h,
+                  child: SizedBox(
+                    height: 31.h,
+                    child: Text(
+                      '우울한 숲',
+                      textScaleFactor: 1.0,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: const Color.fromRGBO(255, 255, 255, 1),
+                        fontSize: 24.sp,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
                 ),

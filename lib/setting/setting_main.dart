@@ -14,6 +14,8 @@ class SettingMainPage extends StatefulWidget {
 
 class _SettingMainPageState extends State<SettingMainPage> {
   late CharacterSettingProvider characterSettingProvider;
+  bool backgroundSoundOnOff = true;
+  bool pushAlarmOnOff = false;
 
   @override
   Widget build(BuildContext context) {
@@ -26,15 +28,18 @@ class _SettingMainPageState extends State<SettingMainPage> {
         padding: EdgeInsets.zero,
         children: [
           Padding(
-            padding: EdgeInsets.only(top: 57.h),
-            child: Text(
-              '환경설정',
-              textScaleFactor: 1.0,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: const Color.fromRGBO(255, 255, 255, 1),
-                fontSize: 24.sp,
-                fontWeight: FontWeight.w700,
+            padding: EdgeInsets.only(top: 54.h),
+            child: SizedBox(
+              height: 31.h,
+              child: Text(
+                '환경설정',
+                textScaleFactor: 1.0,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: const Color.fromRGBO(255, 255, 255, 1),
+                  fontSize: 24.sp,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ),
           ),
@@ -56,11 +61,15 @@ class _SettingMainPageState extends State<SettingMainPage> {
                   width: 60.w,
                   height: 34.h,
                   toggleSize: 26.w,
-                  value: true,
+                  value: backgroundSoundOnOff,
                   borderRadius: 17.w,
                   padding: 4.w,
-                  showOnOff: true,
-                  onToggle: (val) {},
+                  showOnOff: false,
+                  onToggle: (val) {
+                    setState(() {
+                      backgroundSoundOnOff = !backgroundSoundOnOff;
+                    });
+                  },
                   activeToggleColor:
                       squirrelCharacter[characterSettingProvider.characterIdx]
                           ['character_color'],
@@ -91,11 +100,15 @@ class _SettingMainPageState extends State<SettingMainPage> {
                   width: 60.w,
                   height: 34.h,
                   toggleSize: 26.w,
-                  value: false,
+                  value: pushAlarmOnOff,
                   borderRadius: 17.w,
                   padding: 4.w,
                   showOnOff: true,
-                  onToggle: (val) {},
+                  onToggle: (val) {
+                    setState(() {
+                      pushAlarmOnOff = !pushAlarmOnOff;
+                    });
+                  },
                   activeToggleColor:
                       squirrelCharacter[characterSettingProvider.characterIdx]
                           ['character_color'],

@@ -116,9 +116,11 @@ class _FailureCharacterGoalBoxState extends State<FailureCharacterGoalBox> {
               borderRadius: BorderRadius.circular(10.w),
               color: const Color.fromRGBO(255, 255, 255, 1),
             ),
-            child: const Icon(
-              Icons.face,
-              color: Colors.black,
+            padding: EdgeInsets.all(14.w),
+            child: Image.asset(
+              'assets/icons/goal-delete.png',
+              width: 16.w,
+              height: 16.w,
             ),
           ),
           color: Colors.transparent,
@@ -263,10 +265,13 @@ class _FailureCharacterGoalBoxState extends State<FailureCharacterGoalBox> {
               borderRadius: BorderRadius.circular(10.w),
               color: const Color.fromRGBO(255, 255, 255, 1),
             ),
-            child: const Icon(
-              Icons.favorite,
-              color: Colors.black,
-            ),
+            padding: EdgeInsets.all(14.w),
+            child: Image.asset(
+              'assets/icons/goal-restart.png',
+              height: 16.w,
+              width: 16.w,
+              color: const Color.fromRGBO(29, 232, 182, 1),
+            )
           ),
           color: Colors.transparent,
         ),
@@ -295,7 +300,7 @@ class _FailureCharacterGoalBoxState extends State<FailureCharacterGoalBox> {
             bottom: 23.h,
             left: 34.w,
           ),
-          decoration: BoxDecoration(
+          decoration:  BoxDecoration(
             color: const Color.fromRGBO(255, 255, 255, 1),
             borderRadius: BorderRadius.circular(20.w),
             boxShadow: [
