@@ -92,7 +92,7 @@ class _MainScreensState extends State<MainScreens> {
                   unselectedItemColor: Colors.black54,
                   onTap: (index) {
                     setState(() {
-                      homeProvider.pageIdx = index;
+                      homeProvider.setPageIdx(index);
                     });
                   },
                   items: [

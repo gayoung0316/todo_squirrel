@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:todo_squirrel/model/squirrel_character.dart';
 import 'package:todo_squirrel/providers/character_setting_provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:todo_squirrel/providers/goal_list_provider.dart';
 import 'package:todo_squirrel/widget/success_character_goal_box.dart';
 
 class SuccessGoalPage extends StatefulWidget {
@@ -14,10 +15,20 @@ class SuccessGoalPage extends StatefulWidget {
 
 class _SuccessGoalPageState extends State<SuccessGoalPage> {
   late CharacterSettingProvider characterSettingProvider;
+  late GoalListProvider goalListProvider;
+
+  @override
+  void initState() {
+    WidgetsBinding.instance!.addPostFrameCallback((_) async {
+      context.read<GoalListProvider>().getSuccessGoalList(state: 1);
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     characterSettingProvider = Provider.of<CharacterSettingProvider>(context);
+    goalListProvider = Provider.of<GoalListProvider>(context);
 
     return Scaffold(
       backgroundColor: squirrelCharacter[characterSettingProvider.characterIdx]
@@ -42,7 +53,25 @@ class _SuccessGoalPageState extends State<SuccessGoalPage> {
               ),
             ),
           ),
-          successGoalListEmptyWidget(),
+          goalListProvider.successGoalList.isEmpty 
+          ? successGoalListEmptyWidget()
+          : Column(
+            children: [
+              SizedBox(height: 35.h),
+              ...goalListProvider.successGoalList.map((item) {
+                return SuccessCharacterGoalBox(
+                  characterIdx: item['char'],
+                  characterGoal: item['goal'],
+                  characterStartGoal: item['created_at'].split('T')[0].replace('-', '.'),
+                  characterEndGoal: item['finish_date'].split('T')[0].replace('-', '.'),
+                  characterGoalSuccessPercent: double.parse('98'),
+                );
+              }),
+              SizedBox(height: 100.h),
+            ],
+          )
+          
+
           // SizedBox(height: 35.h),
           // SuccessCharacterGoalBox(
           //   characterIdx: 0,

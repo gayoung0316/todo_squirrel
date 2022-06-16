@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_squirrel/providers/character_setting_provider.dart';
+import 'package:todo_squirrel/providers/goal_list_provider.dart';
 import 'package:todo_squirrel/providers/home_provider.dart';
 import 'package:todo_squirrel/prologue/splash_page.dart';
 
@@ -16,6 +17,9 @@ void main() {
         ),
         ChangeNotifierProvider(
           create: (_) => HomeProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => GoalListProvider(),
         ),
       ],
       child: const MyApp(),

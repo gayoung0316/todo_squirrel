@@ -7,6 +7,7 @@ import 'package:todo_squirrel/home/home_screen.dart';
 import 'package:todo_squirrel/model/squirrel_character.dart';
 import 'package:todo_squirrel/providers/character_setting_provider.dart';
 import 'package:todo_squirrel/providers/home_provider.dart';
+import 'package:todo_squirrel/repositories/todo.dart';
 
 class CharacterSettingInfo extends StatefulWidget {
   const CharacterSettingInfo({Key? key}) : super(key: key);
@@ -19,11 +20,11 @@ class _CharacterSettingInfoState extends State<CharacterSettingInfo> {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   late CharacterSettingProvider characterSettingProvider;
   late HomeProvider homeProvider;
+  final ToDo _toDo = ToDo();
 
   @override
   Widget build(BuildContext context) {
     characterSettingProvider = Provider.of<CharacterSettingProvider>(context);
-    // homeProvider = Provider.of<HomeProvider>(context);
     homeProvider = Provider.of<HomeProvider>(context);
 
     return Scaffold(
@@ -127,15 +128,25 @@ class _CharacterSettingInfoState extends State<CharacterSettingInfo> {
                       homeProvider.isShowCoachMarks = true;
                       homeProvider.coachMarksNumber = 1;
                     }
-
-                    homeProvider.pageIdx = 2;
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const HomeScreenPage(),
-                      ),
-                      (route) => false,
+                    
+                    var result = await _toDo.setToDoList(
+                      characterIdx: characterSettingProvider.characterIdx, 
+                      goal: characterSettingProvider.characterGoal, 
+                      characterName: characterSettingProvider.characterName, 
+                      pushAlarm: '${characterSettingProvider.characterHour}:${characterSettingProvider.characterMinute}:00', 
+                      finishDate: characterSettingProvider.characterEndDate.toString().split(' ')[0],
                     );
+
+                    if(result!.data['success']) {
+                      homeProvider.setPageIdx(2);
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const HomeScreenPage(),
+                        ),
+                        (route) => false,
+                      );
+                    }
                   },
                   child: Container(
                     width: 112.w,
