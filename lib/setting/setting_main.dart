@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_squirrel/model/squirrel_character.dart';
+import 'package:todo_squirrel/prologue/auth/sign_in.dart';
 import 'package:todo_squirrel/providers/character_setting_provider.dart';
 
 class SettingMainPage extends StatefulWidget {
@@ -123,14 +125,28 @@ class _SettingMainPageState extends State<SettingMainPage> {
           ),
           Padding(
             padding: EdgeInsets.only(top: 420.h),
-            child: Text(
-              '로그아웃',
-              textAlign: TextAlign.center,
-              textScaleFactor: 1.0,
-              style: TextStyle(
-                color: const Color.fromRGBO(255, 255, 255, 1),
-                fontSize: 20.sp,
-                fontWeight: FontWeight.w700,
+            child: InkWell(
+              onTap: () async {
+                final prefs = await SharedPreferences.getInstance();
+                await prefs.remove('login-token');
+
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SignInPage(),
+                  ),
+                  (route) => false,
+                );
+              },
+              child: Text(
+                '로그아웃',
+                textAlign: TextAlign.center,
+                textScaleFactor: 1.0,
+                style: TextStyle(
+                  color: const Color.fromRGBO(255, 255, 255, 1),
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ),
           ),

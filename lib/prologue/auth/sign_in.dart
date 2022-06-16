@@ -3,9 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:todo_squirrel/character_setting/character_select.dart';
+import 'package:todo_squirrel/home/home_screen.dart';
+import 'package:todo_squirrel/providers/character_setting_provider.dart';
+import 'package:todo_squirrel/providers/home_provider.dart';
 import 'package:todo_squirrel/repositories/sign.dart';
 
 GoogleSignIn _googleSignIn = GoogleSignIn(
@@ -25,6 +29,8 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   final Sign _sign = Sign();
+  late CharacterSettingProvider characterSettingProvider;
+  late HomeProvider homeProvider;
 
   Future<String> _googleLogIn() async {
     try {
@@ -82,6 +88,9 @@ class _SignInPageState extends State<SignInPage> {
 
   @override
   Widget build(BuildContext context) {
+    homeProvider = Provider.of<HomeProvider>(context);
+    characterSettingProvider = Provider.of<CharacterSettingProvider>(context);
+    
     return Scaffold(
       body: ListView(
         padding: EdgeInsets.zero,
@@ -219,6 +228,16 @@ class _SignInPageState extends State<SignInPage> {
             context,
             MaterialPageRoute(
               builder: (context) => const CharacterSelectPage(),
+            ),
+            (route) => false,
+          );
+        } else {
+          homeProvider.setPageIdx(2);
+          characterSettingProvider.setCharacterSettingInfo(state: 0);
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const HomeScreenPage(),
             ),
             (route) => false,
           );
