@@ -83,8 +83,7 @@ class _MainHomePageState extends State<MainHomePage> {
                     ),
                     alignment: Alignment.center,
                     child: Text(
-                      // '3일째 도전중',
-                      '${characterSettingProvider.characterStartDate.difference(DateTime.now()).inDays + 1}일째 도전 중',
+                      '${DateTime.now().difference(characterSettingProvider.characterStartDate).inDays + 1}일째 도전 중',
                       textScaleFactor: 1,
                       style: TextStyle(
                         color: const Color.fromRGBO(255, 255, 255, 1),

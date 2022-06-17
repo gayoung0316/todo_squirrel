@@ -4,18 +4,27 @@ import 'package:todo_squirrel/repositories/todo.dart';
 class CharacterSettingProvider extends ChangeNotifier {
   final ToDo _toDo = ToDo();
 
-  void setCharacterSettingInfo({required int state}) async {
+  bool _successGetCharacterSettingInfo = false;
+  bool get successGetCharacterSettingInfo => _successGetCharacterSettingInfo;
+  Future<void> setCharacterSettingInfo({required int state}) async {
     var result = await _toDo.getToDoList(state: state);
 
     if(result!.data['success']) {
-      _characterIdx = result.data['todo'][0]['char'];
-      _characterGoal = result.data['todo'][0]['goal'];
-      _characterName = result.data['todo'][0]['name'];
-      _characterStartDate = DateTime.parse(result.data['todo'][0]['created_at'].split('T')[0]);
-      _characterEndDate = DateTime.parse(result.data['todo'][0]['finish_date'].split('T')[0]);
-      _characterHour = int.parse(result.data['todo'][0]['alarm'].split(':')[0]);
-      _characterMinute = int.parse(result.data['todo'][0]['alarm'].split(':')[1].split(':')[0]);
-      _characterRangeDate = _characterEndDate.difference(_characterStartDate).inDays;
+      if(result.data['todo'].isNotEmpty) {
+        _successGetCharacterSettingInfo = true;
+        _characterIdx = result.data['todo'][0]['char'];
+        _characterGoal = result.data['todo'][0]['goal'];
+        _characterName = result.data['todo'][0]['name'];
+        _characterStartDate = DateTime.parse(result.data['todo'][0]['created_at'].split('T')[0]);
+        _characterEndDate = DateTime.parse(result.data['todo'][0]['finish_date'].split('T')[0]);
+        _characterHour = int.parse(result.data['todo'][0]['alarm'].split(':')[0]);
+        _characterMinute = int.parse(result.data['todo'][0]['alarm'].split(':')[1].split(':')[0]);
+        _characterRangeDate = _characterEndDate.difference(_characterStartDate).inDays;
+      } else {
+        _successGetCharacterSettingInfo = false;  
+      }
+    } else {
+      _successGetCharacterSettingInfo = false;
     }
 
     notifyListeners();

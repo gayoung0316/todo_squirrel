@@ -1,8 +1,24 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
+import 'package:flutter_pretty_dio_logger/flutter_pretty_dio_logger.dart';
 
 class Sign {
   final Dio _dio = Dio();
+
+  Sign() {
+    _dio.interceptors.add(
+      PrettyDioLogger(
+        requestHeader: true,
+        queryParameters: true,
+        requestBody: true,
+        responseHeader: true,
+        responseBody: true,
+        error: true,
+        showProcessingTime: true,
+        canShowLog: true,
+      ),
+    );
+  }
 
   Future<Response?> signIn(
       {required int platform, required String token}) async {

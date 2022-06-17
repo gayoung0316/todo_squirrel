@@ -222,22 +222,23 @@ class _SignInPageState extends State<SignInPage> {
           }
         }
 
-        var loginToken = prefs.getString('login-token');
-        if (loginToken != null) {
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const CharacterSelectPage(),
-            ),
-            (route) => false,
-          );
-        } else {
+        await characterSettingProvider.setCharacterSettingInfo(state: 0);
+
+        if(characterSettingProvider.successGetCharacterSettingInfo) {
           homeProvider.setPageIdx(2);
-          characterSettingProvider.setCharacterSettingInfo(state: 0);
+          
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
               builder: (context) => const HomeScreenPage(),
+            ),
+            (route) => false,
+          );
+        } else {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const CharacterSelectPage(),
             ),
             (route) => false,
           );
