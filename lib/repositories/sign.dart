@@ -20,10 +20,8 @@ class Sign {
     );
   }
 
-  Future<Response?> signIn(
-      {required int platform, required String token}) async {
+  Future<Response?> signIn({required int platform, required String token}) async {
     try {
-      log('api 연결용 토큰 : $token');
       const url = "http://13.209.77.164:4001/api/v1/user/login";
       Options options = Options(contentType: 'application/json');
       final response = await _dio.post(

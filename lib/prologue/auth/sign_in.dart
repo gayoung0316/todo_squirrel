@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -124,13 +125,16 @@ class _SignInPageState extends State<SignInPage> {
             loginType: 1,
             loginTypeName: '구글',
           ),
-          SizedBox(height: 26.h),
-          loginPlatformButton(
-            context: context,
-            loginType: 2,
-            loginTypeName: 'Apple',
+          SizedBox(height: Platform.isIOS ? 26.h : 36.h),
+          Visibility(
+            visible: Platform.isIOS,
+            child: loginPlatformButton(
+              context: context,
+              loginType: 2,
+              loginTypeName: 'Apple',
+            ),
           ),
-          SizedBox(height: 36.h),
+          SizedBox(height: Platform.isIOS ? 36.h : 0),
           Column(
             children: [
               Text(
