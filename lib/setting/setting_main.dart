@@ -129,6 +129,7 @@ class _SettingMainPageState extends State<SettingMainPage> {
               onTap: () async {
                 final prefs = await SharedPreferences.getInstance();
                 await prefs.remove('login-token');
+                await prefs.remove('setCharacterToDo');
 
                 Navigator.pushAndRemoveUntil(
                   context,

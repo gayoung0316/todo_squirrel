@@ -35,7 +35,7 @@ class _CharacterSelectPageState extends State<CharacterSelectPage> {
                 '캐릭터 선택',
                 textScaleFactor: 1.0,
                 style: TextStyle(
-                  fontSize: 20.sp,
+                  fontSize: 24.sp,
                   fontWeight: FontWeight.w800,
                 ),
               ),

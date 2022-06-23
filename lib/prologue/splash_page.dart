@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:todo_squirrel/character_setting/character_select.dart';
 import 'package:todo_squirrel/home/home_screen.dart';
 import 'package:todo_squirrel/prologue/onboarding.dart';
 import 'package:todo_squirrel/providers/character_setting_provider.dart';
@@ -23,13 +24,17 @@ class _SplashPageState extends State<SplashPage> {
   void getUserLoginToken() async {
     final SharedPreferences prefs = await _prefs;
     var userLoginToken = prefs.getString('login-token');
+    final bool setCharacterToDo = prefs.getBool('setCharacterToDo') ?? false;
 
     log('사용자의 로그인 토큰 : $userLoginToken');
+    log('사용자의 캐릭터 투두리스트 생성 여부 : $setCharacterToDo');
 
-    if(userLoginToken != null) {
+    if (userLoginToken != null && setCharacterToDo) {
       WidgetsBinding.instance!.addPostFrameCallback((_) async {
         context.read<HomeProvider>().setPageIdx(2);
-        context.read<CharacterSettingProvider>().setCharacterSettingInfo(state: 0);
+        context
+            .read<CharacterSettingProvider>()
+            .setCharacterSettingInfo(state: 0);
       });
     }
   }
@@ -37,16 +42,25 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     getUserLoginToken();
-    
+
     Timer(const Duration(milliseconds: 3000), () async {
       final SharedPreferences prefs = await _prefs;
       var userLoginToken = prefs.getString('login-token');
-      
+      final bool setCharacterToDo = prefs.getBool('setCharacterToDo') ?? false;
+
       if (userLoginToken == null) {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
             builder: (context) => const OnboardingPage(),
+          ),
+          (route) => false,
+        );
+      } else if (!setCharacterToDo) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const CharacterSelectPage(),
           ),
           (route) => false,
         );

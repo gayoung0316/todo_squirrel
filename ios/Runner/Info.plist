@@ -45,6 +45,8 @@
 	<string>313453dcd00af72db1ed29fa43ba57e5</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+		<string>https</string>	
+		<string>http</string>
 		<string>kakaokompassauth</string>
 		<string>kakaolink</string>
 	</array>

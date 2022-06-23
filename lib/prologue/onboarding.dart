@@ -67,12 +67,29 @@ class _OnboardingPageState extends State<OnboardingPage> {
                         builder: (context) => const SignInPage(),
                       ),
                     ),
-                    child: Text(
-                      '시작하기',
-                      textScaleFactor: 1.0,
-                      style: TextStyle(
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.w800,
+                    child: Container(
+                      width: 112.w,
+                      height: 42.h,
+                      decoration: BoxDecoration(
+                        color: const Color.fromRGBO(255, 255, 255, 1),
+                        borderRadius: BorderRadius.circular(21.w),
+                        boxShadow: [
+                          BoxShadow(
+                            color: const Color.fromRGBO(0, 0, 0, 0.16),
+                            offset: const Offset(1, 2),
+                            blurRadius: 6.w,
+                            spreadRadius: 0,
+                          ),
+                        ],
+                      ),
+                      alignment: Alignment.center,
+                      child: Text(
+                        '시작하기',
+                        textScaleFactor: 1.0,
+                        style: TextStyle(
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.w800,
+                        ),
                       ),
                     ),
                   )

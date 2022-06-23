@@ -40,10 +40,10 @@ List<Map<String, dynamic>> squirrelCharacter = [
   {
     'character_color': const Color.fromRGBO(255, 159, 163, 1),
     'failure_backcolor': const Color.fromRGBO(135, 19, 55, 1),
-    'character_title': '“어서 빨리 시작해보자!”',
+    'character_title': '“어리지만 나도 할 수 있다고!”',
     'character_name': '야미',
-    'character_personality': '#8282 #다혈질',
+    'character_personality': '#씩씩한 #용감한',
     'character_mbti': 'ISFP',
-    'character_hobby': '도토리 빨리 먹기, 약올리기',
+    'character_hobby': '도토리 지키기, 비행연습',
   },
 ];

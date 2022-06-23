@@ -12,6 +12,7 @@ import 'package:todo_squirrel/home/home_screen.dart';
 import 'package:todo_squirrel/providers/character_setting_provider.dart';
 import 'package:todo_squirrel/providers/home_provider.dart';
 import 'package:todo_squirrel/repositories/sign.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 GoogleSignIn _googleSignIn = GoogleSignIn(
   scopes: <String>[
@@ -47,20 +48,27 @@ class _SignInPageState extends State<SignInPage> {
   }
 
   Future<String> _kakaoLogIn() async {
-    
     try {
       late OAuthToken token;
       final isKakaoInstalled = await isKakaoTalkInstalled();
 
-      if(isKakaoInstalled) {
+      if (isKakaoInstalled) {
+        log('카카오 설치 됨');
         token = await UserApi.instance.loginWithKakaoTalk();
       } else {
+        log('카카오 설치 안됨');
         token = await UserApi.instance.loginWithKakaoAccount();
       }
 
-      log('카카오톡으로 로그인 성공 ${token.idToken}');
+      AccessTokenInfo tokenInfo = await UserApi.instance.accessTokenInfo();
 
-      var kakaoToken = await _sign.signIn(platform: 1, token: token.idToken!.split('.')[0]);
+      log('뭘 봐 : $tokenInfo');
+
+      var kakaoToken = await _sign.signIn(
+        platform: 0,
+        token: tokenInfo.id.toString(),
+      );
+
       return kakaoToken!.data['token'];
     } catch (error) {
       log('카카오톡으로 로그인 실패 $error');
@@ -76,10 +84,12 @@ class _SignInPageState extends State<SignInPage> {
           AppleIDAuthorizationScopes.fullName,
         ],
       );
-      log('애플 로그인 성공 : ${credential.identityToken}');
 
-      var appleToken =
-          await _sign.signIn(platform: 1, token: credential.identityToken!);
+      var appleToken = await _sign.signIn(
+        platform: 1,
+        token: credential.userIdentifier!.replaceAll('.', ''),
+      );
+
       return appleToken!.data['token'];
     } catch (e) {
       log('애플 로그인 실패 : $e');
@@ -91,7 +101,7 @@ class _SignInPageState extends State<SignInPage> {
   Widget build(BuildContext context) {
     homeProvider = Provider.of<HomeProvider>(context);
     characterSettingProvider = Provider.of<CharacterSettingProvider>(context);
-    
+
     return Scaffold(
       body: ListView(
         padding: EdgeInsets.zero,
@@ -150,13 +160,18 @@ class _SignInPageState extends State<SignInPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    '이용약관',
-                    textScaleFactor: 1.0,
-                    style: TextStyle(
-                      color: const Color.fromRGBO(126, 140, 255, 1),
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w700,
+                  InkWell(
+                    onTap: () {
+                      launchUrl(Uri.parse('http://13.209.77.164:4001/policy'));
+                    },
+                    child: Text(
+                      '이용약관',
+                      textScaleFactor: 1.0,
+                      style: TextStyle(
+                        color: const Color.fromRGBO(126, 140, 255, 1),
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
                   Text(
@@ -168,13 +183,18 @@ class _SignInPageState extends State<SignInPage> {
                       fontWeight: FontWeight.w300,
                     ),
                   ),
-                  Text(
-                    '개인정보처리방침',
-                    textScaleFactor: 1.0,
-                    style: TextStyle(
-                      color: const Color.fromRGBO(126, 140, 255, 1),
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w700,
+                  InkWell(
+                    onTap: () {
+                      launchUrl(Uri.parse('http://13.209.77.164:4001/policy'));
+                    },
+                    child: Text(
+                      '개인정보처리방침',
+                      textScaleFactor: 1.0,
+                      style: TextStyle(
+                        color: const Color.fromRGBO(126, 140, 255, 1),
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
                   Text(
@@ -211,8 +231,7 @@ class _SignInPageState extends State<SignInPage> {
             log('카카오톡 회원가입 완료');
             prefs.setString('login-token', result);
           }
-        }
-        else if (loginType == 1) {
+        } else if (loginType == 1) {
           var result = await _googleLogIn();
           if (result != '') {
             log('구글 회원가입 완료');
@@ -228,9 +247,10 @@ class _SignInPageState extends State<SignInPage> {
 
         await characterSettingProvider.setCharacterSettingInfo(state: 0);
 
-        if(characterSettingProvider.successGetCharacterSettingInfo) {
+        if (characterSettingProvider.successGetCharacterSettingInfo) {
           homeProvider.setPageIdx(2);
-          
+          prefs.setBool('setCharacterToDo', true);
+
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(

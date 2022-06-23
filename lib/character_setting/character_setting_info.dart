@@ -128,16 +128,20 @@ class _CharacterSettingInfoState extends State<CharacterSettingInfo> {
                       homeProvider.isShowCoachMarks = true;
                       homeProvider.coachMarksNumber = 1;
                     }
-                    
+
                     var result = await _toDo.setToDoList(
-                      characterIdx: characterSettingProvider.characterIdx, 
-                      goal: characterSettingProvider.characterGoal, 
-                      characterName: characterSettingProvider.characterName, 
-                      pushAlarm: '${characterSettingProvider.characterHour}:${characterSettingProvider.characterMinute}:00', 
-                      finishDate: characterSettingProvider.characterEndDate.toString().split(' ')[0],
+                      characterIdx: characterSettingProvider.characterIdx,
+                      goal: characterSettingProvider.characterGoal,
+                      characterName: characterSettingProvider.characterName,
+                      pushAlarm:
+                          '${characterSettingProvider.characterHour}:${characterSettingProvider.characterMinute}:00',
+                      finishDate: characterSettingProvider.characterEndDate
+                          .toString()
+                          .split(' ')[0],
                     );
 
-                    if(result!.data['success']) {
+                    if (result!.data['success']) {
+                      prefs.setBool('setCharacterToDo', true);
                       homeProvider.setPageIdx(2);
                       Navigator.pushAndRemoveUntil(
                         context,

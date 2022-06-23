@@ -49,6 +49,7 @@ dependencies:
   dio: ^4.0.6
   flutter_switch: ^0.3.2
   flutter_pretty_dio_logger: ^2.0.0
+  url_launcher: ^6.1.4
 
 dev_dependencies:
   flutter_test:
