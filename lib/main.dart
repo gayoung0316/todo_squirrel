@@ -34,7 +34,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(428, 926),
-      builder: () => MaterialApp(
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context , child) => MaterialApp(
         title: 'Squirrel ToDo List',
         home: const SplashPage(),
         debugShowCheckedModeBanner: false,
