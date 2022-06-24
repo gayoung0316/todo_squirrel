@@ -30,6 +30,8 @@ class CharacterSettingProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  
+
   // 선택한 메인 캐릭터 인덱스
   int _characterIdx = 0;
   int get characterIdx => _characterIdx;

@@ -78,4 +78,32 @@ class ToDo {
       log('투두 리스트 생성 에러 발생 : $e');
     }
   }
+
+  Future<Response?> getCalenderGoalList() async {
+    /*
+      state 
+      0 : 진행 중
+      1 : 명예
+      2 : 우울
+    */
+    try {
+      const url = "http://13.209.77.164:4001/api/v1/todo/calendar";
+
+      final prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString('login-token');
+      
+      Options options = Options(
+        headers: {'authorization':'Bearer $token'}
+      );
+
+      final response = await _dio.get(
+        url,
+        options: options,
+      );
+
+      return response;
+    } catch (e) {
+      log('투두 리스트 생성 에러 발생 : $e');
+    }
+  }
 }

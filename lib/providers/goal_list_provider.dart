@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:todo_squirrel/repositories/todo.dart';
 
@@ -31,6 +33,21 @@ class GoalListProvider extends ChangeNotifier {
           _failureGoalList.add(item);
         });
       }
+    }
+
+    notifyListeners();
+  }
+
+  final List<Map<String, dynamic>> _calenderGoalList = [];
+  List<Map<String, dynamic>> get calenderGoalList => _calenderGoalList;
+  void setCharacterGoalCalenderList() async {
+    var result = await _toDo.getCalenderGoalList();
+    log('확인 함 : ${result!.data['calendar']}');
+
+    if(result.data['success']) {
+      result.data['calendar'][0]['daily'].forEach((item) {
+        _calenderGoalList.add(item);
+      });
     }
 
     notifyListeners();

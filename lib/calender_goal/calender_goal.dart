@@ -7,6 +7,7 @@ import 'package:todo_squirrel/model/month.dart';
 import 'package:todo_squirrel/model/squirrel_character.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:todo_squirrel/providers/character_setting_provider.dart';
+import 'package:todo_squirrel/providers/goal_list_provider.dart';
 import 'package:todo_squirrel/providers/home_provider.dart';
 
 class CalenderGoalPage extends StatefulWidget {
@@ -19,133 +20,29 @@ class CalenderGoalPage extends StatefulWidget {
 class _CalenderGoalPageState extends State<CalenderGoalPage> {
   late CharacterSettingProvider characterSettingProvider;
   late HomeProvider homeProvider;
+  late GoalListProvider goalListProvider;
   final TextEditingController _memoController = TextEditingController();
 
-  List<Map> list = [
-    {
-      'dateTime': DateTime(2022, 5, 2),
-      'success': false,
-    },
-    {
-      'dateTime': DateTime(2022, 5, 3),
-      'success': false,
-    },
-    {
-      'dateTime': DateTime(2022, 5, 4),
-      'success': true,
-    },
-    {
-      'dateTime': DateTime(2022, 5, 5),
-      'success': true,
-    },
-    {
-      'dateTime': DateTime(2022, 5, 6),
-      'success': false,
-    },
-    {
-      'dateTime': DateTime(2022, 5, 7),
-      'success': false,
-    },
-    {
-      'dateTime': DateTime(2022, 5, 8),
-      'success': false,
-    },
-    {
-      'dateTime': DateTime(2022, 5, 9),
-      'success': false,
-    },
-    {
-      'dateTime': DateTime(2022, 5, 10),
-      'success': false,
-    },
-    {
-      'dateTime': DateTime(2022, 5, 22),
-      'success': false,
-    },
-    {
-      'dateTime': DateTime(2022, 5, 23),
-      'success': true,
-    },
-    {
-      'dateTime': DateTime(2022, 5, 24),
-      'success': true,
-    },
-    {
-      'dateTime': DateTime(2022, 5, 25),
-      'success': false,
-    },
-    {
-      'dateTime': DateTime(2022, 5, 26),
-      'success': false,
-    },
-    {
-      'dateTime': DateTime(2022, 6, 8),
-      'success': false,
-    },
-    {
-      'dateTime': DateTime(2022, 6, 9),
-      'success': false,
-    },
-    {
-      'dateTime': DateTime(2022, 6, 10),
-      'success': false,
-    },
-    {
-      'dateTime': DateTime(2022, 6, 11),
-      'success': false,
-    },
-    {
-      'dateTime': DateTime(2022, 6, 12),
-      'success': false,
-    },
-    {
-      'dateTime': DateTime(2022, 6, 13),
-      'success': false,
-    },
-    {
-      'dateTime': DateTime(2022, 6, 14),
-      'success': false,
-    },
-    {
-      'dateTime': DateTime(2022, 6, 22),
-      'success': false,
-    },
-    {
-      'dateTime': DateTime(2022, 6, 23),
-      'success': true,
-    },
-    {
-      'dateTime': DateTime(2022, 6, 24),
-      'success': true,
-    },
-    {
-      'dateTime': DateTime(2022, 6, 25),
-      'success': false,
-    },
-    {
-      'dateTime': DateTime(2022, 6, 26),
-      'success': false,
-    },
-    {
-      'dateTime': DateTime(2022, 6, 27),
-      'success': false,
-    },
-    {
-      'dateTime': DateTime(2022, 6, 28),
-      'success': false,
-    },
-  ];
+  @override
+  void initState() {
+    WidgetsBinding.instance!.addPostFrameCallback((_) async {
+      context.read<GoalListProvider>().setCharacterGoalCalenderList();
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     characterSettingProvider = Provider.of<CharacterSettingProvider>(context);
     homeProvider = Provider.of<HomeProvider>(context);
+    goalListProvider = Provider.of<GoalListProvider>(context);
 
     return Scaffold(
       backgroundColor: squirrelCharacter[characterSettingProvider.characterIdx]
           ['character_color'],
       body: Stack(
         children: [
+          
           calenderWidget(),
           SlidingUpPanel(
             backdropEnabled: true,
@@ -639,12 +536,7 @@ class _CalenderGoalPageState extends State<CalenderGoalPage> {
           },
           defaultBuilder: (context, day, focusedDay) {
             return Visibility(
-              visible: list
-                  .where((element) =>
-                      element['dateTime'].toString().split(' ')[0] ==
-                      day.toString().split(' ')[0])
-                  .toList()
-                  .isEmpty,
+              visible: goalListProvider.calenderGoalList.where((element) => element['date'] == day.toString().split(' ')[0]).toList().isEmpty,
               child: Center(
                 child: Text(
                   day.day.toString(),
@@ -652,7 +544,6 @@ class _CalenderGoalPageState extends State<CalenderGoalPage> {
                   style: TextStyle(
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w800,
-                    // color: Colors.transparent,
                     color: const Color.fromRGBO(255, 255, 255, 1),
                   ),
                 ),
@@ -674,19 +565,15 @@ class _CalenderGoalPageState extends State<CalenderGoalPage> {
                 ),
                 Center(
                   child: Text(
-                    list
-                            .where((element) =>
-                                element['dateTime'].toString().split(' ')[0] ==
-                                day.toString().split(' ')[0])
-                            .toList()
-                            .isNotEmpty
-                        ? ''
-                        : day.day.toString(),
+                    goalListProvider.calenderGoalList.where(
+                      (element) => element['date'].toString().split(' ')[0] == day.toString().split(' ')[0]
+                    ).toList().isNotEmpty
+                    ? ''
+                    : day.day.toString(),
                     textScaleFactor: 1.0,
                     style: TextStyle(
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w800,
-                      // color: Colors.transparent,
                       color: const Color.fromRGBO(255, 255, 255, 1),
                     ),
                   ),
@@ -702,20 +589,21 @@ class _CalenderGoalPageState extends State<CalenderGoalPage> {
               },
               child: Stack(
                 children: [
-                  ...list.map((e) {
+                  ...goalListProvider.calenderGoalList.map((e) {
                     return Visibility(
-                      visible: e['dateTime'].toString().split(' ')[0] ==
-                          day.toString().split(' ')[0],
+                      visible: e['date'].toString().split(' ')[0] == day.toString().split(' ')[0],
                       child: Center(
                         child: Container(
                           alignment: Alignment.center,
                           width: 30.w,
                           height: 30.w,
                           decoration: BoxDecoration(
-                            color: e['success']
-                                ? const Color.fromRGBO(255, 255, 255, 1)
-                                : const Color.fromRGBO(255, 255, 255, 0.3),
+                            color: e['success'] ? const Color.fromRGBO(255, 255, 255, 1) : Colors.transparent,
                             borderRadius: BorderRadius.circular(12.w),
+                            border: Border.all(
+                              color: const Color.fromRGBO(255, 255, 255, 1),
+                              width: 1.w,
+                            ),
                             shape: BoxShape.rectangle,
                           ),
                           child: Text(
@@ -724,10 +612,8 @@ class _CalenderGoalPageState extends State<CalenderGoalPage> {
                             style: TextStyle(
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w800,
-                              color: e['success']
-                                  ? squirrelCharacter[characterSettingProvider
-                                      .characterIdx]['character_color']
-                                  : const Color.fromRGBO(255, 255, 255, 0.1),
+                              color: e['success'] ? squirrelCharacter[characterSettingProvider.characterIdx]['character_color']
+                              : const Color.fromRGBO(255, 255, 255, 1),
                             ),
                           ),
                         ),

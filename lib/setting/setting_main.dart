@@ -72,12 +72,10 @@ class _SettingMainPageState extends State<SettingMainPage> {
                       backgroundSoundOnOff = !backgroundSoundOnOff;
                     });
                   },
-                  activeToggleColor:
-                      squirrelCharacter[characterSettingProvider.characterIdx]
-                          ['character_color'],
+                  activeToggleColor: squirrelCharacter[characterSettingProvider.characterIdx]['character_color'],
                   activeColor: const Color.fromRGBO(255, 255, 255, 1),
                   inactiveToggleColor: const Color.fromRGBO(255, 255, 255, 1),
-                  inactiveColor: const Color.fromRGBO(211, 211, 211, 1),
+                  inactiveColor: const Color.fromRGBO(211, 211, 211, 0.6),
                   activeText: '',
                   inactiveText: '',
                 ),
@@ -111,12 +109,10 @@ class _SettingMainPageState extends State<SettingMainPage> {
                       pushAlarmOnOff = !pushAlarmOnOff;
                     });
                   },
-                  activeToggleColor:
-                      squirrelCharacter[characterSettingProvider.characterIdx]
-                          ['character_color'],
+                  activeToggleColor: squirrelCharacter[characterSettingProvider.characterIdx]['character_color'],
                   activeColor: const Color.fromRGBO(255, 255, 255, 1),
                   inactiveToggleColor: const Color.fromRGBO(255, 255, 255, 1),
-                  inactiveColor: const Color.fromRGBO(211, 211, 211, 1),
+                  inactiveColor: const Color.fromRGBO(211, 211, 211, 0.6),
                   activeText: '',
                   inactiveText: '',
                 ),

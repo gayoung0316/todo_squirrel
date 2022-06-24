@@ -213,28 +213,26 @@ class _CharacterNameGoalSettingPageState
                   SizedBox(height: 63.h),
                   InkWell(
                     onTap: () {
-                      if (_nameController.text.isNotEmpty &&
-                          _goalController.text.isNotEmpty) {
-                        characterSettingProvider.characterName =
-                            _nameController.text;
-                        characterSettingProvider.characterGoal =
-                            _goalController.text;
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const CharacterDateSetting(),
-                          ),
-                        );
+                      if (_nameController.text.isNotEmpty && _goalController.text.isNotEmpty) {
+                        if(_nameController.text.trim().isNotEmpty && _goalController.text.trim().isNotEmpty) {
+                          characterSettingProvider.characterName = _nameController.text;
+                          characterSettingProvider.characterGoal = _goalController.text;
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const CharacterDateSetting(),
+                            ),
+                          );
+                        }
                       }
                     },
                     child: Container(
                       width: 112.w,
                       height: 42.h,
                       decoration: BoxDecoration(
-                          color: _nameController.text.isEmpty &&
-                                  _goalController.text.isEmpty
-                              ? Colors.transparent
-                              : const Color.fromRGBO(255, 255, 255, 1),
+                          color: _nameController.text.isNotEmpty && _goalController.text.isNotEmpty && _nameController.text.trim().isNotEmpty && _goalController.text.trim().isNotEmpty
+                          ? const Color.fromRGBO(255, 255, 255, 1)
+                          : Colors.transparent,
                           borderRadius: BorderRadius.circular(21.w),
                           border: Border.all(
                             color: const Color.fromRGBO(255, 255, 255, 1),
@@ -244,11 +242,9 @@ class _CharacterNameGoalSettingPageState
                         '다음',
                         textScaleFactor: 1.0,
                         style: TextStyle(
-                          color: _nameController.text.isEmpty &&
-                                  _goalController.text.isEmpty
-                              ? const Color.fromRGBO(255, 255, 255, 1)
-                              : squirrelCharacter[characterSettingProvider
-                                  .characterIdx]['character_color'],
+                          color: _nameController.text.isNotEmpty && _goalController.text.isNotEmpty && _nameController.text.trim().isNotEmpty && _goalController.text.trim().isNotEmpty
+                              ? squirrelCharacter[characterSettingProvider.characterIdx]['character_color']
+                              : const Color.fromRGBO(255, 255, 255, 1),
                           fontSize: 20.sp,
                           fontWeight: FontWeight.w800,
                         ),
