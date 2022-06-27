@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "337798697885-de33k4l69f9rm9q6lvfnrvsgjodhaeaf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.todo_squirrel",
+            "certificate_hash": "cde9012ac2f3ab4e123e3d65a9e60daa8aa7de26"
+          }
+        },
+        {
           "client_id": "337798697885-hfqtvs69gs7kc7nabbc53aakjtmfgl04.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -37,6 +45,13 @@
             {
               "client_id": "337798697885-hfqtvs69gs7kc7nabbc53aakjtmfgl04.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "337798697885-h21cvfdjjrtg5u77soqe5h12qmv70jdh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.todoSquirrel"
+              }
             }
           ]
         }
