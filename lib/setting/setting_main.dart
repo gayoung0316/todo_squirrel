@@ -30,7 +30,7 @@ class _SettingMainPageState extends State<SettingMainPage> {
         padding: EdgeInsets.zero,
         children: [
           Padding(
-            padding: EdgeInsets.only(top: 54.h),
+            padding: EdgeInsets.only(top: 57.h),
             child: SizedBox(
               height: 31.h,
               child: Text(

@@ -115,8 +115,8 @@ class _MainScreensState extends State<MainScreens> {
                           ),
                           Image.asset(
                             'assets/icons/calender.png',
-                            width: 30.w,
-                            height: 30.w,
+                            width: 28.w,
+                            height: 27.w,
                             color: homeProvider.pageIdx == 0
                                 ? Colors.white
                                 : squirrelCharacter[characterSettingProvider
@@ -146,8 +146,8 @@ class _MainScreensState extends State<MainScreens> {
                           Image.asset(
                             // icon!,
                             'assets/icons/failure-goal.png',
-                            width: 30.w,
-                            height: 30.w,
+                            width: 27.w,
+                            height: 27.w,
                             color: homeProvider.pageIdx == 1
                                 ? Colors.white
                                 : squirrelCharacter[characterSettingProvider
@@ -212,8 +212,7 @@ class _MainScreensState extends State<MainScreens> {
                             height: 30.w,
                             color: homeProvider.pageIdx == 3
                                 ? Colors.white
-                                : squirrelCharacter[characterSettingProvider
-                                    .characterIdx]['character_color'],
+                                : squirrelCharacter[characterSettingProvider.characterIdx]['character_color'],
                           ),
                         ],
                       ),
@@ -238,8 +237,8 @@ class _MainScreensState extends State<MainScreens> {
                           ),
                           Image.asset(
                             'assets/icons/setting.png',
-                            width: 30.w,
-                            height: 30.w,
+                            width: 29.w,
+                            height: 29.w,
                             color: homeProvider.pageIdx == 4
                                 ? Colors.white
                                 : squirrelCharacter[characterSettingProvider

@@ -127,7 +127,7 @@ class _SuccessCharacterGoalBoxState extends State<SuccessCharacterGoalBox> {
                         ),
                         SizedBox(
                           width: 130.w,
-                          height: 20.h,
+                          height: 22.h,
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10.w),
                             child: SliderTheme(

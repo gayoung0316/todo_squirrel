@@ -49,15 +49,14 @@ class _SignInPageState extends State<SignInPage> {
 
   Future<String> _kakaoLogIn() async {
     try {
-      late OAuthToken token;
       final isKakaoInstalled = await isKakaoTalkInstalled();
 
       if (isKakaoInstalled) {
         log('카카오 설치 됨');
-        token = await UserApi.instance.loginWithKakaoTalk();
+        await UserApi.instance.loginWithKakaoTalk();
       } else {
         log('카카오 설치 안됨');
-        token = await UserApi.instance.loginWithKakaoAccount();
+        await UserApi.instance.loginWithKakaoAccount();
       }
 
       AccessTokenInfo tokenInfo = await UserApi.instance.accessTokenInfo();

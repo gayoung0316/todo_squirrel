@@ -482,7 +482,7 @@ class _CalenderGoalPageState extends State<CalenderGoalPage> {
   }
 
   Widget calenderWidget() {
-    return Container(
+    return Padding(
       padding: EdgeInsets.only(top: 53.h, left: 30.w, right: 30.w),
       child: TableCalendar(
         rowHeight: 58.h,

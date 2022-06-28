@@ -9,6 +9,7 @@ import 'package:todo_squirrel/providers/character_setting_provider.dart';
 
 class FailureCharacterGoalBox extends StatefulWidget {
   final int characterIdx;
+  final String characterName;
   final String characterGoal;
   final String characterStartGoal;
   final String characterEndGoal;
@@ -17,6 +18,7 @@ class FailureCharacterGoalBox extends StatefulWidget {
   const FailureCharacterGoalBox({
     Key? key,
     required this.characterIdx,
+    required this.characterName,
     required this.characterGoal,
     required this.characterStartGoal,
     required this.characterEndGoal,
@@ -283,6 +285,7 @@ class _FailureCharacterGoalBoxState extends State<FailureCharacterGoalBox> {
             MaterialPageRoute(
               builder: (context) => FailureCharacterGoalInfoPage(
                 characterIdx: widget.characterIdx,
+                characterName: widget.characterName,
                 characterGoal: widget.characterGoal,
                 characterStartGoal: widget.characterStartGoal,
                 characterEndGoal: widget.characterEndGoal,
@@ -300,17 +303,17 @@ class _FailureCharacterGoalBoxState extends State<FailureCharacterGoalBox> {
             bottom: 23.h,
             left: 34.w,
           ),
-          decoration:  BoxDecoration(
+          decoration: BoxDecoration(
             color: const Color.fromRGBO(255, 255, 255, 1),
             borderRadius: BorderRadius.circular(20.w),
-            boxShadow: [
-              BoxShadow(
-                color: const Color(0x78000000),
-                offset: const Offset(0, 5),
-                blurRadius: 15.w,
-                spreadRadius: 0,
-              )
-            ],
+            // boxShadow: [
+            //   BoxShadow(
+            //     color: const Color(0x78000000),
+            //     offset: const Offset(0, 5),
+            //     blurRadius: 15.w,
+            //     spreadRadius: 0,
+            //   )
+            // ],
           ),
           child: Row(
             children: [
@@ -366,7 +369,7 @@ class _FailureCharacterGoalBoxState extends State<FailureCharacterGoalBox> {
                       ),
                       SizedBox(
                         width: 130.w,
-                        height: 20.h,
+                        height: 22.h,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10.w),
                           child: SliderTheme(

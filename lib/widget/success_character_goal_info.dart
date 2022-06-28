@@ -34,8 +34,7 @@ class _SuccessCharacterGoalInfoPageState
     characterSettingProvider = Provider.of<CharacterSettingProvider>(context);
 
     return Scaffold(
-      backgroundColor: squirrelCharacter[characterSettingProvider.characterIdx]
-          ['character_color'],
+      backgroundColor: squirrelCharacter[widget.characterIdx]['character_color'],
       body: Stack(
         children: [
           Positioned(
@@ -215,6 +214,7 @@ class _SuccessCharacterGoalInfoPageState
                                 SizedBox(width: 10.w),
                                 SizedBox(
                                   width: 290.w,
+                                  height: 22.h,
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(10.w),
                                     child: SliderTheme(

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 List<Map<String, dynamic>> squirrelCharacter = [
   {
     'character_color': const Color.fromRGBO(150, 36, 36, 1),
-    'failure_backcolor': const Color.fromRGBO(85, 17, 16, 1),
+    'failure_color': const Color.fromRGBO(85, 17, 16, 1),
     'character_title': '“내가 잘 할 수 있을까…?”',
     'character_name': '누리',
     'character_personality': '#느긋한 #게으른 #소극적인',
@@ -12,7 +12,7 @@ List<Map<String, dynamic>> squirrelCharacter = [
   },
   {
     'character_color': const Color.fromRGBO(126, 140, 255, 1),
-    'failure_backcolor': const Color.fromRGBO(49, 46, 128, 1),
+    'failure_color': const Color.fromRGBO(49, 46, 128, 1),
     'character_title': '“내 계획에만 따라오면 돼~”',
     'character_name': '미리',
     'character_personality': '#명량한 #꼼꼼한',
@@ -21,7 +21,7 @@ List<Map<String, dynamic>> squirrelCharacter = [
   },
   {
     'character_color': const Color.fromRGBO(255, 153, 0, 1),
-    'failure_backcolor': const Color.fromRGBO(161, 97, 7, 1),
+    'failure_color': const Color.fromRGBO(161, 97, 7, 1),
     'character_title': '“함께라면 우린 해낼 수 있어!”',
     'character_name': '두리',
     'character_personality': '#긍정적인 #사려깊은',
@@ -30,7 +30,7 @@ List<Map<String, dynamic>> squirrelCharacter = [
   },
   {
     'character_color': const Color.fromRGBO(0, 153, 101, 1),
-    'failure_backcolor': const Color.fromRGBO(6, 57, 16, 1),
+    'failure_color': const Color.fromRGBO(6, 57, 16, 1),
     'character_title': '“어서 빨리 시작해보자!”',
     'character_name': '토리',
     'character_personality': '#8282 #다혈질',
@@ -39,7 +39,7 @@ List<Map<String, dynamic>> squirrelCharacter = [
   },
   {
     'character_color': const Color.fromRGBO(255, 159, 163, 1),
-    'failure_backcolor': const Color.fromRGBO(135, 19, 55, 1),
+    'failure_color': const Color.fromRGBO(135, 19, 55, 1),
     'character_title': '“어리지만 나도 할 수 있다고!”',
     'character_name': '야미',
     'character_personality': '#씩씩한 #용감한',

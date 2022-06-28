@@ -38,7 +38,7 @@ class _SuccessGoalPageState extends State<SuccessGoalPage> {
         padding: EdgeInsets.zero,
         children: [
           Padding(
-            padding: EdgeInsets.only(top: 54.h),
+            padding: EdgeInsets.only(top: 57.h),
             child: SizedBox(
               height: 31.h,
               child: Text(
@@ -53,65 +53,66 @@ class _SuccessGoalPageState extends State<SuccessGoalPage> {
               ),
             ),
           ),
-          goalListProvider.successGoalList.isEmpty 
+          goalListProvider.successGoalList.isNotEmpty 
           ? successGoalListEmptyWidget()
           : Column(
             children: [
               SizedBox(height: 35.h),
-              ...goalListProvider.successGoalList.map((item) {
-                return SuccessCharacterGoalBox(
-                  characterIdx: item['char'],
-                  characterGoal: item['goal'],
-                  characterStartGoal: item['created_at'].split('T')[0].replace('-', '.'),
-                  characterEndGoal: item['finish_date'].split('T')[0].replace('-', '.'),
-                  characterGoalSuccessPercent: double.parse('98'),
-                );
-              }),
+              SuccessCharacterGoalBox(
+                characterIdx: 0,
+                characterGoal: '낮잠 안 잘거에요',
+                characterStartGoal: '2022.03.04',
+                characterEndGoal: '2022.04.14',
+                characterGoalSuccessPercent: double.parse('98'),
+              ),
+              SizedBox(height: 24.h),
+              SuccessCharacterGoalBox(
+                characterIdx: 1,
+                characterGoal: '낮잠 안 자기 >< 낮잠 안 자기낮잠 안 ㅇㄴㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹ자기',
+                characterStartGoal: '2022.02.04',
+                characterEndGoal: '2022.02.28',
+                characterGoalSuccessPercent: double.parse('95'),
+              ),
+              SizedBox(height: 24.h),
+              SuccessCharacterGoalBox(
+                characterIdx: 2,
+                characterGoal: '물 많이 마셔야지',
+                characterStartGoal: '2022.02.04',
+                characterEndGoal: '2022.02.17',
+                characterGoalSuccessPercent: double.parse('100'),
+              ),
+              SizedBox(height: 24.h),
+              SuccessCharacterGoalBox(
+                characterIdx: 3,
+                characterGoal: '퇴사 시켜줘',
+                characterStartGoal: '2022.02.04',
+                characterEndGoal: '2022.02.26',
+                characterGoalSuccessPercent: double.parse('97'),
+              ),
+              SizedBox(height: 24.h),
+              SuccessCharacterGoalBox(
+                characterIdx: 4,
+                characterGoal: '출근 하기',
+                characterStartGoal: '2022.05.04',
+                characterEndGoal: '2022.05.28',
+                characterGoalSuccessPercent: double.parse('90'),
+              ),
+              // ...goalListProvider.successGoalList.map((item) {
+              //   return SuccessCharacterGoalBox(
+              //     characterIdx: item['char'],
+              //     characterGoal: item['goal'],
+              //     characterStartGoal: item['created_at'].split('T')[0].replace('-', '.'),
+              //     characterEndGoal: item['finish_date'].split('T')[0].replace('-', '.'),
+              //     characterGoalSuccessPercent: double.parse('98'),
+              //   );
+              // }),
               SizedBox(height: 100.h),
             ],
           )
           
 
           // SizedBox(height: 35.h),
-          // SuccessCharacterGoalBox(
-          //   characterIdx: 0,
-          //   characterGoal: '낮잠 안 잘거에요',
-          //   characterStartGoal: '2022.03.04',
-          //   characterEndGoal: '2022.04.14',
-          //   characterGoalSuccessPercent: double.parse('98'),
-          // ),
-          // SizedBox(height: 24.h),
-          // SuccessCharacterGoalBox(
-          //   characterIdx: 1,
-          //   characterGoal: '낮잠 안 자기 >< 낮잠 안 자기낮잠 안 ㅇㄴㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹ자기',
-          //   characterStartGoal: '2022.02.04',
-          //   characterEndGoal: '2022.02.28',
-          //   characterGoalSuccessPercent: double.parse('95'),
-          // ),
-          // SizedBox(height: 24.h),
-          // SuccessCharacterGoalBox(
-          //   characterIdx: 2,
-          //   characterGoal: '물 많이 마셔야지',
-          //   characterStartGoal: '2022.02.04',
-          //   characterEndGoal: '2022.02.17',
-          //   characterGoalSuccessPercent: double.parse('100'),
-          // ),
-          // SizedBox(height: 24.h),
-          // SuccessCharacterGoalBox(
-          //   characterIdx: 3,
-          //   characterGoal: '퇴사 시켜줘',
-          //   characterStartGoal: '2022.02.04',
-          //   characterEndGoal: '2022.02.26',
-          //   characterGoalSuccessPercent: double.parse('97'),
-          // ),
-          // SizedBox(height: 24.h),
-          // SuccessCharacterGoalBox(
-          //   characterIdx: 4,
-          //   characterGoal: '출근 하기',
-          //   characterStartGoal: '2022.05.04',
-          //   characterEndGoal: '2022.05.28',
-          //   characterGoalSuccessPercent: double.parse('90'),
-          // ),
+          
           // SizedBox(height: 100.h),
         ],
       ),
