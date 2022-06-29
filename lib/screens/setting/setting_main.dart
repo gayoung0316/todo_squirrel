@@ -4,8 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_squirrel/model/squirrel_character.dart';
-import 'package:todo_squirrel/prologue/auth/sign_in.dart';
 import 'package:todo_squirrel/providers/character_setting_provider.dart';
+import 'package:todo_squirrel/screens/prologue/sign_in.dart';
 
 class SettingMainPage extends StatefulWidget {
   const SettingMainPage({Key? key}) : super(key: key);

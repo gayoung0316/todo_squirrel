@@ -7,11 +7,11 @@ import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
-import 'package:todo_squirrel/character_setting/character_select.dart';
-import 'package:todo_squirrel/home/home_screen.dart';
 import 'package:todo_squirrel/providers/character_setting_provider.dart';
 import 'package:todo_squirrel/providers/home_provider.dart';
 import 'package:todo_squirrel/repositories/sign.dart';
+import 'package:todo_squirrel/screens/character_setting/character_select.dart';
+import 'package:todo_squirrel/screens/home/home_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 GoogleSignIn _googleSignIn = GoogleSignIn(

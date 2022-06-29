@@ -4,7 +4,7 @@ import 'package:todo_squirrel/model/squirrel_character.dart';
 import 'package:todo_squirrel/providers/character_setting_provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:todo_squirrel/providers/goal_list_provider.dart';
-import 'package:todo_squirrel/widget/success_character_goal_box.dart';
+import 'package:todo_squirrel/screens/success_goal/success_character_goal_box.dart';
 
 class SuccessGoalPage extends StatefulWidget {
   const SuccessGoalPage({Key? key}) : super(key: key);

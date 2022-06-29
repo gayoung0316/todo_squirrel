@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_squirrel/calender_goal/calender_goal.dart';
-import 'package:todo_squirrel/failure_goal/failure_goal.dart';
-import 'package:todo_squirrel/home/character_main_home.dart';
 import 'package:todo_squirrel/model/squirrel_character.dart';
-import 'package:todo_squirrel/setting/setting_main.dart';
-import 'package:todo_squirrel/success_goal/success_goal.dart';
+import 'package:todo_squirrel/providers/goal_list_provider.dart';
 import 'package:todo_squirrel/providers/character_setting_provider.dart';
 import 'package:todo_squirrel/providers/home_provider.dart';
 import 'package:custom_top_navigator/custom_top_navigator.dart';
+import 'package:todo_squirrel/screens/calender_goal/calender_goal.dart';
+import 'package:todo_squirrel/screens/failure_goal/character_main_home.dart';
+import 'package:todo_squirrel/screens/failure_goal/failure_goal.dart';
+import 'package:todo_squirrel/screens/setting/setting_main.dart';
+import 'package:todo_squirrel/screens/success_goal/success_goal.dart';
 import '../widget/coach_marks_page.dart';
 
 class MainScreens extends StatefulWidget {
@@ -22,15 +23,15 @@ class MainScreens extends StatefulWidget {
 class _MainScreensState extends State<MainScreens> {
   late CharacterSettingProvider characterSettingProvider;
   late HomeProvider homeProvider;
-  GlobalKey<NavigatorState> failuerGoalNavigatorKey =
-      GlobalKey<NavigatorState>();
-  GlobalKey<NavigatorState> successGoalNavigatorKey =
-      GlobalKey<NavigatorState>();
+  GlobalKey<NavigatorState> failuerGoalNavigatorKey = GlobalKey<NavigatorState>();
+  GlobalKey<NavigatorState> successGoalNavigatorKey = GlobalKey<NavigatorState>();
+  late GoalListProvider goalListProvider;
 
   @override
   Widget build(BuildContext context) {
     characterSettingProvider = Provider.of<CharacterSettingProvider>(context);
     homeProvider = Provider.of<HomeProvider>(context);
+    goalListProvider = Provider.of<GoalListProvider>(context);
 
     return Scaffold(
       extendBody: homeProvider.pageIdx == 0 ? false : true,
@@ -91,9 +92,11 @@ class _MainScreensState extends State<MainScreens> {
                           ['character_color'],
                   unselectedItemColor: Colors.black54,
                   onTap: (index) {
-                    setState(() {
-                      homeProvider.setPageIdx(index);
-                    });
+                    homeProvider.setPageIdx(index);
+                    
+                    if(index == 0) {
+                      goalListProvider.setCharacterGoalCalenderList();
+                    }
                   },
                   items: [
                     BottomNavigationBarItem(

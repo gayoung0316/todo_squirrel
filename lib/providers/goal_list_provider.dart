@@ -41,10 +41,10 @@ class GoalListProvider extends ChangeNotifier {
   final List<Map<String, dynamic>> _calenderGoalList = [];
   List<Map<String, dynamic>> get calenderGoalList => _calenderGoalList;
   void setCharacterGoalCalenderList() async {
+    _calenderGoalList.clear();
     var result = await _toDo.getCalenderGoalList();
-    log('확인 함 : ${result!.data['calendar']}');
 
-    if(result.data['success']) {
+    if(result!.data['success']) {
       result.data['calendar'][0]['daily'].forEach((item) {
         _calenderGoalList.add(item);
       });

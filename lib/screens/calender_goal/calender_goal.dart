@@ -24,25 +24,15 @@ class _CalenderGoalPageState extends State<CalenderGoalPage> {
   final TextEditingController _memoController = TextEditingController();
 
   @override
-  void initState() {
-    WidgetsBinding.instance!.addPostFrameCallback((_) async {
-      context.read<GoalListProvider>().setCharacterGoalCalenderList();
-    });
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     characterSettingProvider = Provider.of<CharacterSettingProvider>(context);
     homeProvider = Provider.of<HomeProvider>(context);
     goalListProvider = Provider.of<GoalListProvider>(context);
 
     return Scaffold(
-      backgroundColor: squirrelCharacter[characterSettingProvider.characterIdx]
-          ['character_color'],
+      backgroundColor: squirrelCharacter[characterSettingProvider.characterIdx]['character_color'],
       body: Stack(
         children: [
-          
           calenderWidget(),
           SlidingUpPanel(
             backdropEnabled: true,

@@ -1,21 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_squirrel/character_setting/character_alarm_setting.dart';
-import 'package:todo_squirrel/components/triangle_clipper.dart';
 import 'package:todo_squirrel/model/squirrel_character.dart';
 import 'package:todo_squirrel/providers/character_setting_provider.dart';
+import 'package:todo_squirrel/screens/widget/triangle_clipper.dart';
 
-class CharacterDateSetting extends StatefulWidget {
-  const CharacterDateSetting({Key? key}) : super(key: key);
+import 'character_date_setting.dart';
 
+class CharacterNameGoalSettingPage extends StatefulWidget {
+  const CharacterNameGoalSettingPage({Key? key}) : super(key: key);
   @override
-  State<CharacterDateSetting> createState() => _CharacterDateSettingState();
+  State<CharacterNameGoalSettingPage> createState() =>
+      _CharacterNameGoalSettingPageState();
 }
 
-class _CharacterDateSettingState extends State<CharacterDateSetting> {
+class _CharacterNameGoalSettingPageState
+    extends State<CharacterNameGoalSettingPage> {
   late CharacterSettingProvider characterSettingProvider;
-  final TextEditingController _dateController = TextEditingController();
+
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _goalController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -36,10 +40,8 @@ class _CharacterDateSettingState extends State<CharacterDateSetting> {
               child: InkWell(
                 onTap: () {
                   Navigator.pop(context);
-                  _dateController.clear();
-                  characterSettingProvider.characterStartDate = DateTime.now();
-                  characterSettingProvider.characterEndDate = DateTime.now();
-                  characterSettingProvider.characterRangeDate = 0;
+                  _nameController.clear();
+                  _goalController.clear();
                   FocusScope.of(context).unfocus();
                 },
                 child: Image.asset(
@@ -66,7 +68,7 @@ class _CharacterDateSettingState extends State<CharacterDateSetting> {
                           ),
                           alignment: Alignment.center,
                           child: Text(
-                            '“ 언제까지 할거야? “',
+                            '“ 내 이름과 너의 목표를 적어줘! “',
                             textScaleFactor: 1.0,
                             style: TextStyle(
                               color: squirrelCharacter[characterSettingProvider
@@ -77,7 +79,7 @@ class _CharacterDateSettingState extends State<CharacterDateSetting> {
                           ),
                         ),
                         Positioned(
-                          bottom: 0,
+                          bottom: 2.h,
                           left: 46.w,
                           child: ClipPath(
                             clipper: TriangleClipper(),
@@ -102,7 +104,7 @@ class _CharacterDateSettingState extends State<CharacterDateSetting> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        '오늘부터',
+                        '내 이름은',
                         textScaleFactor: 1.0,
                         style: TextStyle(
                           color: const Color.fromRGBO(255, 255, 255, 1),
@@ -110,7 +112,7 @@ class _CharacterDateSettingState extends State<CharacterDateSetting> {
                           fontWeight: FontWeight.w800,
                         ),
                       ),
-                      SizedBox(width: 10.w),
+                      SizedBox(width: 14.w),
                       Container(
                         decoration: BoxDecoration(
                           border: Border(
@@ -120,31 +122,32 @@ class _CharacterDateSettingState extends State<CharacterDateSetting> {
                             ),
                           ),
                         ),
-                        width: 60.w,
+                        width: 146.w,
                         child: TextField(
-                          controller: _dateController,
+                          controller: _nameController,
                           textAlign: TextAlign.center,
-                          maxLength: 2,
-                          keyboardType: TextInputType.number,
+                          maxLength: 8,
                           style: TextStyle(
                             color: const Color.fromRGBO(255, 255, 255, 1),
                             fontSize: 20.sp,
                             fontWeight: FontWeight.w400,
                           ),
-                          onChanged: (value) {
-                            setState(() {});
-                          },
                           decoration: InputDecoration(
                             isCollapsed: true,
                             contentPadding: EdgeInsets.only(bottom: 6.h),
                             counterText: '',
+                            hintStyle: TextStyle(
+                              color: const Color.fromRGBO(255, 255, 255, 0.5),
+                              fontSize: 20.sp,
+                              fontWeight: FontWeight.w400,
+                            ),
                             border: InputBorder.none,
                           ),
                         ),
                       ),
-                      SizedBox(width: 10.w),
+                      SizedBox(width: 14.w),
                       Text(
-                        '일 동안!',
+                        '이고,',
                         textScaleFactor: 1.0,
                         style: TextStyle(
                           color: const Color.fromRGBO(255, 255, 255, 1),
@@ -154,47 +157,83 @@ class _CharacterDateSettingState extends State<CharacterDateSetting> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 20.h),
-                  Text(
-                    '*최소 7일에서 최대 31일까지 설정 할 수 있어',
-                    textScaleFactor: 1.0,
-                    style: TextStyle(
-                      color: const Color.fromRGBO(255, 255, 255, 0.58),
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w400,
+                  SizedBox(height: 40.h),
+                  SizedBox(
+                    width: 286.w,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '내 목표는',
+                          textScaleFactor: 1.0,
+                          style: TextStyle(
+                            color: const Color.fromRGBO(255, 255, 255, 1),
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                        SizedBox(height: 10.h),
+                        Container(
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                color: const Color.fromRGBO(255, 255, 255, 1),
+                                width: 1.w,
+                              ),
+                            ),
+                          ),
+                          width: 286.w,
+                          child: TextField(
+                            controller: _goalController,
+                            textAlign: TextAlign.center,
+                            maxLength: 24,
+                            style: TextStyle(
+                              color: const Color.fromRGBO(255, 255, 255, 1),
+                              fontSize: 20.sp,
+                              fontWeight: FontWeight.w400,
+                            ),
+                            onChanged: (value) {
+                              setState(() {});
+                            },
+                            decoration: InputDecoration(
+                              isCollapsed: true,
+                              contentPadding: EdgeInsets.only(bottom: 6.h),
+                              counterText: '',
+                              hintStyle: TextStyle(
+                                color: const Color.fromRGBO(255, 255, 255, 0.5),
+                                fontSize: 20.sp,
+                                fontWeight: FontWeight.w400,
+                              ),
+                              border: InputBorder.none,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  SizedBox(height: 125.h),
+                  SizedBox(height: 63.h),
                   InkWell(
                     onTap: () {
-                      if (_dateController.text.isNotEmpty &&
-                          int.parse(_dateController.text) > 6 &&
-                          int.parse(_dateController.text) < 32) {
-                        characterSettingProvider.characterStartDate =
-                            DateTime.parse(
-                                '${DateTime.now().year}-${DateTime.now().month < 10 ? '0${DateTime.now().month}' : '${DateTime.now().month}'}-${DateTime.now().day < 10 ? '0${DateTime.now().day}' : '${DateTime.now().day}'}');
-                        characterSettingProvider.characterEndDate = DateTime.parse(
-                            '${DateTime.now().add(Duration(days: int.parse(_dateController.text))).toString().split('-')[0]}-${DateTime.now().add(Duration(days: int.parse(_dateController.text))).toString().split('-')[1]}-${DateTime.now().add(Duration(days: int.parse(_dateController.text))).toString().split('-')[2].split(' ')[0]}');
-                        characterSettingProvider.characterRangeDate =
-                            int.parse(_dateController.text);
-
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const CharacterAlarmSetting(),
-                          ),
-                        );
+                      if (_nameController.text.isNotEmpty && _goalController.text.isNotEmpty) {
+                        if(_nameController.text.trim().isNotEmpty && _goalController.text.trim().isNotEmpty) {
+                          characterSettingProvider.characterName = _nameController.text;
+                          characterSettingProvider.characterGoal = _goalController.text;
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const CharacterDateSetting(),
+                            ),
+                          );
+                        }
                       }
                     },
                     child: Container(
                       width: 112.w,
                       height: 42.h,
                       decoration: BoxDecoration(
-                          color: _dateController.text.isNotEmpty &&
-                                  int.parse(_dateController.text) > 6 &&
-                                  int.parse(_dateController.text) < 32
-                              ? const Color.fromRGBO(255, 255, 255, 1)
-                              : Colors.transparent,
+                          color: _nameController.text.isNotEmpty && _goalController.text.isNotEmpty && _nameController.text.trim().isNotEmpty && _goalController.text.trim().isNotEmpty
+                          ? const Color.fromRGBO(255, 255, 255, 1)
+                          : Colors.transparent,
                           borderRadius: BorderRadius.circular(21.w),
                           border: Border.all(
                             color: const Color.fromRGBO(255, 255, 255, 1),
@@ -204,11 +243,8 @@ class _CharacterDateSettingState extends State<CharacterDateSetting> {
                         '다음',
                         textScaleFactor: 1.0,
                         style: TextStyle(
-                          color: _dateController.text.isNotEmpty &&
-                                  int.parse(_dateController.text) > 6 &&
-                                  int.parse(_dateController.text) < 32
-                              ? squirrelCharacter[characterSettingProvider
-                                  .characterIdx]['character_color']
+                          color: _nameController.text.isNotEmpty && _goalController.text.isNotEmpty && _nameController.text.trim().isNotEmpty && _goalController.text.trim().isNotEmpty
+                              ? squirrelCharacter[characterSettingProvider.characterIdx]['character_color']
                               : const Color.fromRGBO(255, 255, 255, 1),
                           fontSize: 20.sp,
                           fontWeight: FontWeight.w800,
@@ -218,7 +254,7 @@ class _CharacterDateSettingState extends State<CharacterDateSetting> {
                   )
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

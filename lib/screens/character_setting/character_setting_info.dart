@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:todo_squirrel/components/triangle_clipper.dart';
-import 'package:todo_squirrel/home/home_screen.dart';
+import 'package:todo_squirrel/screens/home/home_screen.dart';
 import 'package:todo_squirrel/model/squirrel_character.dart';
 import 'package:todo_squirrel/providers/character_setting_provider.dart';
 import 'package:todo_squirrel/providers/home_provider.dart';
 import 'package:todo_squirrel/repositories/todo.dart';
+import 'package:todo_squirrel/screens/widget/triangle_clipper.dart';
 
 class CharacterSettingInfo extends StatefulWidget {
   const CharacterSettingInfo({Key? key}) : super(key: key);
