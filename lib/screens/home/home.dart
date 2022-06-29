@@ -87,16 +87,18 @@ class _MainScreensState extends State<MainScreens> {
                   showUnselectedLabels: false,
                   currentIndex: homeProvider.pageIdx,
                   backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
-                  selectedItemColor:
-                      squirrelCharacter[characterSettingProvider.characterIdx]
-                          ['character_color'],
+                  selectedItemColor: squirrelCharacter[characterSettingProvider.characterIdx]['character_color'],
                   unselectedItemColor: Colors.black54,
                   onTap: (index) {
-                    homeProvider.setPageIdx(index);
-                    
-                    if(index == 0) {
+                    if(index == 0 && homeProvider.pageIdx != 0) {
                       goalListProvider.setCharacterGoalCalenderList();
+                    } else if(index == 1 && homeProvider.pageIdx != 1) {
+                      goalListProvider.getfailureGoalList(state: 2);
+                    } else if(index == 3 && homeProvider.pageIdx != 3) {
+                      goalListProvider.getSuccessGoalList(state: 1);
                     }
+
+                    homeProvider.setPageIdx(index);
                   },
                   items: [
                     BottomNavigationBarItem(

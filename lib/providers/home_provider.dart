@@ -14,24 +14,13 @@ class HomeProvider extends ChangeNotifier {
   PanelController get characterGoalCheckController =>
       _characterGoalCheckController;
 
+  final PanelController _calenderGoalListController = PanelController();
+  PanelController get calenderGoalListController =>
+      _calenderGoalListController;
+
   final PanelController _calenderGoalCheckController = PanelController();
   PanelController get calenderGoalCheckController =>
       _calenderGoalCheckController;
-
-  num _calenderGoalCheckControllerPosition = 0.0;
-  num get calenderGoalCheckControllerPosition =>
-      _calenderGoalCheckControllerPosition;
-  set calenderGoalCheckControllerPosition(num value) {
-    _calenderGoalCheckControllerPosition = value;
-    notifyListeners();
-  }
-
-  bool _calenderGoalCheckMemo = false;
-  bool get calenderGoalCheckMemo => _calenderGoalCheckMemo;
-  set calenderGoalCheckMemo(bool value) {
-    _calenderGoalCheckMemo = value;
-    notifyListeners();
-  }
 
   int _calenderGoalSuccess = 0;
   int get calenderGoalSuccess => _calenderGoalSuccess;
