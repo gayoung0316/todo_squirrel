@@ -26,6 +26,14 @@ class _CalenderGoalPageState extends State<CalenderGoalPage> {
   late HomeProvider homeProvider;
   late GoalListProvider goalListProvider;
   late CalenderGoalCheckProvider calenderGoalCheckProvider;
+
+  @override
+  void initState() {
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+      context.read<GoalListProvider>().setCharacterGoalCalenderList();
+    });
+    super.initState();
+  }
   
 
   @override
@@ -40,22 +48,7 @@ class _CalenderGoalPageState extends State<CalenderGoalPage> {
       body: Stack(
         children: [
           calenderWidget(),
-          SlidingUpPanel(
-            backdropEnabled: true,
-            controller: homeProvider.calenderGoalCheckController,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(35.w),
-              topRight: Radius.circular(35.w),
-            ),
-            onPanelClosed: () {
-              calenderGoalCheckProvider.goalMemoController.clear();
-              FocusScope.of(context).unfocus();
-            },
-            minHeight: 0.h,
-            maxHeight: 260.h,
-            backdropOpacity: 0,
-            panel: const CalenderGoalCheckMemoPanel(),
-          ),
+          
           SlidingUpPanel(
             backdropEnabled: true,
             controller: homeProvider.goalListController,
@@ -74,7 +67,22 @@ class _CalenderGoalPageState extends State<CalenderGoalPage> {
             backdropOpacity: 0,
             panel: const CalenderGoalListPanel(),
           ),
-          // const (),
+          SlidingUpPanel(
+            backdropEnabled: true,
+            controller: homeProvider.calenderGoalCheckController,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(35.w),
+              topRight: Radius.circular(35.w),
+            ),
+            onPanelClosed: () {
+              calenderGoalCheckProvider.goalMemoController.clear();
+              FocusScope.of(context).unfocus();
+            },
+            minHeight: 0.h,
+            maxHeight: 260.h,
+            backdropOpacity: 0,
+            panel: const CalenderGoalCheckMemoPanel(),
+          ),
         ],
       ),
     );
@@ -192,35 +200,45 @@ class _CalenderGoalPageState extends State<CalenderGoalPage> {
                     },
                     child: Visibility(
                       visible: e['date'].toString().split(' ')[0] == day.toString().split(' ')[0],
-                      child: Center(
-                        child: Container(
-                          alignment: Alignment.center,
-                          width: 30.w,
-                          height: 30.w,
-                          decoration: BoxDecoration(
-                            color: e['success'] ? const Color.fromRGBO(255, 255, 255, 1) : Colors.transparent,
-                            borderRadius: BorderRadius.circular(12.w),
-                            border: Border.all(
-                              color: const Color.fromRGBO(255, 255, 255, 1),
-                              width: 1.w,
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Center(
+                            child: Container(
+                              alignment: Alignment.center,
+                              width: 30.w,
+                              height: 30.w,
+                              decoration: BoxDecoration(
+                                color: e['success'] ? const Color.fromRGBO(255, 255, 255, 1) : Colors.transparent,
+                                borderRadius: BorderRadius.circular(12.w),
+                                border: Border.all(
+                                  color: const Color.fromRGBO(255, 255, 255, 1),
+                                  width: 1.w,
+                                ),
+                                shape: BoxShape.rectangle,
+                              ),
+                              child: Text(
+                                day.day.toString(),
+                                textScaleFactor: 1.0,
+                                style: TextStyle(
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w800,
+                                  color: e['success'] ? squirrelCharacter[characterSettingProvider.characterIdx]['character_color']
+                                  : const Color.fromRGBO(255, 255, 255, 1),
+                                ),
+                              ),
                             ),
-                            shape: BoxShape.rectangle,
                           ),
-                          child: Text(
-                            day.day.toString(),
-                            textScaleFactor: 1.0,
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w800,
-                              color: e['success'] ? squirrelCharacter[characterSettingProvider.characterIdx]['character_color']
-                              : const Color.fromRGBO(255, 255, 255, 1),
-                            ),
-                          ),
-                        ),
+                          Image.asset(
+                            'assets/icons/diagonal-line.png',
+                            width: 22.5.w,
+                            height: 22.5.w,
+                          )
+                        ],
                       ),
                     ),
                   );
-                })
+                }),
               ],
             );
           },

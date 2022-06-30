@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_squirrel/model/squirrel_character.dart';
@@ -24,6 +25,7 @@ class _CalenderGoalCheckMemoPanelState extends State<CalenderGoalCheckMemoPanel>
     return GestureDetector(
         onTap: () {
           FocusScope.of(context).unfocus();
+          calenderGoalCheckProvider.goalMemoTextFieldTapped = false;
         },
         child: ListView(
           padding: EdgeInsets.only(
@@ -157,10 +159,10 @@ class _CalenderGoalCheckMemoPanelState extends State<CalenderGoalCheckMemoPanel>
                         setState(() {});
                       },
                       onSubmitted: (value) {
-                        calenderGoalCheckProvider.goalMemoKeyboardHasFocus = calenderGoalCheckProvider.goalMemoFocusNode.hasFocus;
+                        calenderGoalCheckProvider.goalMemoTextFieldTapped = false;
                       },
                       onTap: () {
-                        calenderGoalCheckProvider.goalMemoKeyboardHasFocus = calenderGoalCheckProvider.goalMemoFocusNode.hasFocus;
+                        calenderGoalCheckProvider.goalMemoTextFieldTapped = true;
                       },
                       decoration: InputDecoration(
                         isCollapsed: true,

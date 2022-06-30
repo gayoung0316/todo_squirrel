@@ -22,10 +22,10 @@ class CalenderGoalCheckProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool _goalMemoKeyboardHasFocus = false;
-  bool get goalMemoKeyboardHasFocus => _goalMemoKeyboardHasFocus;
-  set goalMemoKeyboardHasFocus(bool value) {
-    _goalMemoKeyboardHasFocus = value;
+  bool _goalMemoTextFieldTapped = false;
+  bool get goalMemoTextFieldTapped => _goalMemoTextFieldTapped;
+  set goalMemoTextFieldTapped(bool value) {
+    _goalMemoTextFieldTapped = value;
     notifyListeners();
   }
 
