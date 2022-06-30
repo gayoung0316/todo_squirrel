@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:todo_squirrel/model/squirrel_character.dart';
+import 'package:todo_squirrel/providers/calender_goal_check_provider.dart';
 import 'package:todo_squirrel/providers/character_setting_provider.dart';
 import 'package:todo_squirrel/providers/goal_list_provider.dart';
 import 'package:todo_squirrel/providers/home_provider.dart';
@@ -15,81 +16,67 @@ class CalenderGoalListPanel extends StatelessWidget {
     HomeProvider homeProvider = Provider.of<HomeProvider>(context); 
     CharacterSettingProvider characterSettingProvider = Provider.of<CharacterSettingProvider>(context);
     GoalListProvider goalListProvider = Provider.of<GoalListProvider>(context);
+    CalenderGoalCheckProvider calenderGoalCheckProvider = Provider.of<CalenderGoalCheckProvider>(context);
     
-    return SlidingUpPanel(
-      backdropEnabled: true,
-      controller: homeProvider.calenderGoalListController,
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(35.w),
-        topRight: Radius.circular(35.w),
-      ),
-      onPanelClosed: () {
-        homeProvider.calenderGoalSuccess = 0;
-        FocusScope.of(context).unfocus();
-      },
-      minHeight: 59.h,
-      maxHeight: (goalListProvider.calenderGoalList.length * 100.h) + 60.h,
-      backdropOpacity: 0,
-      panel: Column(
-        children: [
-          InkWell(
-            onTap: () {
-              if (homeProvider.calenderGoalCheckController.isPanelOpen) {
-                homeProvider.calenderGoalCheckController.close();
-              } else if (homeProvider.calenderGoalCheckController.isPanelClosed) {
-                homeProvider.calenderGoalCheckController.open();
-              }
-            },
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: 60.h,
-              decoration: BoxDecoration(
-                color: homeProvider.calenderGoalCheckController.isPanelClosed
-                ? const Color(0xfff5f5f5)
-                : const Color.fromRGBO(255, 255, 255, 1),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(35.w),
-                  topRight: Radius.circular(35.w),
-                ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  homeProvider.calenderGoalCheckController.isPanelClosed
-                  ? Text(
-                    '너의 목표를 확인해봐!',
-                    textScaleFactor: 1.0,
-                    style: TextStyle(
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w400,
-                      color: const Color.fromRGBO(158, 158, 158, 1),
-                    ),
-                  )
-                  : Text(
-                    '도전 ${(characterSettingProvider.characterEndDate.difference(DateTime.now()).inDays - characterSettingProvider.characterRangeDate).toString().replaceAll('-', '')}일차',
-                    textScaleFactor: 1.0,
-                    style: TextStyle(
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w400,
-                      color: const Color.fromRGBO(158, 158, 158, 1),
-                    ),
-                  )
-                ],
+    return Column(
+      children: [
+        InkWell(
+          onTap: () {
+            if (calenderGoalCheckProvider.goalListIsPanelOpen) {
+              homeProvider.goalListController.close();
+            } else if (!calenderGoalCheckProvider.goalListIsPanelOpen) {
+              homeProvider.goalListController.open();
+            }
+          },
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            height: 60.h,
+            decoration: BoxDecoration(
+              color: !calenderGoalCheckProvider.goalListIsPanelOpen
+              ? const Color(0xfff5f5f5)
+              : const Color.fromRGBO(255, 255, 255, 1),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(35.w),
+                topRight: Radius.circular(35.w),
               ),
             ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                !calenderGoalCheckProvider.goalListIsPanelOpen
+                ? Text(
+                  '너의 목표를 확인해봐!',
+                  textScaleFactor: 1.0,
+                  style: TextStyle(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w400,
+                    color: const Color.fromRGBO(158, 158, 158, 1),
+                  ),
+                )
+                : Text(
+                  '도전 ${(characterSettingProvider.characterEndDate.difference(DateTime.now()).inDays - characterSettingProvider.characterRangeDate).toString().replaceAll('-', '')}일차',
+                  textScaleFactor: 1.0,
+                  style: TextStyle(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w400,
+                    color: const Color.fromRGBO(158, 158, 158, 1),
+                  ),
+                )
+              ],
+            ),
           ),
-          ...goalListProvider.calenderGoalList.map(
-            (item) => goalListBoxWidget(
-              context, 
-              characterSettingProvider,
-              itemIdx: goalListProvider.calenderGoalList.indexOf(item) + 1,
-              goalTitle: item['title'],
-              goalPeriod: item['duration'],
-              goalPerfection: item['perfection']
-            )
-          ),
-        ],
-      ),
+        ),
+        ...goalListProvider.calenderGoalList.map(
+          (item) => goalListBoxWidget(
+            context, 
+            characterSettingProvider,
+            itemIdx: goalListProvider.calenderGoalList.indexOf(item) + 1,
+            goalTitle: item['title'],
+            goalPeriod: item['duration'],
+            goalPerfection: item['perfection']
+          )
+        ),
+      ],
     );
   }
 

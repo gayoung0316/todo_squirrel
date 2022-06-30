@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_squirrel/model/squirrel_character.dart';
+import 'package:todo_squirrel/providers/calender_goal_check_provider.dart';
 import 'package:todo_squirrel/providers/goal_list_provider.dart';
 import 'package:todo_squirrel/providers/character_setting_provider.dart';
 import 'package:todo_squirrel/providers/home_provider.dart';
@@ -26,12 +27,15 @@ class _MainScreensState extends State<MainScreens> {
   GlobalKey<NavigatorState> failuerGoalNavigatorKey = GlobalKey<NavigatorState>();
   GlobalKey<NavigatorState> successGoalNavigatorKey = GlobalKey<NavigatorState>();
   late GoalListProvider goalListProvider;
+  late CalenderGoalCheckProvider calenderGoalCheckProvider;
+
 
   @override
   Widget build(BuildContext context) {
     characterSettingProvider = Provider.of<CharacterSettingProvider>(context);
     homeProvider = Provider.of<HomeProvider>(context);
     goalListProvider = Provider.of<GoalListProvider>(context);
+    calenderGoalCheckProvider = Provider.of<CalenderGoalCheckProvider>(context);
 
     return Scaffold(
       extendBody: homeProvider.pageIdx == 0 ? false : true,
@@ -60,7 +64,7 @@ class _MainScreensState extends State<MainScreens> {
                 ),
               ],
             ),
-      bottomNavigationBar: homeProvider.isShowCoachMarks
+      bottomNavigationBar: homeProvider.isShowCoachMarks || !calenderGoalCheckProvider.goalMemoKeyboardHasFocus
           ? null
           : Container(
             decoration: BoxDecoration(

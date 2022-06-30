@@ -1,10 +1,12 @@
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:todo_squirrel/model/month.dart';
 import 'package:todo_squirrel/model/squirrel_character.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:todo_squirrel/providers/calender_goal_check_provider.dart';
 import 'package:todo_squirrel/providers/character_setting_provider.dart';
 import 'package:todo_squirrel/providers/goal_list_provider.dart';
 import 'package:todo_squirrel/providers/home_provider.dart';
@@ -23,6 +25,7 @@ class _CalenderGoalPageState extends State<CalenderGoalPage> {
   late CharacterSettingProvider characterSettingProvider;
   late HomeProvider homeProvider;
   late GoalListProvider goalListProvider;
+  late CalenderGoalCheckProvider calenderGoalCheckProvider;
   
 
   @override
@@ -30,14 +33,48 @@ class _CalenderGoalPageState extends State<CalenderGoalPage> {
     characterSettingProvider = Provider.of<CharacterSettingProvider>(context);
     homeProvider = Provider.of<HomeProvider>(context);
     goalListProvider = Provider.of<GoalListProvider>(context);
+    calenderGoalCheckProvider = Provider.of<CalenderGoalCheckProvider>(context);
 
     return Scaffold(
       backgroundColor: squirrelCharacter[characterSettingProvider.characterIdx]['character_color'],
       body: Stack(
         children: [
           calenderWidget(),
-          const CalenderGoalCheckMemoPanel(),
-          const CalenderGoalListPanel(),
+          SlidingUpPanel(
+            backdropEnabled: true,
+            controller: homeProvider.calenderGoalCheckController,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(35.w),
+              topRight: Radius.circular(35.w),
+            ),
+            onPanelClosed: () {
+              calenderGoalCheckProvider.goalMemoController.clear();
+              FocusScope.of(context).unfocus();
+            },
+            minHeight: 0.h,
+            maxHeight: 260.h,
+            backdropOpacity: 0,
+            panel: const CalenderGoalCheckMemoPanel(),
+          ),
+          SlidingUpPanel(
+            backdropEnabled: true,
+            controller: homeProvider.goalListController,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(35.w),
+              topRight: Radius.circular(35.w),
+            ),
+            onPanelOpened: () {
+              calenderGoalCheckProvider.goalListIsPanelOpen = true;
+            },
+            onPanelClosed: () {
+              calenderGoalCheckProvider.goalListIsPanelOpen = false;
+            },
+            minHeight: 59.h,
+            maxHeight: (goalListProvider.calenderGoalList.length * 100.h) + 60.h,
+            backdropOpacity: 0,
+            panel: const CalenderGoalListPanel(),
+          ),
+          // const (),
         ],
       ),
     );
@@ -144,12 +181,16 @@ class _CalenderGoalPageState extends State<CalenderGoalPage> {
             );
           },
           markerBuilder: (context, day, events) {
-            return InkWell(
-              onTap: () => homeProvider.calenderGoalCheckController.open(),
-              child: Stack(
-                children: [
-                  ...goalListProvider.calenderCheckGoalList.map((e) {
-                    return Visibility(
+            return Stack(
+              children: [
+                ...goalListProvider.calenderCheckGoalList.map((e) {
+                  return InkWell(
+                    onTap: () {
+                      calenderGoalCheckProvider.goalCheckSuccess = e['success'];
+                      calenderGoalCheckProvider.goalCheckDay = '${day.month}월 ${day.day}일';
+                      homeProvider.calenderGoalCheckController.open();
+                    },
+                    child: Visibility(
                       visible: e['date'].toString().split(' ')[0] == day.toString().split(' ')[0],
                       child: Center(
                         child: Container(
@@ -177,10 +218,10 @@ class _CalenderGoalPageState extends State<CalenderGoalPage> {
                           ),
                         ),
                       ),
-                    );
-                  })
-                ],
-              ),
+                    ),
+                  );
+                })
+              ],
             );
           },
         ),

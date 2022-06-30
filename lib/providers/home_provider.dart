@@ -11,16 +11,16 @@ class HomeProvider extends ChangeNotifier {
   }
 
   final PanelController _characterGoalCheckController = PanelController();
-  PanelController get characterGoalCheckController =>
-      _characterGoalCheckController;
+  PanelController get characterGoalCheckController => _characterGoalCheckController;
 
   final PanelController _calenderGoalListController = PanelController();
-  PanelController get calenderGoalListController =>
-      _calenderGoalListController;
+  PanelController get calenderGoalListController => _calenderGoalListController;
+
+  final PanelController _goalListController = PanelController();
+  PanelController get goalListController => _goalListController;
 
   final PanelController _calenderGoalCheckController = PanelController();
-  PanelController get calenderGoalCheckController =>
-      _calenderGoalCheckController;
+  PanelController get calenderGoalCheckController => _calenderGoalCheckController;
 
   int _calenderGoalSuccess = 0;
   int get calenderGoalSuccess => _calenderGoalSuccess;
