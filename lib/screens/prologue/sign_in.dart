@@ -60,9 +60,7 @@ class _SignInPageState extends State<SignInPage> {
       }
 
       AccessTokenInfo tokenInfo = await UserApi.instance.accessTokenInfo();
-
-      log('뭘 봐 : $tokenInfo');
-
+      
       var kakaoToken = await _sign.signIn(
         platform: 0,
         token: tokenInfo.id.toString(),
