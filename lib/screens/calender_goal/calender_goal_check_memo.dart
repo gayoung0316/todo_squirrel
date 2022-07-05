@@ -1,10 +1,11 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_squirrel/model/squirrel_character.dart';
 import 'package:todo_squirrel/providers/calender_goal_check_provider.dart';
 import 'package:todo_squirrel/providers/character_setting_provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:todo_squirrel/providers/goal_list_provider.dart';
+import 'package:todo_squirrel/repositories/todo.dart';
 
 class CalenderGoalCheckMemoPanel extends StatefulWidget {
   const CalenderGoalCheckMemoPanel({ Key? key }) : super(key: key);
@@ -16,11 +17,14 @@ class CalenderGoalCheckMemoPanel extends StatefulWidget {
 class _CalenderGoalCheckMemoPanelState extends State<CalenderGoalCheckMemoPanel> {
   late CalenderGoalCheckProvider calenderGoalCheckProvider;
   late CharacterSettingProvider characterSettingProvider;
+  late GoalListProvider goalListProvider;
+  final ToDo _toDo = ToDo();
 
   @override
   Widget build(BuildContext context) {
     calenderGoalCheckProvider = Provider.of<CalenderGoalCheckProvider>(context);
     characterSettingProvider = Provider.of<CharacterSettingProvider>(context);
+    goalListProvider = Provider.of<GoalListProvider>(context);
     
     return GestureDetector(
         onTap: () {
@@ -36,7 +40,9 @@ class _CalenderGoalCheckMemoPanelState extends State<CalenderGoalCheckMemoPanel>
           physics: const BouncingScrollPhysics(),
           children: [
             Text(
-              calenderGoalCheckProvider.goalCheckDay,
+              calenderGoalCheckProvider.goalCheckDay.contains('-') ?
+              '${calenderGoalCheckProvider.goalCheckDay.split('-')[1]}월 ${calenderGoalCheckProvider.goalCheckDay.split('-')[2]}일'
+              : calenderGoalCheckProvider.goalCheckDay,
               textScaleFactor: 1.0,
               style: TextStyle(
                 fontSize: 16.sp,
@@ -59,13 +65,19 @@ class _CalenderGoalCheckMemoPanelState extends State<CalenderGoalCheckMemoPanel>
               children: [
                 InkWell(
                   onTap: () {
-                    calenderGoalCheckProvider.goalCheckSuccess = true;
+                    _toDo.setCalenderGoal(
+                      todoIdx: characterSettingProvider.todoListIdx, 
+                      date: calenderGoalCheckProvider.goalCheckDay
+                    );
+
+                    calenderGoalCheckProvider.goalCheckSuccess = 1;
+                    goalListProvider.calenderCheckGoalList[calenderGoalCheckProvider.goalCheckListIdx]['success'] = 1;
                   },
                   child: Container(
                     width: 80.w,
                     height: 32.h,
                     decoration: BoxDecoration(
-                      color: calenderGoalCheckProvider.goalCheckSuccess
+                      color: calenderGoalCheckProvider.goalCheckSuccess == 1
                       ? squirrelCharacter[characterSettingProvider.characterIdx]['character_color']
                       : const Color.fromRGBO(255, 255, 255, 1),
                       borderRadius: BorderRadius.circular(35.w),
@@ -78,7 +90,7 @@ class _CalenderGoalCheckMemoPanelState extends State<CalenderGoalCheckMemoPanel>
                       '수행',
                       textScaleFactor: 1.0,
                       style: TextStyle(
-                        color: calenderGoalCheckProvider.goalCheckSuccess
+                        color: calenderGoalCheckProvider.goalCheckSuccess == 1
                         ? const Color.fromRGBO(255, 255, 255, 1)
                         : const Color.fromRGBO(158, 158, 158, 1),
                         fontSize: 16.sp,
@@ -89,12 +101,20 @@ class _CalenderGoalCheckMemoPanelState extends State<CalenderGoalCheckMemoPanel>
                 ),
                 SizedBox(width: 10.w),
                 InkWell(
-                  onTap: () => !calenderGoalCheckProvider.goalCheckSuccess,
+                  onTap: () {
+                    _toDo.deleteCalenderGoal(
+                      todoIdx: characterSettingProvider.todoListIdx, 
+                      date: calenderGoalCheckProvider.goalCheckDay
+                    );
+
+                    calenderGoalCheckProvider.goalCheckSuccess = 0;
+                    goalListProvider.calenderCheckGoalList[calenderGoalCheckProvider.goalCheckListIdx]['success'] = 0;
+                  },
                   child: Container(
                     width: 80.w,
                     height: 32.h,
                     decoration: BoxDecoration(
-                      color: !calenderGoalCheckProvider.goalCheckSuccess
+                      color: calenderGoalCheckProvider.goalCheckSuccess == 0
                       ? squirrelCharacter[characterSettingProvider.characterIdx]['character_color']
                       : const Color.fromRGBO(255, 255, 255, 1),
                       borderRadius: BorderRadius.circular(35.w),
@@ -107,7 +127,7 @@ class _CalenderGoalCheckMemoPanelState extends State<CalenderGoalCheckMemoPanel>
                       '미수행',
                       textScaleFactor: 1.0,
                       style: TextStyle(
-                        color: !calenderGoalCheckProvider.goalCheckSuccess
+                        color: calenderGoalCheckProvider.goalCheckSuccess == 0
                         ? const Color.fromRGBO(255, 255, 255, 1)
                         : const Color.fromRGBO(158, 158, 158, 1),
                         fontSize: 16.sp,

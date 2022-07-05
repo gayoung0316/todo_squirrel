@@ -90,13 +90,13 @@ class _FailureCharacterGoalInfoPageState
                       ),
                     ],
                   ),
-                  child: Column(
-                    // physics: const BouncingScrollPhysics(),
-                    // padding: EdgeInsets.only(
-                    //   left: 30.w,
-                    //   right: 30.w,
-                    //   top: 61.h
-                    // ),
+                  child: ListView(
+                    physics: const BouncingScrollPhysics(),
+                    padding: EdgeInsets.only(
+                      left: 30.w,
+                      right: 30.w,
+                      top: 61.h
+                    ),
                     children: [
                       Text(
                         '이름',

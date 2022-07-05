@@ -12,6 +12,7 @@ class CharacterSettingProvider extends ChangeNotifier {
     if(result!.data['success']) {
       if(result.data['todo'].isNotEmpty) {
         _successGetCharacterSettingInfo = true;
+        _todoListIdx = result.data['todo'][0]['idx'];
         _characterIdx = result.data['todo'][0]['char'];
         _characterGoal = result.data['todo'][0]['goal'];
         _characterName = result.data['todo'][0]['name'];
@@ -30,7 +31,12 @@ class CharacterSettingProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  
+  late int _todoListIdx;
+  int get todoListIdx => _todoListIdx;
+  set todoListIdx(int value) {
+    _todoListIdx = value;
+    notifyListeners();
+  }
 
   // 선택한 메인 캐릭터 인덱스
   int _characterIdx = 0;

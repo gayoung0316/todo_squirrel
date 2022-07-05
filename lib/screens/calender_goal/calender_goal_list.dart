@@ -86,7 +86,7 @@ class CalenderGoalListPanel extends StatelessWidget {
       required int itemIdx,
       required String goalTitle,
       required int goalPeriod,
-      required int goalPerfection,
+      required num goalPerfection,
     }
   ) {
     return Container(
@@ -147,7 +147,7 @@ class CalenderGoalListPanel extends StatelessWidget {
                     ),
                     SizedBox(width: 10.w),
                     Text(
-                      '$goalPeriod Days',
+                      '${goalPeriod - 1} Days',
                       textScaleFactor: 1.0,
                       style: TextStyle(
                         fontSize: 14.sp,

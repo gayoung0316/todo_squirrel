@@ -106,4 +106,56 @@ class ToDo {
       log('투두 리스트 생성 에러 발생 : $e');
     }
   }
+
+  Future<Response?> setCalenderGoal({required int todoIdx, required String date}) async {
+    try {
+      const url = "http://13.209.77.164:4001/api/v1/todo/done_check";
+
+      final prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString('login-token');
+      
+      Options options = Options(
+        headers: {'authorization':'Bearer $token'}
+      );
+
+      final response = await _dio.post(
+        url,
+        data: {
+          'todo_idx': todoIdx,
+          'date': date,
+        },
+        options: options,
+      );
+
+      return response;
+    } catch (e) {
+      log('투두 리스트 생성 에러 발생 : $e');
+    }
+  }
+
+    Future<Response?> deleteCalenderGoal({required int todoIdx, required String date}) async {
+    try {
+      const url = "http://13.209.77.164:4001/api/v1/todo/done_check";
+
+      final prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString('login-token');
+      
+      Options options = Options(
+        headers: {'authorization':'Bearer $token'}
+      );
+
+      final response = await _dio.delete(
+        url,
+        data: {
+          'todo_idx': todoIdx,
+          'date': date,
+        },
+        options: options,
+      );
+
+      return response;
+    } catch (e) {
+      log('투두 리스트 생성 에러 발생 : $e');
+    }
+  }
 }

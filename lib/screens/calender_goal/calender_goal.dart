@@ -194,8 +194,9 @@ class _CalenderGoalPageState extends State<CalenderGoalPage> {
                 ...goalListProvider.calenderCheckGoalList.map((e) {
                   return InkWell(
                     onTap: () {
+                      calenderGoalCheckProvider.goalCheckListIdx = goalListProvider.calenderCheckGoalList.indexOf(e);
+                      calenderGoalCheckProvider.goalCheckDay = day.toString().split(' ')[0];
                       calenderGoalCheckProvider.goalCheckSuccess = e['success'];
-                      calenderGoalCheckProvider.goalCheckDay = '${day.month}월 ${day.day}일';
                       homeProvider.calenderGoalCheckController.open();
                     },
                     child: Visibility(
@@ -209,7 +210,7 @@ class _CalenderGoalPageState extends State<CalenderGoalPage> {
                               width: 30.w,
                               height: 30.w,
                               decoration: BoxDecoration(
-                                color: e['success'] ? const Color.fromRGBO(255, 255, 255, 1) : Colors.transparent,
+                                color: e['success'] == 1 ? const Color.fromRGBO(255, 255, 255, 1) : Colors.transparent,
                                 borderRadius: BorderRadius.circular(12.w),
                                 border: Border.all(
                                   color: const Color.fromRGBO(255, 255, 255, 1),
@@ -223,16 +224,19 @@ class _CalenderGoalPageState extends State<CalenderGoalPage> {
                                 style: TextStyle(
                                   fontSize: 14.sp,
                                   fontWeight: FontWeight.w800,
-                                  color: e['success'] ? squirrelCharacter[characterSettingProvider.characterIdx]['character_color']
+                                  color: e['success'] == 1 ? squirrelCharacter[characterSettingProvider.characterIdx]['character_color']
                                   : const Color.fromRGBO(255, 255, 255, 1),
                                 ),
                               ),
                             ),
                           ),
-                          Image.asset(
-                            'assets/icons/diagonal-line.png',
-                            width: 22.5.w,
-                            height: 22.5.w,
+                          Visibility(
+                            visible: e['success'] == 0,
+                            child: Image.asset(
+                              'assets/icons/diagonal-line.png',
+                              width: 22.5.w,
+                              height: 22.5.w,
+                            ),
                           )
                         ],
                       ),

@@ -8,10 +8,22 @@ class CalenderGoalCheckProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool _goalCheckSuccess = false;
-  bool get goalCheckSuccess => _goalCheckSuccess;
-  set goalCheckSuccess(bool value) {
+  /*
+    0 : 미수행
+    1 : 수행
+    2 : 아직 해당 날짜 지나지 않음
+  */
+  int _goalCheckSuccess = 2;
+  int get goalCheckSuccess => _goalCheckSuccess;
+  set goalCheckSuccess(int value) {
     _goalCheckSuccess = value;
+    notifyListeners();
+  }
+
+  late int _goalCheckListIdx;
+  int get goalCheckListIdx => _goalCheckListIdx;
+  set goalCheckListIdx(int value) {
+    _goalCheckListIdx = value;
     notifyListeners();
   }
 
