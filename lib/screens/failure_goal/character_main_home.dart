@@ -39,6 +39,17 @@ class _MainHomePageState extends State<MainHomePage> {
   }
 
   @override
+  void initState() {
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+      if('${DateTime.now().hour}:${DateTime.now().minute}' == '${characterSettingProvider.characterHour}:${characterSettingProvider.characterMinute}') {
+        homeProvider.characterGoalCheckController.open();
+      }
+    });
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     characterSettingProvider = Provider.of<CharacterSettingProvider>(context);
     homeProvider = Provider.of<HomeProvider>(context);
@@ -182,15 +193,10 @@ class _MainHomePageState extends State<MainHomePage> {
         ),
         Padding(
           padding: EdgeInsets.only(top: 91.h),
-          child: InkWell(
-            onTap: () {
-              homeProvider.characterGoalCheckController.open();
-            },
-            child: Image.asset(
-              'assets/images/${nowHour >=6 && nowHour < 8 ? 'character_evening_squirrel_' : 'character_select_squirrel_'}${characterSettingProvider.characterIdx}.png',
-              width: 260.w,
-              height: 260.w,
-            ),
+          child: Image.asset(
+            'assets/images/${nowHour >=6 && nowHour < 8 ? 'character_evening_squirrel_' : 'character_select_squirrel_'}${characterSettingProvider.characterIdx}.png',
+            width: 260.w,
+            height: 260.w,
           ),
         ),
         Container(

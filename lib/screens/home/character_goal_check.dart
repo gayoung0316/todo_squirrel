@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:todo_squirrel/model/squirrel_character.dart';
 import 'package:todo_squirrel/providers/character_setting_provider.dart';
 import 'package:todo_squirrel/providers/home_provider.dart';
+import 'package:todo_squirrel/repositories/todo.dart';
 
 class CharacterGoalCheck extends StatefulWidget {
   const CharacterGoalCheck({Key? key}) : super(key: key);
@@ -16,6 +17,7 @@ class CharacterGoalCheck extends StatefulWidget {
 class _CharacterGoalCheckState extends State<CharacterGoalCheck> {
   late HomeProvider homeProvider;
   late CharacterSettingProvider characterSettingProvider;
+  final ToDo _toDo = ToDo();
 
   @override
   Widget build(BuildContext context) {
@@ -70,6 +72,10 @@ class _CharacterGoalCheckState extends State<CharacterGoalCheck> {
             children: [
               InkWell(
                 onTap: () {
+                  _toDo.deleteCalenderGoal(
+                    todoIdx: characterSettingProvider.todoListIdx, 
+                    date: DateTime.now().toString().split(' ')[0],
+                  );
                   homeProvider.characterGoalCheckController
                       .close()
                       .then((value) {
@@ -108,6 +114,11 @@ class _CharacterGoalCheckState extends State<CharacterGoalCheck> {
               SizedBox(width: 20.w),
               InkWell(
                 onTap: () {
+                  _toDo.setCalenderGoal(
+                    todoIdx: characterSettingProvider.todoListIdx, 
+                    date: DateTime.now().toString().split(' ')[0],
+                  );
+
                   homeProvider.characterGoalCheckController
                       .close()
                       .then((value) {
