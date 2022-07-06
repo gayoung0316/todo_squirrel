@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_squirrel/model/squirrel_character.dart';
 import 'package:todo_squirrel/providers/character_setting_provider.dart';
+import 'package:todo_squirrel/repositories/sign.dart';
 import 'package:todo_squirrel/screens/prologue/sign_in.dart';
 
 class SettingMainPage extends StatefulWidget {
@@ -19,6 +21,9 @@ class _SettingMainPageState extends State<SettingMainPage> {
   late CharacterSettingProvider characterSettingProvider;
   bool backgroundSoundOnOff = true;
   bool pushAlarmOnOff = false;
+
+  final Sign _sign = Sign();
+
 
   @override
   Widget build(BuildContext context) {
@@ -151,6 +156,10 @@ class _SettingMainPageState extends State<SettingMainPage> {
             padding: EdgeInsets.only(top: 330.h),
             child: InkWell(
               onTap: () async {
+                _sign.leaveUser();
+                await UserApi.instance.logout();
+                
+
                 final prefs = await SharedPreferences.getInstance();
                 await prefs.remove('login-token');
                 await prefs.remove('setCharacterToDo');
