@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:provider/provider.dart';
@@ -46,43 +47,6 @@ class _SettingMainPageState extends State<SettingMainPage> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(top: 53.h, left: 20.w, right: 20.w),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  '배경음악',
-                  textScaleFactor: 1.0,
-                  style: TextStyle(
-                    color: const Color.fromRGBO(255, 255, 255, 1),
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                FlutterSwitch(
-                  width: 60.w,
-                  height: 34.h,
-                  toggleSize: 26.w,
-                  value: backgroundSoundOnOff,
-                  borderRadius: 17.w,
-                  padding: 4.w,
-                  showOnOff: false,
-                  onToggle: (val) {
-                    setState(() {
-                      backgroundSoundOnOff = !backgroundSoundOnOff;
-                    });
-                  },
-                  activeToggleColor: squirrelCharacter[characterSettingProvider.characterIdx]['character_color'],
-                  activeColor: const Color.fromRGBO(255, 255, 255, 1),
-                  inactiveToggleColor: const Color.fromRGBO(255, 255, 255, 1),
-                  inactiveColor: const Color.fromRGBO(211, 211, 211, 0.6),
-                  activeText: '',
-                  inactiveText: '',
-                ),
-              ],
-            ),
-          ),
-          Padding(
             padding: EdgeInsets.only(top: 54.h, left: 20.w, right: 20.w),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -120,7 +84,71 @@ class _SettingMainPageState extends State<SettingMainPage> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(top: 420.h),
+            padding: EdgeInsets.only(top: 54.h, left: 20.w, right: 20.w),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  '알림 시간',
+                  textScaleFactor: 1.0,
+                  style: TextStyle(
+                    color: const Color.fromRGBO(255, 255, 255, 1),
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    showTimePickerPop();
+                  },
+                  child: Container(
+                    width: 50,
+                    height: 50,
+                    color: Colors.white,
+                  ),
+                )
+              ],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 53.h, left: 20.w, right: 20.w),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  '배경음악',
+                  textScaleFactor: 1.0,
+                  style: TextStyle(
+                    color: const Color.fromRGBO(255, 255, 255, 1),
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                FlutterSwitch(
+                  width: 60.w,
+                  height: 34.h,
+                  toggleSize: 26.w,
+                  value: backgroundSoundOnOff,
+                  borderRadius: 17.w,
+                  padding: 4.w,
+                  showOnOff: false,
+                  onToggle: (val) {
+                    setState(() {
+                      backgroundSoundOnOff = !backgroundSoundOnOff;
+                    });
+                  },
+                  activeToggleColor: squirrelCharacter[characterSettingProvider.characterIdx]['character_color'],
+                  activeColor: const Color.fromRGBO(255, 255, 255, 1),
+                  inactiveToggleColor: const Color.fromRGBO(255, 255, 255, 1),
+                  inactiveColor: const Color.fromRGBO(211, 211, 211, 0.6),
+                  activeText: '',
+                  inactiveText: '',
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 330.h),
             child: InkWell(
               onTap: () async {
                 final prefs = await SharedPreferences.getInstance();
@@ -178,5 +206,40 @@ class _SettingMainPageState extends State<SettingMainPage> {
         ],
       ),
     );
+  }
+
+  void showTimePickerPop() {
+    showCupertinoModalPopup(
+      context: context, 
+      builder: (BuildContext context) {  
+        return Container(
+          height: 190.h,
+          width: MediaQuery.of(context).size.width,
+          color: const Color.fromRGBO(255, 255, 255, 1),
+          child: CupertinoDatePicker(
+            onDateTimeChanged: (DateTime value) {
+
+            },
+            mode: CupertinoDatePickerMode.time,
+          ),
+        );
+      },
+    );
+
+
+    // ;
+    // return ;
+    // // Future<TimeOfDay?> selectedTime = showTimePicker(
+    // //   context: context,
+    // //   initialTime: TimeOfDay.now(),
+    // // );
+    // // CupertinoTimerPicker()
+    // // selectedTime.then((timeOfDay) {
+    // //   // Fluttertoast.showToast(
+    // //   //   msg: timeOfDay.toString(),
+    // //   //   toastLength: Toast.LENGTH_LONG,
+    // //   //   //gravity: ToastGravity.CENTER,  //위치(default 는 아래)
+    // //   // );
+    // // });
   }
 }
