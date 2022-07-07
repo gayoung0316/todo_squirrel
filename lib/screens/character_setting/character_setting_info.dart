@@ -22,6 +22,20 @@ class _CharacterSettingInfoState extends State<CharacterSettingInfo> {
   late HomeProvider homeProvider;
   final ToDo _toDo = ToDo();
 
+  bool checkBottomConsonant(String input){
+    return (input.runes.last - 0xAC00) % 28!=0;
+  }
+
+  final GlobalKey _speechBubbleKey = GlobalKey();
+  
+  double? _getSize(GlobalKey key) {
+    if (key.currentContext != null) {
+      final RenderBox renderBox = key.currentContext!.findRenderObject() as RenderBox;
+      Size size = renderBox.size;
+      return size.height;
+    }
+  }
+  
   @override
   Widget build(BuildContext context) {
     characterSettingProvider = Provider.of<CharacterSettingProvider>(context);
@@ -51,11 +65,14 @@ class _CharacterSettingInfoState extends State<CharacterSettingInfo> {
             child: Column(
               children: [
                 SizedBox(height: 70.h),
-                SizedBox(
-                  height: 52.h,
+                Container(
+                  color: Colors.amber,
+                  height: _getSize(_speechBubbleKey)! + 12.w,
                   child: Stack(
+                    alignment: Alignment.topCenter,
                     children: [
                       Container(
+                        key: _speechBubbleKey,
                         width: 308.w,
                         height: 40.h,
                         decoration: BoxDecoration(
@@ -64,18 +81,17 @@ class _CharacterSettingInfoState extends State<CharacterSettingInfo> {
                         ),
                         alignment: Alignment.center,
                         child: Text(
-                          '“ 안녕 난 ${characterSettingProvider.characterName}야 잘 부탁해! “',
+                          '“ 안녕 난 ${characterSettingProvider.characterName}${checkBottomConsonant(characterSettingProvider.characterName) ? '이' : ''}야 잘 부탁해! “',
                           textScaleFactor: 1.0,
                           style: TextStyle(
-                            color: squirrelCharacter[characterSettingProvider
-                                .characterIdx]['character_color'],
+                            color: squirrelCharacter[characterSettingProvider.characterIdx]['character_color'],
                             fontSize: 20.sp,
                             fontWeight: FontWeight.w800,
                           ),
                         ),
                       ),
                       Positioned(
-                        bottom: 0,
+                        bottom: 1.w,
                         left: 46.w,
                         child: ClipPath(
                           clipper: TriangleClipper(),
