@@ -32,11 +32,10 @@ class _FailureGoalPageState extends State<FailureGoalPage> {
     goalListProvider = Provider.of<GoalListProvider>(context);
 
     return Scaffold(
-      backgroundColor: squirrelCharacter[characterSettingProvider.characterIdx]
-          ['failure_color'],
+      backgroundColor: squirrelCharacter[characterSettingProvider.characterIdx]['failure_color'],
       body: ListView(
         physics: const BouncingScrollPhysics(),
-        padding: EdgeInsets.zero,
+        padding: EdgeInsets.only(bottom: 100.h),
         children: [
           SizedBox(
             height: 110.h,
@@ -129,8 +128,6 @@ class _FailureGoalPageState extends State<FailureGoalPage> {
                 characterEndGoal: '2022.02.14',
                 characterGoalSuccessPercent: double.parse('15'),
               ),
-              
-              SizedBox(height: 100.h),
             ],
           )
         ],

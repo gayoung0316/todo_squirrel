@@ -55,8 +55,7 @@ class _MainHomePageState extends State<MainHomePage> {
     homeProvider = Provider.of<HomeProvider>(context);
 
     return Scaffold(
-      backgroundColor: squirrelCharacter[characterSettingProvider.characterIdx]
-          ['character_color'],
+      backgroundColor: squirrelCharacter[characterSettingProvider.characterIdx]['character_color'],
       body: characterGoal()
     );
   }
@@ -145,51 +144,43 @@ class _MainHomePageState extends State<MainHomePage> {
 
   Widget characterGoal() {
     return ListView(
-      padding: EdgeInsets.zero,
+      physics: const BouncingScrollPhysics(),
+      padding: EdgeInsets.only(top: 91.h, bottom: 100.h),
       children: [
-        Padding(
-          padding: EdgeInsets.only(top: 91.h),
-          child: Image.asset(
-            'assets/icons/goal-icon.png',
-            width: 40.w,
-            height: 40.w,
+        Image.asset(
+          'assets/icons/goal-icon.png',
+          width: 40.w,
+          height: 40.w,
+        ),
+        Container(
+          width: 348.w,
+          margin: EdgeInsets.only(top: 50.h),
+          alignment: Alignment.center,
+          child: Text(
+            characterSettingProvider.characterGoal,
+            textAlign: TextAlign.center,
+            textScaleFactor: 1,
+            style: TextStyle(
+              color: const Color.fromRGBO(255, 255, 255, 1),
+              fontWeight: FontWeight.w800,
+              fontSize: 32.sp,
+            ),
           ),
         ),
-        Column(
-          children: [
-            Container(
-              width: 348.w,
-              margin: EdgeInsets.only(top: 50.h),
-              alignment: Alignment.center,
-              child: Text(
-                characterSettingProvider.characterGoal,
-                textAlign: TextAlign.center,
-                textScaleFactor: 1,
-                style: TextStyle(
-                  color: const Color.fromRGBO(255, 255, 255, 1),
-                  fontWeight: FontWeight.w800,
-                  fontSize: 32.sp,
-                ),
-              ),
+        Container(
+          margin: EdgeInsets.only(
+            top: textlines(characterSettingProvider.characterGoal) > 1 ? 10.h : 50.h,
+          ),
+          alignment: Alignment.center,
+          child: Text(
+            '${DateTime.now().difference(characterSettingProvider.characterStartDate).inDays + 1}일째 도전 중',
+            textScaleFactor: 1,
+            style: TextStyle(
+              color: const Color.fromRGBO(255, 255, 255, 1),
+              fontWeight: FontWeight.w400,
+              fontSize: 16.sp,
             ),
-            Container(
-              margin: EdgeInsets.only(
-                top: textlines(characterSettingProvider.characterGoal) > 1
-                    ? 10.h
-                    : 50.h,
-              ),
-              alignment: Alignment.center,
-              child: Text(
-                '${DateTime.now().difference(characterSettingProvider.characterStartDate).inDays + 1}일째 도전 중',
-                textScaleFactor: 1,
-                style: TextStyle(
-                  color: const Color.fromRGBO(255, 255, 255, 1),
-                  fontWeight: FontWeight.w400,
-                  fontSize: 16.sp,
-                ),
-              ),
-            ),
-          ],
+          ),
         ),
         Padding(
           padding: EdgeInsets.only(top: 91.h),

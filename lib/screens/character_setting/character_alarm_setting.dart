@@ -27,16 +27,15 @@ class _CharacterAlarmSettingState extends State<CharacterAlarmSetting> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        backgroundColor:
-            squirrelCharacter[characterSettingProvider.characterIdx]
-                ['character_color'],
+        backgroundColor: squirrelCharacter[characterSettingProvider.characterIdx]['character_color'],
         body: ListView(
-          padding: EdgeInsets.zero,
+          physics: const BouncingScrollPhysics(),
+          padding: EdgeInsets.only(top: 57.h, bottom: 100.h),
           children: [
             Align(
               alignment: Alignment.centerLeft,
               child: Padding(
-                padding: EdgeInsets.only(top: 57.h, left: 20.w),
+                padding: EdgeInsets.only(left: 20.w),
                 child: InkWell(
                   onTap: () {
                     Navigator.pop(context);

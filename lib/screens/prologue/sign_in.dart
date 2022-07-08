@@ -101,9 +101,8 @@ class _SignInPageState extends State<SignInPage> {
 
     return Scaffold(
       body: ListView(
-        padding: EdgeInsets.zero,
+        padding: EdgeInsets.only(top: 152.h, bottom: 100.h),
         children: [
-          SizedBox(height: 152.h),
           Text(
             'WELLCOME!',
             textScaleFactor: 1.0,

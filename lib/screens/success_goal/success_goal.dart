@@ -31,25 +31,21 @@ class _SuccessGoalPageState extends State<SuccessGoalPage> {
     goalListProvider = Provider.of<GoalListProvider>(context);
 
     return Scaffold(
-      backgroundColor: squirrelCharacter[characterSettingProvider.characterIdx]
-          ['character_color'],
+      backgroundColor: squirrelCharacter[characterSettingProvider.characterIdx]['character_color'],
       body: ListView(
         physics: const BouncingScrollPhysics(),
-        padding: EdgeInsets.zero,
+        padding: EdgeInsets.only(top: 57.h, bottom: 100.h),
         children: [
-          Padding(
-            padding: EdgeInsets.only(top: 57.h),
-            child: SizedBox(
-              height: 31.h,
-              child: Text(
-                '명예의 전당',
-                textScaleFactor: 1.0,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: const Color.fromRGBO(255, 255, 255, 1),
-                  fontWeight: FontWeight.w700,
-                  fontSize: 24.sp,
-                ),
+          SizedBox(
+            height: 31.h,
+            child: Text(
+              '명예의 전당',
+              textScaleFactor: 1.0,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: const Color.fromRGBO(255, 255, 255, 1),
+                fontWeight: FontWeight.w700,
+                fontSize: 24.sp,
               ),
             ),
           ),
@@ -106,14 +102,8 @@ class _SuccessGoalPageState extends State<SuccessGoalPage> {
               //     characterGoalSuccessPercent: double.parse('98'),
               //   );
               // }),
-              SizedBox(height: 100.h),
             ],
           )
-          
-
-          // SizedBox(height: 35.h),
-          
-          // SizedBox(height: 100.h),
         ],
       ),
     );

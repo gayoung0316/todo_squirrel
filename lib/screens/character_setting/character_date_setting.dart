@@ -25,15 +25,14 @@ class _CharacterDateSettingState extends State<CharacterDateSetting> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        backgroundColor:
-            squirrelCharacter[characterSettingProvider.characterIdx]
-                ['character_color'],
+        backgroundColor: squirrelCharacter[characterSettingProvider.characterIdx]['character_color'],
         body: ListView(
-          padding: EdgeInsets.zero,
+          physics: const BouncingScrollPhysics(),
+          padding: EdgeInsets.only(top: 57.h, bottom: 100.h),
           children: [
             Container(
               alignment: Alignment.centerLeft,
-              margin: EdgeInsets.only(top: 57.h, left: 20.w),
+              margin: EdgeInsets.only(left: 20.w),
               child: InkWell(
                 onTap: () {
                   Navigator.pop(context);

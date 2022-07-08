@@ -23,15 +23,6 @@ class _SettingMainPageState extends State<SettingMainPage> {
   bool pushAlarmOnOff = false;
 
   final Sign _sign = Sign();
-  final GlobalKey _pushAlarmTextWidget = GlobalKey();
-
-  num? _getPosition(GlobalKey key) {
-    if (key.currentContext != null) {
-      final RenderBox renderBox = key.currentContext!.findRenderObject() as RenderBox;
-      final position = renderBox.localToGlobal(Offset.zero);
-      return position.dy;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,21 +31,18 @@ class _SettingMainPageState extends State<SettingMainPage> {
     return Scaffold(
       backgroundColor: squirrelCharacter[characterSettingProvider.characterIdx]['character_color'],
       body: ListView(
-        padding: EdgeInsets.zero,
+        padding: EdgeInsets.only(top: 57.h, bottom: 100.h),
         children: [
-          Padding(
-            padding: EdgeInsets.only(top: 57.h),
-            child: SizedBox(
-              height: 31.h,
-              child: Text(
-                '환경설정',
-                textScaleFactor: 1.0,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: const Color.fromRGBO(255, 255, 255, 1),
-                  fontSize: 24.sp,
-                  fontWeight: FontWeight.w700,
-                ),
+          SizedBox(
+            height: 31.h,
+            child: Text(
+              '환경설정',
+              textScaleFactor: 1.0,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: const Color.fromRGBO(255, 255, 255, 1),
+                fontSize: 24.sp,
+                fontWeight: FontWeight.w700,
               ),
             ),
           ),
@@ -117,7 +105,6 @@ class _SettingMainPageState extends State<SettingMainPage> {
                   },
                   child: Text(
                     '${characterSettingProvider.characterHour < 10 ? '0${characterSettingProvider.characterHour}' : characterSettingProvider.characterHour}:${characterSettingProvider.characterMinute < 10 ? '0${characterSettingProvider.characterMinute}' : characterSettingProvider.characterMinute}',
-                    key: _pushAlarmTextWidget,
                     textScaleFactor: 1.0,
                     style: TextStyle(
                       color: pushAlarmOnOff ? const Color.fromRGBO(255, 255, 255, 1) : const Color.fromRGBO(255, 255, 255, 0.4),
@@ -167,7 +154,7 @@ class _SettingMainPageState extends State<SettingMainPage> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(top: 330.h),
+            padding: EdgeInsets.only(top: 350.h),
             child: InkWell(
               onTap: () async {
                 // _sign.leaveUser();
@@ -203,8 +190,7 @@ class _SettingMainPageState extends State<SettingMainPage> {
             child: Column(
               children: [
                 Text(
-                  // '버전 정보',
-                  _getPosition(_pushAlarmTextWidget).toString(),
+                  '버전 정보',
                   textAlign: TextAlign.center,
                   textScaleFactor: 1.0,
                   style: TextStyle(
