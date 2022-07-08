@@ -23,15 +23,22 @@ class _SettingMainPageState extends State<SettingMainPage> {
   bool pushAlarmOnOff = false;
 
   final Sign _sign = Sign();
+  final GlobalKey _pushAlarmTextWidget = GlobalKey();
 
+  num? _getPosition(GlobalKey key) {
+    if (key.currentContext != null) {
+      final RenderBox renderBox = key.currentContext!.findRenderObject() as RenderBox;
+      final position = renderBox.localToGlobal(Offset.zero);
+      return position.dy;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     characterSettingProvider = Provider.of<CharacterSettingProvider>(context);
 
     return Scaffold(
-      backgroundColor: squirrelCharacter[characterSettingProvider.characterIdx]
-          ['character_color'],
+      backgroundColor: squirrelCharacter[characterSettingProvider.characterIdx]['character_color'],
       body: ListView(
         padding: EdgeInsets.zero,
         children: [
@@ -97,20 +104,27 @@ class _SettingMainPageState extends State<SettingMainPage> {
                   '알림 시간',
                   textScaleFactor: 1.0,
                   style: TextStyle(
-                    color: const Color.fromRGBO(255, 255, 255, 1),
+                    color: pushAlarmOnOff ? const Color.fromRGBO(255, 255, 255, 1) : const Color.fromRGBO(255, 255, 255, 0.4),
                     fontSize: 20.sp,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
                 InkWell(
                   onTap: () {
-                    showTimePickerPop();
+                    if(pushAlarmOnOff) {
+                      showTimePickerPop();
+                    }
                   },
-                  child: Container(
-                    width: 50,
-                    height: 50,
-                    color: Colors.white,
-                  ),
+                  child: Text(
+                    '${characterSettingProvider.characterHour < 10 ? '0${characterSettingProvider.characterHour}' : characterSettingProvider.characterHour}:${characterSettingProvider.characterMinute < 10 ? '0${characterSettingProvider.characterMinute}' : characterSettingProvider.characterMinute}',
+                    key: _pushAlarmTextWidget,
+                    textScaleFactor: 1.0,
+                    style: TextStyle(
+                      color: pushAlarmOnOff ? const Color.fromRGBO(255, 255, 255, 1) : const Color.fromRGBO(255, 255, 255, 0.4),
+                      fontWeight: FontWeight.w700,
+                      fontSize: 20.sp,
+                    ),
+                  )
                 )
               ],
             ),
@@ -156,7 +170,7 @@ class _SettingMainPageState extends State<SettingMainPage> {
             padding: EdgeInsets.only(top: 330.h),
             child: InkWell(
               onTap: () async {
-                _sign.leaveUser();
+                // _sign.leaveUser();
                 await UserApi.instance.logout();
                 
 
@@ -189,7 +203,8 @@ class _SettingMainPageState extends State<SettingMainPage> {
             child: Column(
               children: [
                 Text(
-                  '버전 정보',
+                  // '버전 정보',
+                  _getPosition(_pushAlarmTextWidget).toString(),
                   textAlign: TextAlign.center,
                   textScaleFactor: 1.0,
                   style: TextStyle(
@@ -223,12 +238,15 @@ class _SettingMainPageState extends State<SettingMainPage> {
       builder: (BuildContext context) {  
         return Container(
           height: 190.h,
+          // width: 240.w,
           width: MediaQuery.of(context).size.width,
           color: const Color.fromRGBO(255, 255, 255, 1),
           child: CupertinoDatePicker(
             onDateTimeChanged: (DateTime value) {
-
+              characterSettingProvider.characterHour = value.hour;
+              characterSettingProvider.characterMinute = value.minute;
             },
+            use24hFormat: true,
             mode: CupertinoDatePickerMode.time,
           ),
         );

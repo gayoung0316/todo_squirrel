@@ -48,7 +48,6 @@ class _CalenderGoalPageState extends State<CalenderGoalPage> {
       body: Stack(
         children: [
           calenderWidget(),
-          
           SlidingUpPanel(
             backdropEnabled: true,
             controller: homeProvider.goalListController,
@@ -194,10 +193,12 @@ class _CalenderGoalPageState extends State<CalenderGoalPage> {
                 ...goalListProvider.calenderCheckGoalList.map((e) {
                   return InkWell(
                     onTap: () {
-                      calenderGoalCheckProvider.goalCheckListIdx = goalListProvider.calenderCheckGoalList.indexOf(e);
-                      calenderGoalCheckProvider.goalCheckDay = day.toString().split(' ')[0];
-                      calenderGoalCheckProvider.goalCheckSuccess = e['success'];
-                      homeProvider.calenderGoalCheckController.open();
+                      if(DateTime.now().day >= day.day) {
+                        calenderGoalCheckProvider.goalCheckListIdx = goalListProvider.calenderCheckGoalList.indexOf(e);
+                        calenderGoalCheckProvider.goalCheckDay = day.toString().split(' ')[0];
+                        calenderGoalCheckProvider.goalCheckSuccess = e['success'];
+                        homeProvider.calenderGoalCheckController.open();
+                      }
                     },
                     child: Visibility(
                       visible: e['date'].toString().split(' ')[0] == day.toString().split(' ')[0],
