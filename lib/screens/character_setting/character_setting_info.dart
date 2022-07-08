@@ -26,16 +26,6 @@ class _CharacterSettingInfoState extends State<CharacterSettingInfo> {
     return (input.runes.last - 0xAC00) % 28!=0;
   }
 
-  final GlobalKey _speechBubbleKey = GlobalKey();
-  
-  double? _getSize(GlobalKey key) {
-    if (key.currentContext != null) {
-      final RenderBox renderBox = key.currentContext!.findRenderObject() as RenderBox;
-      Size size = renderBox.size;
-      return size.height;
-    }
-  }
-  
   @override
   Widget build(BuildContext context) {
     characterSettingProvider = Provider.of<CharacterSettingProvider>(context);
@@ -65,14 +55,12 @@ class _CharacterSettingInfoState extends State<CharacterSettingInfo> {
             child: Column(
               children: [
                 SizedBox(height: 70.h),
-                Container(
-                  color: Colors.amber,
-                  height: _getSize(_speechBubbleKey)! + 12.w,
+                SizedBox(
+                  height: 52.h,
                   child: Stack(
                     alignment: Alignment.topCenter,
                     children: [
                       Container(
-                        key: _speechBubbleKey,
                         width: 308.w,
                         height: 40.h,
                         decoration: BoxDecoration(
@@ -130,7 +118,7 @@ class _CharacterSettingInfoState extends State<CharacterSettingInfo> {
                 characterInfo(
                   title: '알람',
                   content:
-                      '${characterSettingProvider.characterHour == 0 ? '00' : characterSettingProvider.characterHour}:${characterSettingProvider.characterMinute == 0 ? '00' : characterSettingProvider.characterMinute}',
+                      '${characterSettingProvider.characterHour == 0 ? '00' : '${characterSettingProvider.characterHour < 10 ? '0${characterSettingProvider.characterHour}' : characterSettingProvider.characterHour}'}:${characterSettingProvider.characterMinute == 0 ? '00' : '${characterSettingProvider.characterMinute < 10 ? '0${characterSettingProvider.characterMinute}' : characterSettingProvider.characterMinute}'}',
                 ),
                 SizedBox(height: 41.h),
                 InkWell(
@@ -150,7 +138,7 @@ class _CharacterSettingInfoState extends State<CharacterSettingInfo> {
                       goal: characterSettingProvider.characterGoal,
                       characterName: characterSettingProvider.characterName,
                       pushAlarm:
-                          '${characterSettingProvider.characterHour}:${characterSettingProvider.characterMinute}:00',
+                          '${characterSettingProvider.characterHour < 10 ? '0${characterSettingProvider.characterHour}' : characterSettingProvider.characterHour}:${characterSettingProvider.characterMinute < 10 ? '0${characterSettingProvider.characterMinute}' : characterSettingProvider.characterMinute}:00',
                       finishDate: characterSettingProvider.characterEndDate
                           .toString()
                           .split(' ')[0],
