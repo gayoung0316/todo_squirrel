@@ -14,13 +14,6 @@ import 'package:todo_squirrel/screens/character_setting/character_select.dart';
 import 'package:todo_squirrel/screens/home/home_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-GoogleSignIn _googleSignIn = GoogleSignIn(
-  scopes: <String>[
-    'email',
-    'https://www.googleapis.com/auth/contacts.readonly',
-  ],
-);
-
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
 
@@ -33,19 +26,6 @@ class _SignInPageState extends State<SignInPage> {
   final Sign _sign = Sign();
   late CharacterSettingProvider characterSettingProvider;
   late HomeProvider homeProvider;
-
-  Future<String> _googleLogIn() async {
-    try {
-      var result = await _googleSignIn.signIn();
-      log('구글로 로그인 성공 $result');
-
-      var googleToken = await _sign.signIn(platform: 1, token: result!.id);
-      return googleToken!.data['token'];
-    } catch (error) {
-      log('구글로 로그인 실패 $error');
-      return '';
-    }
-  }
 
   Future<String> _kakaoLogIn() async {
     try {
@@ -60,7 +40,7 @@ class _SignInPageState extends State<SignInPage> {
       }
 
       AccessTokenInfo tokenInfo = await UserApi.instance.accessTokenInfo();
-      
+
       var kakaoToken = await _sign.signIn(
         platform: 0,
         token: tokenInfo.id.toString(),
@@ -124,12 +104,6 @@ class _SignInPageState extends State<SignInPage> {
             context: context,
             loginType: 0,
             loginTypeName: '카카오톡',
-          ),
-          SizedBox(height: 26.h),
-          loginPlatformButton(
-            context: context,
-            loginType: 1,
-            loginTypeName: '구글',
           ),
           SizedBox(height: Platform.isIOS ? 26.h : 36.h),
           Visibility(
@@ -227,12 +201,6 @@ class _SignInPageState extends State<SignInPage> {
             log('카카오톡 회원가입 완료');
             prefs.setString('login-token', result);
           }
-        } else if (loginType == 1) {
-          var result = await _googleLogIn();
-          if (result != '') {
-            log('구글 회원가입 완료');
-            prefs.setString('login-token', result);
-          }
         } else if (loginType == 2) {
           var result = await _appleLogin();
           if (result != '') {
@@ -301,11 +269,12 @@ class _SignInPageState extends State<SignInPage> {
                 '$loginTypeName 계정으로 로그인',
                 textScaleFactor: 1.0,
                 style: TextStyle(
-                    fontWeight: FontWeight.w800,
-                    fontSize: 16.sp,
-                    color: loginType == 2
-                        ? const Color.fromRGBO(255, 255, 255, 1)
-                        : const Color.fromRGBO(0, 0, 0, 1)),
+                  fontWeight: FontWeight.w800,
+                  fontSize: 16.sp,
+                  color: loginType == 2
+                      ? const Color.fromRGBO(255, 255, 255, 1)
+                      : const Color.fromRGBO(0, 0, 0, 1),
+                ),
               ),
             ),
             SizedBox(
