@@ -2,7 +2,6 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -80,105 +79,97 @@ class _SignInPageState extends State<SignInPage> {
     characterSettingProvider = Provider.of<CharacterSettingProvider>(context);
 
     return Scaffold(
-      body: ListView(
-        padding: EdgeInsets.only(top: 152.h, bottom: 100.h),
+      body: Stack(
         children: [
-          Text(
-            'WELLCOME!',
-            textScaleFactor: 1.0,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: const Color.fromRGBO(64, 51, 42, 1),
-              fontWeight: FontWeight.w800,
-              fontSize: 46.sp,
-            ),
+          Image.asset(
+            'assets/images/login-background.png',
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            fit: BoxFit.cover,
           ),
-          SizedBox(height: 30.h),
-          Container(
-            color: Colors.pink,
-            width: 302.w,
-            height: 232.h,
-          ),
-          SizedBox(height: 56.h),
-          loginPlatformButton(
-            context: context,
-            loginType: 0,
-            loginTypeName: '카카오톡',
-          ),
-          SizedBox(height: Platform.isIOS ? 26.h : 36.h),
-          Visibility(
-            visible: Platform.isIOS,
-            child: loginPlatformButton(
-              context: context,
-              loginType: 2,
-              loginTypeName: 'Apple',
-            ),
-          ),
-          SizedBox(height: Platform.isIOS ? 36.h : 0),
-          Column(
-            children: [
-              Text(
-                '회원가입 없이 이용 가능하며 첫 로그인시',
-                textScaleFactor: 1.0,
-                style: TextStyle(
-                  color: const Color.fromRGBO(97, 97, 97, 1),
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w300,
+          Positioned(
+            bottom: 50.h,
+            child: Column(
+              children: [
+                loginPlatformButton(
+                  context: context,
+                  loginType: 0,
+                  loginTypeName: '카카오톡',
                 ),
-              ),
-              SizedBox(height: 4.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  InkWell(
-                    onTap: () {
-                      launchUrl(Uri.parse('http://13.209.77.164:4001/policy'));
-                    },
-                    child: Text(
-                      '이용약관',
-                      textScaleFactor: 1.0,
-                      style: TextStyle(
-                        color: const Color.fromRGBO(126, 140, 255, 1),
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w700,
+                SizedBox(height: Platform.isIOS ? 26.h : 36.h),
+                Visibility(
+                  visible: Platform.isIOS,
+                  child: loginPlatformButton(
+                    context: context,
+                    loginType: 2,
+                    loginTypeName: 'Apple',
+                  ),
+                ),
+                SizedBox(height: 102.h),
+                Text(
+                  '회원가입 없이 이용 가능하며 첫 로그인시',
+                  textScaleFactor: 1.0,
+                  style: TextStyle(
+                    color: const Color.fromRGBO(255, 255, 255, 1),
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w300,
+                  ),
+                ),
+                SizedBox(height: 4.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        launchUrl(
+                            Uri.parse('http://13.209.77.164:4001/policy'));
+                      },
+                      child: Text(
+                        '이용약관',
+                        textScaleFactor: 1.0,
+                        style: TextStyle(
+                          color: const Color.fromRGBO(255, 255, 255, 1),
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
-                  ),
-                  Text(
-                    ' 및 ',
-                    textScaleFactor: 1.0,
-                    style: TextStyle(
-                      color: const Color.fromRGBO(97, 97, 97, 1),
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w300,
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      launchUrl(Uri.parse('http://13.209.77.164:4001/policy'));
-                    },
-                    child: Text(
-                      '개인정보처리방침',
+                    Text(
+                      ' 및 ',
                       textScaleFactor: 1.0,
                       style: TextStyle(
-                        color: const Color.fromRGBO(126, 140, 255, 1),
+                        color: const Color.fromRGBO(255, 255, 255, 1),
                         fontSize: 12.sp,
-                        fontWeight: FontWeight.w700,
+                        fontWeight: FontWeight.w300,
                       ),
                     ),
-                  ),
-                  Text(
-                    ' 동의로 간주됩니다.',
-                    textScaleFactor: 1.0,
-                    style: TextStyle(
-                      color: const Color.fromRGBO(97, 97, 97, 1),
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w300,
+                    InkWell(
+                      onTap: () => launchUrl(
+                        Uri.parse('http://13.209.77.164:4001/policy'),
+                      ),
+                      child: Text(
+                        '개인정보처리방침',
+                        textScaleFactor: 1.0,
+                        style: TextStyle(
+                          color: const Color.fromRGBO(255, 255, 255, 1),
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                     ),
-                  ),
-                ],
-              )
-            ],
+                    Text(
+                      ' 동의로 간주됩니다.',
+                      textScaleFactor: 1.0,
+                      style: TextStyle(
+                        color: const Color.fromRGBO(255, 255, 255, 1),
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
           ),
         ],
       ),
@@ -257,7 +248,7 @@ class _SignInPageState extends State<SignInPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Image.asset(
-              'assets/icons/${loginType == 0 ? 'kakao' : 'google'}_login.png',
+              'assets/icons/${loginType == 0 ? 'kakao' : 'apple'}_login.png',
               width: 36.w,
               height: 36.w,
             ),
