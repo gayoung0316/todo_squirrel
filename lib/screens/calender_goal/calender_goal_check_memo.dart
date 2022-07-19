@@ -216,20 +216,52 @@ class _CalenderGoalCheckMemoPanelState
                   children: [
                     InkWell(
                       onTap: () async {
-                        if (calenderGoalCheckProvider.goalMemoController.text
-                            .trim()
-                            .isNotEmpty) {
-                          var result = await _toDo.postToDoMemo(
-                            todoIdx: characterSettingProvider.todoListIdx,
-                            date: calenderGoalCheckProvider.goalCheckDay,
-                            memo: calenderGoalCheckProvider
-                                .goalMemoController.text,
-                          );
+                        if (goalListProvider.calenderCheckGoalList[
+                                    calenderGoalCheckProvider.goalCheckListIdx]
+                                ['memo'] ==
+                            "") {
+                          if (calenderGoalCheckProvider.goalMemoController.text
+                              .trim()
+                              .isNotEmpty) {
+                            var result = await _toDo.postToDoMemo(
+                              todoIdx: characterSettingProvider.todoListIdx,
+                              date: calenderGoalCheckProvider.goalCheckDay,
+                              memo: calenderGoalCheckProvider
+                                  .goalMemoController.text,
+                            );
 
-                          if (result!.data['success']) {
-                            calenderGoalCheckProvider.goalMemoController
-                                .clear();
-                            homeProvider.calenderGoalCheckController.close();
+                            if (result!.data['success']) {
+                              goalListProvider.calenderCheckGoalList[
+                                      calenderGoalCheckProvider
+                                          .goalCheckListIdx]['memo'] =
+                                  calenderGoalCheckProvider
+                                      .goalMemoController.text;
+                              calenderGoalCheckProvider.goalMemoController
+                                  .clear();
+                              homeProvider.calenderGoalCheckController.close();
+                            }
+                          }
+                        } else {
+                          if (calenderGoalCheckProvider.goalMemoController.text
+                              .trim()
+                              .isNotEmpty) {
+                            var result = await _toDo.editToDoMemo(
+                              todoIdx: characterSettingProvider.todoListIdx,
+                              date: calenderGoalCheckProvider.goalCheckDay,
+                              memo: calenderGoalCheckProvider
+                                  .goalMemoController.text,
+                            );
+
+                            if (result!.data['success']) {
+                              goalListProvider.calenderCheckGoalList[
+                                      calenderGoalCheckProvider
+                                          .goalCheckListIdx]['memo'] =
+                                  calenderGoalCheckProvider
+                                      .goalMemoController.text;
+                              calenderGoalCheckProvider.goalMemoController
+                                  .clear();
+                              homeProvider.calenderGoalCheckController.close();
+                            }
                           }
                         }
                       },
