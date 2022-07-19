@@ -34,7 +34,6 @@ class _CalenderGoalPageState extends State<CalenderGoalPage> {
     });
     super.initState();
   }
-  
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +43,8 @@ class _CalenderGoalPageState extends State<CalenderGoalPage> {
     calenderGoalCheckProvider = Provider.of<CalenderGoalCheckProvider>(context);
 
     return Scaffold(
-      backgroundColor: squirrelCharacter[characterSettingProvider.characterIdx]['character_color'],
+      backgroundColor: squirrelCharacter[characterSettingProvider.characterIdx]
+          ['character_color'],
       body: Stack(
         children: [
           calenderWidget(),
@@ -62,7 +62,8 @@ class _CalenderGoalPageState extends State<CalenderGoalPage> {
               calenderGoalCheckProvider.goalListIsPanelOpen = false;
             },
             minHeight: 59.h,
-            maxHeight: (goalListProvider.calenderGoalList.length * 100.h) + 60.h,
+            maxHeight:
+                (goalListProvider.calenderGoalList.length * 100.h) + 60.h,
             backdropOpacity: 0,
             panel: const CalenderGoalListPanel(),
           ),
@@ -142,7 +143,11 @@ class _CalenderGoalPageState extends State<CalenderGoalPage> {
           },
           defaultBuilder: (context, day, focusedDay) {
             return Visibility(
-              visible: goalListProvider.calenderCheckGoalList.where((element) => element['date'] == day.toString().split(' ')[0]).toList().isEmpty,
+              visible: goalListProvider.calenderCheckGoalList
+                  .where((element) =>
+                      element['date'] == day.toString().split(' ')[0])
+                  .toList()
+                  .isEmpty,
               child: Center(
                 child: Text(
                   day.day.toString(),
@@ -171,11 +176,14 @@ class _CalenderGoalPageState extends State<CalenderGoalPage> {
                 ),
                 Center(
                   child: Text(
-                    goalListProvider.calenderCheckGoalList.where(
-                      (element) => element['date'].toString().split(' ')[0] == day.toString().split(' ')[0]
-                    ).toList().isNotEmpty
-                    ? ''
-                    : day.day.toString(),
+                    goalListProvider.calenderCheckGoalList
+                            .where((element) =>
+                                element['date'].toString().split(' ')[0] ==
+                                day.toString().split(' ')[0])
+                            .toList()
+                            .isNotEmpty
+                        ? ''
+                        : day.day.toString(),
                     textScaleFactor: 1.0,
                     style: TextStyle(
                       fontSize: 14.sp,
@@ -193,15 +201,21 @@ class _CalenderGoalPageState extends State<CalenderGoalPage> {
                 ...goalListProvider.calenderCheckGoalList.map((e) {
                   return InkWell(
                     onTap: () {
-                      if(DateTime.now().day >= day.day) {
-                        calenderGoalCheckProvider.goalCheckListIdx = goalListProvider.calenderCheckGoalList.indexOf(e);
-                        calenderGoalCheckProvider.goalCheckDay = day.toString().split(' ')[0];
-                        calenderGoalCheckProvider.goalCheckSuccess = e['success'];
+                      if (DateTime.now().day >= day.day) {
+                        calenderGoalCheckProvider.goalCheckListIdx =
+                            goalListProvider.calenderCheckGoalList.indexOf(e);
+                        calenderGoalCheckProvider.goalCheckDay =
+                            day.toString().split(' ')[0];
+                        calenderGoalCheckProvider.goalCheckSuccess =
+                            e['success'];
+                        calenderGoalCheckProvider.goalMemoController.text =
+                            e['memo'];
                         homeProvider.calenderGoalCheckController.open();
                       }
                     },
                     child: Visibility(
-                      visible: e['date'].toString().split(' ')[0] == day.toString().split(' ')[0],
+                      visible: e['date'].toString().split(' ')[0] ==
+                          day.toString().split(' ')[0],
                       child: Stack(
                         alignment: Alignment.center,
                         children: [
@@ -211,7 +225,9 @@ class _CalenderGoalPageState extends State<CalenderGoalPage> {
                               width: 30.w,
                               height: 30.w,
                               decoration: BoxDecoration(
-                                color: e['success'] == 1 ? const Color.fromRGBO(255, 255, 255, 1) : Colors.transparent,
+                                color: e['success'] == 1
+                                    ? const Color.fromRGBO(255, 255, 255, 1)
+                                    : Colors.transparent,
                                 borderRadius: BorderRadius.circular(12.w),
                                 border: Border.all(
                                   color: const Color.fromRGBO(255, 255, 255, 1),
@@ -225,8 +241,11 @@ class _CalenderGoalPageState extends State<CalenderGoalPage> {
                                 style: TextStyle(
                                   fontSize: 14.sp,
                                   fontWeight: FontWeight.w800,
-                                  color: e['success'] == 1 ? squirrelCharacter[characterSettingProvider.characterIdx]['character_color']
-                                  : const Color.fromRGBO(255, 255, 255, 1),
+                                  color: e['success'] == 1
+                                      ? squirrelCharacter[
+                                          characterSettingProvider
+                                              .characterIdx]['character_color']
+                                      : const Color.fromRGBO(255, 255, 255, 1),
                                 ),
                               ),
                             ),

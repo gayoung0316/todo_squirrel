@@ -156,10 +156,11 @@ class ToDo {
   }
 
   // 메모 생성
-  Future<Response?> postToDoMemo(
-      {required int todoIdx,
-      required String date,
-      required String memo}) async {
+  Future<Response?> postToDoMemo({
+    required int todoIdx,
+    required String date,
+    required String memo,
+  }) async {
     try {
       const url = "http://13.209.77.164:4001/api/v1/todo/memo";
 
@@ -185,10 +186,11 @@ class ToDo {
   }
 
   // 메모 수정
-  Future<Response?> editToDoMemo(
-      {required int todoIdx,
-      required String date,
-      required String memo}) async {
+  Future<Response?> editToDoMemo({
+    required int todoIdx,
+    required String date,
+    required String memo,
+  }) async {
     try {
       const url = "http://13.209.77.164:4001/api/v1/todo/memo";
 
