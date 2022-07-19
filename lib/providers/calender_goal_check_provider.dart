@@ -27,6 +27,13 @@ class CalenderGoalCheckProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  String _goalMemo = '';
+  String get goalMemo => _goalMemo;
+  set goalMemo(String value) {
+    _goalMemo = value;
+    notifyListeners();
+  }
+
   bool _goalMemoIsNotEmpty = false;
   bool get goalMemoIsNotEmpty => _goalMemoIsNotEmpty;
   set goalMemoIsNotEmpty(bool value) {
