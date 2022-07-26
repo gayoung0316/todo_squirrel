@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_squirrel/model/squirrel_character.dart';
 import 'package:todo_squirrel/providers/character_setting_provider.dart';
+import 'package:todo_squirrel/repositories/setting.dart';
 import 'package:todo_squirrel/repositories/sign.dart';
 import 'package:todo_squirrel/screens/prologue/sign_in.dart';
 
@@ -23,13 +24,15 @@ class _SettingMainPageState extends State<SettingMainPage> {
   bool pushAlarmOnOff = false;
 
   final Sign _sign = Sign();
+  final Setting _setting = Setting();
 
   @override
   Widget build(BuildContext context) {
     characterSettingProvider = Provider.of<CharacterSettingProvider>(context);
 
     return Scaffold(
-      backgroundColor: squirrelCharacter[characterSettingProvider.characterIdx]['character_color'],
+      backgroundColor: squirrelCharacter[characterSettingProvider.characterIdx]
+          ['character_color'],
       body: ListView(
         padding: EdgeInsets.only(top: 57.h, bottom: 100.h),
         children: [
@@ -73,7 +76,9 @@ class _SettingMainPageState extends State<SettingMainPage> {
                       pushAlarmOnOff = !pushAlarmOnOff;
                     });
                   },
-                  activeToggleColor: squirrelCharacter[characterSettingProvider.characterIdx]['character_color'],
+                  activeToggleColor:
+                      squirrelCharacter[characterSettingProvider.characterIdx]
+                          ['character_color'],
                   activeColor: const Color.fromRGBO(255, 255, 255, 1),
                   inactiveToggleColor: const Color.fromRGBO(255, 255, 255, 1),
                   inactiveColor: const Color.fromRGBO(211, 211, 211, 0.6),
@@ -92,64 +97,30 @@ class _SettingMainPageState extends State<SettingMainPage> {
                   '알림 시간',
                   textScaleFactor: 1.0,
                   style: TextStyle(
-                    color: pushAlarmOnOff ? const Color.fromRGBO(255, 255, 255, 1) : const Color.fromRGBO(255, 255, 255, 0.4),
+                    color: pushAlarmOnOff
+                        ? const Color.fromRGBO(255, 255, 255, 1)
+                        : const Color.fromRGBO(255, 255, 255, 0.4),
                     fontSize: 20.sp,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
                 InkWell(
-                  onTap: () {
-                    if(pushAlarmOnOff) {
-                      showTimePickerPop();
-                    }
-                  },
-                  child: Text(
-                    '${characterSettingProvider.characterHour < 10 ? '0${characterSettingProvider.characterHour}' : characterSettingProvider.characterHour}:${characterSettingProvider.characterMinute < 10 ? '0${characterSettingProvider.characterMinute}' : characterSettingProvider.characterMinute}',
-                    textScaleFactor: 1.0,
-                    style: TextStyle(
-                      color: pushAlarmOnOff ? const Color.fromRGBO(255, 255, 255, 1) : const Color.fromRGBO(255, 255, 255, 0.4),
-                      fontWeight: FontWeight.w700,
-                      fontSize: 20.sp,
-                    ),
-                  )
-                )
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 53.h, left: 20.w, right: 20.w),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  '배경음악',
-                  textScaleFactor: 1.0,
-                  style: TextStyle(
-                    color: const Color.fromRGBO(255, 255, 255, 1),
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                FlutterSwitch(
-                  width: 60.w,
-                  height: 34.h,
-                  toggleSize: 26.w,
-                  value: backgroundSoundOnOff,
-                  borderRadius: 17.w,
-                  padding: 4.w,
-                  showOnOff: false,
-                  onToggle: (val) {
-                    setState(() {
-                      backgroundSoundOnOff = !backgroundSoundOnOff;
-                    });
-                  },
-                  activeToggleColor: squirrelCharacter[characterSettingProvider.characterIdx]['character_color'],
-                  activeColor: const Color.fromRGBO(255, 255, 255, 1),
-                  inactiveToggleColor: const Color.fromRGBO(255, 255, 255, 1),
-                  inactiveColor: const Color.fromRGBO(211, 211, 211, 0.6),
-                  activeText: '',
-                  inactiveText: '',
-                ),
+                    onTap: () {
+                      if (pushAlarmOnOff) {
+                        showTimePickerPop();
+                      }
+                    },
+                    child: Text(
+                      '${characterSettingProvider.characterHour < 10 ? '0${characterSettingProvider.characterHour}' : characterSettingProvider.characterHour}:${characterSettingProvider.characterMinute < 10 ? '0${characterSettingProvider.characterMinute}' : characterSettingProvider.characterMinute}',
+                      textScaleFactor: 1.0,
+                      style: TextStyle(
+                        color: pushAlarmOnOff
+                            ? const Color.fromRGBO(255, 255, 255, 1)
+                            : const Color.fromRGBO(255, 255, 255, 0.4),
+                        fontWeight: FontWeight.w700,
+                        fontSize: 20.sp,
+                      ),
+                    ))
               ],
             ),
           ),
@@ -159,7 +130,6 @@ class _SettingMainPageState extends State<SettingMainPage> {
               onTap: () async {
                 // _sign.leaveUser();
                 await UserApi.instance.logout();
-                
 
                 final prefs = await SharedPreferences.getInstance();
                 await prefs.remove('login-token');
@@ -220,17 +190,29 @@ class _SettingMainPageState extends State<SettingMainPage> {
 
   void showTimePickerPop() {
     showCupertinoModalPopup(
-      context: context, 
-      builder: (BuildContext context) {  
+      context: context,
+      builder: (BuildContext context) {
         return Container(
           height: 190.h,
-          // width: 240.w,
           width: MediaQuery.of(context).size.width,
           color: const Color.fromRGBO(255, 255, 255, 1),
           child: CupertinoDatePicker(
+            initialDateTime: DateTime(
+              DateTime.now().year,
+              DateTime.now().month,
+              DateTime.now().day,
+              characterSettingProvider.characterHour,
+              characterSettingProvider.characterMinute,
+            ),
             onDateTimeChanged: (DateTime value) {
               characterSettingProvider.characterHour = value.hour;
               characterSettingProvider.characterMinute = value.minute;
+
+              _setting.editPushAlarm(
+                todoIdx: characterSettingProvider.todoListIdx,
+                time:
+                    '${characterSettingProvider.characterHour < 10 ? '0${characterSettingProvider.characterHour}' : characterSettingProvider.characterHour}:${characterSettingProvider.characterMinute < 10 ? '0${characterSettingProvider.characterMinute}' : characterSettingProvider.characterMinute}:00',
+              );
             },
             use24hFormat: true,
             mode: CupertinoDatePickerMode.time,
@@ -238,21 +220,5 @@ class _SettingMainPageState extends State<SettingMainPage> {
         );
       },
     );
-
-
-    // ;
-    // return ;
-    // // Future<TimeOfDay?> selectedTime = showTimePicker(
-    // //   context: context,
-    // //   initialTime: TimeOfDay.now(),
-    // // );
-    // // CupertinoTimerPicker()
-    // // selectedTime.then((timeOfDay) {
-    // //   // Fluttertoast.showToast(
-    // //   //   msg: timeOfDay.toString(),
-    // //   //   toastLength: Toast.LENGTH_LONG,
-    // //   //   //gravity: ToastGravity.CENTER,  //위치(default 는 아래)
-    // //   // );
-    // // });
   }
 }
