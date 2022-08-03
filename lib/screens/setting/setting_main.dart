@@ -10,6 +10,7 @@ import 'package:todo_squirrel/providers/character_setting_provider.dart';
 import 'package:todo_squirrel/repositories/setting.dart';
 import 'package:todo_squirrel/repositories/sign.dart';
 import 'package:todo_squirrel/screens/prologue/sign_in.dart';
+import 'package:todo_squirrel/screens/widget/dialog_widget.dart';
 
 class SettingMainPage extends StatefulWidget {
   const SettingMainPage({Key? key}) : super(key: key);
@@ -125,33 +126,73 @@ class _SettingMainPageState extends State<SettingMainPage> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(top: 350.h),
+            padding: EdgeInsets.only(top: 54.h, left: 20.w, right: 20.w),
             child: InkWell(
               onTap: () async {
-                // _sign.leaveUser();
-                await UserApi.instance.logout();
-
-                final prefs = await SharedPreferences.getInstance();
-                await prefs.remove('login-token');
-                await prefs.remove('setCharacterToDo');
-
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const SignInPage(),
-                  ),
-                  (route) => false,
+                showSelectDialog(
+                  context: context,
+                  characterIdx: characterSettingProvider.characterIdx,
+                  mainTitle: '로그아웃 하시겠습니까?',
+                  subTitle: '* 데이터는 유지됩니다',
+                  yestTtile: '예',
+                  noTitle: '아니오',
+                  function: userLogout,
                 );
               },
-              child: Text(
-                '로그아웃',
-                textAlign: TextAlign.center,
-                textScaleFactor: 1.0,
-                style: TextStyle(
-                  color: const Color.fromRGBO(255, 255, 255, 1),
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.w700,
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    '로그아웃',
+                    textScaleFactor: 1.0,
+                    style: TextStyle(
+                      color: const Color.fromRGBO(255, 255, 255, 1),
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  Container(
+                    width: 20.w,
+                    height: 20.w,
+                    color: Colors.white,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 54.h, left: 20.w, right: 20.w),
+            child: InkWell(
+              onTap: () async {
+                showSelectDialog(
+                  context: context,
+                  characterIdx: characterSettingProvider.characterIdx,
+                  mainTitle: '회원을 탈퇴 하시겠습니까?',
+                  subTitle: '* 모든 데이터는 즉시 삭제 됩니다',
+                  yestTtile: '예',
+                  noTitle: '아니오',
+                  function: userLeave,
+                  isUserLeave: true,
+                );
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    '회원탈퇴',
+                    textScaleFactor: 1.0,
+                    style: TextStyle(
+                      color: const Color.fromRGBO(255, 255, 255, 1),
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  Container(
+                    width: 20.w,
+                    height: 20.w,
+                    color: Colors.white,
+                  ),
+                ],
               ),
             ),
           ),
@@ -219,6 +260,39 @@ class _SettingMainPageState extends State<SettingMainPage> {
           ),
         );
       },
+    );
+  }
+
+  void userLeave() async {
+    await _sign.leaveUser();
+    await UserApi.instance.logout();
+
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('login-token');
+    await prefs.remove('setCharacterToDo');
+
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const SignInPage(),
+      ),
+      (route) => false,
+    );
+  }
+
+  void userLogout() async {
+    await UserApi.instance.logout();
+
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('login-token');
+    await prefs.remove('setCharacterToDo');
+
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const SignInPage(),
+      ),
+      (route) => false,
     );
   }
 }
