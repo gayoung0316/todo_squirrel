@@ -70,7 +70,7 @@ void showSelectDialog({
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   InkWell(
-                    onTap: () => function,
+                    onTap: () => function!(),
                     child: Container(
                       width: 112.w,
                       height: 48.h,
@@ -97,7 +97,7 @@ void showSelectDialog({
                   ),
                   SizedBox(width: 12.w),
                   InkWell(
-                    onTap: () {},
+                    onTap: () => Navigator.pop(context),
                     child: Container(
                       width: 112.w,
                       height: 48.h,

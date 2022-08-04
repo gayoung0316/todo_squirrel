@@ -25,6 +25,9 @@ class _SettingMainPageState extends State<SettingMainPage> {
   bool backgroundSoundOnOff = true;
   bool pushAlarmOnOff = false;
 
+  int tempHour = 0;
+  int tempMinute = 0;
+
   void getPushAlarmOnOff() async {
     final SharedPreferences prefs = await _prefs;
     setState(() {
@@ -260,29 +263,94 @@ class _SettingMainPageState extends State<SettingMainPage> {
       context: context,
       builder: (BuildContext context) {
         return Container(
-          height: 190.h,
+          height: 331.h,
           width: MediaQuery.of(context).size.width,
-          color: const Color.fromRGBO(255, 255, 255, 1),
-          child: CupertinoDatePicker(
-            initialDateTime: DateTime(
-              DateTime.now().year,
-              DateTime.now().month,
-              DateTime.now().day,
-              characterSettingProvider.characterHour,
-              characterSettingProvider.characterMinute,
+          decoration: BoxDecoration(
+            color: const Color.fromRGBO(255, 255, 255, 1),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(35.w),
+              topRight: Radius.circular(35.w),
             ),
-            onDateTimeChanged: (DateTime value) {
-              characterSettingProvider.characterHour = value.hour;
-              characterSettingProvider.characterMinute = value.minute;
+          ),
+          child: Column(
+            children: [
+              Material(
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    top: 30.h,
+                    right: 30.w,
+                    left: 30.w,
+                    bottom: 12.h,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text(
+                          '취소',
+                          textScaleFactor: 1.0,
+                          style: TextStyle(
+                            color: const Color.fromRGBO(157, 157, 157, 1),
+                            fontWeight: FontWeight.w700,
+                            fontSize: 20.sp,
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () async {
+                          var result = await _setting.editPushAlarm(
+                            todoIdx: characterSettingProvider.todoListIdx,
+                            time:
+                                '${characterSettingProvider.characterHour < 10 ? '0${characterSettingProvider.characterHour}' : characterSettingProvider.characterHour}:${characterSettingProvider.characterMinute < 10 ? '0${characterSettingProvider.characterMinute}' : characterSettingProvider.characterMinute}:00',
+                          );
 
-              _setting.editPushAlarm(
-                todoIdx: characterSettingProvider.todoListIdx,
-                time:
-                    '${characterSettingProvider.characterHour < 10 ? '0${characterSettingProvider.characterHour}' : characterSettingProvider.characterHour}:${characterSettingProvider.characterMinute < 10 ? '0${characterSettingProvider.characterMinute}' : characterSettingProvider.characterMinute}:00',
-              );
-            },
-            use24hFormat: true,
-            mode: CupertinoDatePickerMode.time,
+                          if (result!.data['success']) {
+                            Navigator.pop(context);
+                            characterSettingProvider.characterHour = tempHour;
+                            characterSettingProvider.characterMinute =
+                                tempMinute;
+                          }
+                        },
+                        child: Text(
+                          '완료',
+                          textScaleFactor: 1.0,
+                          style: TextStyle(
+                            color: squirrelCharacter[characterSettingProvider
+                                .characterIdx]['character_color'],
+                            fontWeight: FontWeight.w700,
+                            fontSize: 20.sp,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Divider(
+                height: 0,
+                thickness: 1.w,
+              ),
+              Expanded(
+                child: CupertinoDatePicker(
+                  initialDateTime: DateTime(
+                    DateTime.now().year,
+                    DateTime.now().month,
+                    DateTime.now().day,
+                    characterSettingProvider.characterHour,
+                    characterSettingProvider.characterMinute,
+                  ),
+                  onDateTimeChanged: (DateTime value) {
+                    tempHour = value.hour;
+                    tempMinute = value.minute;
+                  },
+                  use24hFormat: true,
+                  mode: CupertinoDatePickerMode.time,
+                ),
+              ),
+            ],
           ),
         );
       },
