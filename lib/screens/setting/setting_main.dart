@@ -20,9 +20,17 @@ class SettingMainPage extends StatefulWidget {
 }
 
 class _SettingMainPageState extends State<SettingMainPage> {
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   late CharacterSettingProvider characterSettingProvider;
   bool backgroundSoundOnOff = true;
   bool pushAlarmOnOff = false;
+
+  void getPushAlarmOnOff() async {
+    final SharedPreferences prefs = await _prefs;
+    setState(() {
+      pushAlarmOnOff = prefs.getBool('pushAlarmOn') ?? false;
+    });
+  }
 
   final Sign _sign = Sign();
   final Setting _setting = Setting();
@@ -72,10 +80,14 @@ class _SettingMainPageState extends State<SettingMainPage> {
                   borderRadius: 17.w,
                   padding: 4.w,
                   showOnOff: true,
-                  onToggle: (val) {
+                  onToggle: (val) async {
+                    final SharedPreferences prefs = await _prefs;
+
                     setState(() {
                       pushAlarmOnOff = !pushAlarmOnOff;
                     });
+
+                    prefs.setBool('pushAlarmOn', pushAlarmOnOff);
                   },
                   activeToggleColor:
                       squirrelCharacter[characterSettingProvider.characterIdx]
@@ -106,22 +118,36 @@ class _SettingMainPageState extends State<SettingMainPage> {
                   ),
                 ),
                 InkWell(
-                    onTap: () {
-                      if (pushAlarmOnOff) {
-                        showTimePickerPop();
-                      }
-                    },
-                    child: Text(
-                      '${characterSettingProvider.characterHour < 10 ? '0${characterSettingProvider.characterHour}' : characterSettingProvider.characterHour}:${characterSettingProvider.characterMinute < 10 ? '0${characterSettingProvider.characterMinute}' : characterSettingProvider.characterMinute}',
-                      textScaleFactor: 1.0,
-                      style: TextStyle(
+                  onTap: () {
+                    if (pushAlarmOnOff) {
+                      showTimePickerPop();
+                    }
+                  },
+                  child: Row(
+                    children: [
+                      Text(
+                        '${characterSettingProvider.characterHour < 10 ? '0${characterSettingProvider.characterHour}' : characterSettingProvider.characterHour}:${characterSettingProvider.characterMinute < 10 ? '0${characterSettingProvider.characterMinute}' : characterSettingProvider.characterMinute}',
+                        textScaleFactor: 1.0,
+                        style: TextStyle(
+                          color: pushAlarmOnOff
+                              ? const Color.fromRGBO(255, 255, 255, 1)
+                              : const Color.fromRGBO(255, 255, 255, 0.4),
+                          fontWeight: FontWeight.w700,
+                          fontSize: 20.sp,
+                        ),
+                      ),
+                      SizedBox(width: 8.w),
+                      Image.asset(
+                        'assets/icons/arrow_right.png',
+                        width: 20.w,
+                        height: 20.w,
                         color: pushAlarmOnOff
                             ? const Color.fromRGBO(255, 255, 255, 1)
                             : const Color.fromRGBO(255, 255, 255, 0.4),
-                        fontWeight: FontWeight.w700,
-                        fontSize: 20.sp,
                       ),
-                    ))
+                    ],
+                  ),
+                )
               ],
             ),
           ),
@@ -151,10 +177,10 @@ class _SettingMainPageState extends State<SettingMainPage> {
                       fontWeight: FontWeight.w700,
                     ),
                   ),
-                  Container(
+                  Image.asset(
+                    'assets/icons/arrow_right.png',
                     width: 20.w,
                     height: 20.w,
-                    color: Colors.white,
                   ),
                 ],
               ),
@@ -187,10 +213,10 @@ class _SettingMainPageState extends State<SettingMainPage> {
                       fontWeight: FontWeight.w700,
                     ),
                   ),
-                  Container(
+                  Image.asset(
+                    'assets/icons/arrow_right.png',
                     width: 20.w,
                     height: 20.w,
-                    color: Colors.white,
                   ),
                 ],
               ),

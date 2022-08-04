@@ -22,8 +22,8 @@ class _CharacterSettingInfoState extends State<CharacterSettingInfo> {
   late HomeProvider homeProvider;
   final ToDo _toDo = ToDo();
 
-  bool checkBottomConsonant(String input){
-    return (input.runes.last - 0xAC00) % 28!=0;
+  bool checkBottomConsonant(String input) {
+    return (input.runes.last - 0xAC00) % 28 != 0;
   }
 
   @override
@@ -32,7 +32,8 @@ class _CharacterSettingInfoState extends State<CharacterSettingInfo> {
     homeProvider = Provider.of<HomeProvider>(context);
 
     return Scaffold(
-      backgroundColor: squirrelCharacter[characterSettingProvider.characterIdx]['character_color'],
+      backgroundColor: squirrelCharacter[characterSettingProvider.characterIdx]
+          ['character_color'],
       body: ListView(
         physics: const BouncingScrollPhysics(),
         padding: EdgeInsets.only(top: 57.h, bottom: 100.h),
@@ -72,7 +73,8 @@ class _CharacterSettingInfoState extends State<CharacterSettingInfo> {
                           '“ 안녕 난 ${characterSettingProvider.characterName}${checkBottomConsonant(characterSettingProvider.characterName) ? '이' : ''}야 잘 부탁해! “',
                           textScaleFactor: 1.0,
                           style: TextStyle(
-                            color: squirrelCharacter[characterSettingProvider.characterIdx]['character_color'],
+                            color: squirrelCharacter[characterSettingProvider
+                                .characterIdx]['character_color'],
                             fontSize: 20.sp,
                             fontWeight: FontWeight.w800,
                           ),
@@ -145,6 +147,7 @@ class _CharacterSettingInfoState extends State<CharacterSettingInfo> {
                     );
 
                     if (result!.data['success']) {
+                      prefs.setBool('pushAlarmOn', true);
                       prefs.setBool('setCharacterToDo', true);
                       homeProvider.setPageIdx(2);
                       Navigator.pushAndRemoveUntil(
