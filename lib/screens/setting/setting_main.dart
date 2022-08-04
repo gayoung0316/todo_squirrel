@@ -90,7 +90,11 @@ class _SettingMainPageState extends State<SettingMainPage> {
                       pushAlarmOnOff = !pushAlarmOnOff;
                     });
 
+                    print(pushAlarmOnOff);
                     prefs.setBool('pushAlarmOn', pushAlarmOnOff);
+
+                    var result = prefs.getBool('pushAlarmOn') ?? false;
+                    print(result);
                   },
                   activeToggleColor:
                       squirrelCharacter[characterSettingProvider.characterIdx]
