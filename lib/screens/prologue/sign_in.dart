@@ -257,7 +257,7 @@ class _SignInPageState extends State<SignInPage> {
               alignment: Alignment.center,
               margin: EdgeInsets.symmetric(horizontal: 10.w),
               child: Text(
-                '$loginTypeName 계정으로 로그인',
+                '$loginTypeName로 로그인',
                 textScaleFactor: 1.0,
                 style: TextStyle(
                   fontWeight: FontWeight.w800,
