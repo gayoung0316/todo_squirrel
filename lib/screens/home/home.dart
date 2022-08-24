@@ -98,6 +98,12 @@ class _MainScreensState extends State<MainScreens> {
                       ['character_color'],
               unselectedItemColor: Colors.black54,
               onTap: (index) {
+                if (index == 1) {
+                  goalListProvider.getfailureGoalList(state: 2);
+                } else if (index == 3) {
+                  goalListProvider.getSuccessGoalList(state: 1);
+                }
+
                 homeProvider.setPageIdx(index);
               },
               items: [

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
+import 'package:platform_device_id/platform_device_id.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
@@ -73,6 +74,23 @@ class _SignInPageState extends State<SignInPage> {
     }
   }
 
+  Future<String?> _guestLogin() async {
+    try {
+      String appName = 'ToDoSquirrel';
+      String platform = Platform.isAndroid ? 'Android' : 'iOS';
+      String deviceId = await PlatformDeviceId.getDeviceId ?? '';
+
+      var guestToken = await _sign.signIn(
+        platform: 2,
+        token: '$appName-$platform-$deviceId',
+      );
+
+      return guestToken!.data['token'];
+    } catch (e) {
+      log('게스트 로그인 실패 : $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     homeProvider = Provider.of<HomeProvider>(context);
@@ -96,16 +114,22 @@ class _SignInPageState extends State<SignInPage> {
                   loginType: 0,
                   loginTypeName: '카카오톡',
                 ),
-                SizedBox(height: Platform.isIOS ? 26.h : 36.h),
+                SizedBox(height: Platform.isIOS ? 20.h : 36.h),
                 Visibility(
                   visible: Platform.isIOS,
                   child: loginPlatformButton(
                     context: context,
-                    loginType: 2,
+                    loginType: 1,
                     loginTypeName: 'Apple',
                   ),
                 ),
-                SizedBox(height: 102.h),
+                SizedBox(height: Platform.isIOS ? 20.h : 36.h),
+                loginPlatformButton(
+                  context: context,
+                  loginType: 2,
+                  loginTypeName: '게스트',
+                ),
+                SizedBox(height: 100.h),
                 Text(
                   '회원가입 없이 이용 가능하며 첫 로그인시',
                   textScaleFactor: 1.0,
@@ -192,10 +216,16 @@ class _SignInPageState extends State<SignInPage> {
             log('카카오톡 회원가입 완료');
             prefs.setString('login-token', result);
           }
-        } else if (loginType == 2) {
+        } else if (loginType == 1) {
           var result = await _appleLogin();
           if (result != '') {
             log('애플 회원가입 완료');
+            prefs.setString('login-token', result!);
+          }
+        } else if (loginType == 2) {
+          var result = await _guestLogin();
+          if (result != '') {
+            log('게스트 회원가입 완료');
             prefs.setString('login-token', result!);
           }
         }
@@ -231,8 +261,8 @@ class _SignInPageState extends State<SignInPage> {
           color: loginType == 0
               ? const Color.fromRGBO(255, 232, 18, 1)
               : loginType == 1
-                  ? const Color.fromRGBO(245, 245, 245, 1)
-                  : const Color.fromRGBO(0, 0, 0, 1),
+                  ? const Color.fromRGBO(0, 0, 0, 1)
+                  : const Color.fromRGBO(245, 245, 245, 1),
           borderRadius: BorderRadius.circular(30.w),
           boxShadow: const [
             BoxShadow(
@@ -247,10 +277,13 @@ class _SignInPageState extends State<SignInPage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Image.asset(
-              'assets/icons/${loginType == 0 ? 'kakao' : 'apple'}_login.png',
-              width: 36.w,
-              height: 36.w,
+            Visibility(
+              visible: loginType != 2,
+              child: Image.asset(
+                'assets/icons/${loginType == 0 ? 'kakao' : 'apple'}_login.png',
+                width: 36.w,
+                height: 36.w,
+              ),
             ),
             Container(
               width: 204.w,
@@ -262,9 +295,9 @@ class _SignInPageState extends State<SignInPage> {
                 style: TextStyle(
                   fontWeight: FontWeight.w800,
                   fontSize: 16.sp,
-                  color: loginType == 2
-                      ? const Color.fromRGBO(255, 255, 255, 1)
-                      : const Color.fromRGBO(0, 0, 0, 1),
+                  color: loginType == 2 || loginType == 0
+                      ? const Color.fromRGBO(0, 0, 0, 1)
+                      : const Color.fromRGBO(255, 255, 255, 1),
                 ),
               ),
             ),
