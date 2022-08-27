@@ -71,8 +71,7 @@ class _CharacterAlarmSettingState extends State<CharacterAlarmSetting> {
                             '“ 알림으로 알려줄까? “',
                             textScaleFactor: 1.0,
                             style: TextStyle(
-                              color: squirrelCharacter[characterSettingProvider
-                                  .characterIdx]['character_color'],
+                              color: squirrelCharacter[characterSettingProvider.characterIdx]['character_color'],
                               fontSize: 20.sp,
                               fontWeight: FontWeight.w800,
                             ),
@@ -229,8 +228,7 @@ class _CharacterAlarmSettingState extends State<CharacterAlarmSetting> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>
-                                      const CharacterSettingInfo(),
+                                  builder: (context) => const CharacterSettingInfo(),
                                 ),
                               );
                             }
@@ -239,24 +237,22 @@ class _CharacterAlarmSettingState extends State<CharacterAlarmSetting> {
                             width: 112.w,
                             height: 42.h,
                             decoration: BoxDecoration(
-                                color: _hourController.text.isEmpty &&
-                                        _minuteController.text.isEmpty
-                                    ? const Color.fromRGBO(255, 255, 255, 1)
-                                    : Colors.transparent,
-                                borderRadius: BorderRadius.circular(21.w),
-                                border: Border.all(
-                                  color: const Color.fromRGBO(255, 255, 255, 1),
-                                )),
+                              color: _hourController.text.isEmpty && _minuteController.text.isEmpty
+                              ? const Color.fromRGBO(255, 255, 255, 1)
+                              : Colors.transparent,
+                              borderRadius: BorderRadius.circular(21.w),
+                              border: Border.all(
+                                color: const Color.fromRGBO(255, 255, 255, 1),
+                              )
+                            ),
                             alignment: Alignment.center,
                             child: Text(
                               '건너뛰기',
                               textScaleFactor: 1.0,
                               style: TextStyle(
-                                color: _hourController.text.isEmpty &&
-                                        _minuteController.text.isEmpty
-                                    ? squirrelCharacter[characterSettingProvider
-                                        .characterIdx]['character_color']
-                                    : const Color.fromRGBO(255, 255, 255, 1),
+                                color: _hourController.text.isEmpty && _minuteController.text.isEmpty
+                                ? squirrelCharacter[characterSettingProvider.characterIdx]['character_color']
+                                : const Color.fromRGBO(255, 255, 255, 1),
                                 fontSize: 20.sp,
                                 fontWeight: FontWeight.w800,
                               ),
@@ -266,22 +262,18 @@ class _CharacterAlarmSettingState extends State<CharacterAlarmSetting> {
                         SizedBox(width: 18.w),
                         InkWell(
                           onTap: () {
-                            if (_hourController.text.isNotEmpty ||
-                                _minuteController.text.isNotEmpty) {
-                              characterSettingProvider.characterHour =
-                                  _hourController.text.isNotEmpty
-                                      ? int.parse(_hourController.text)
-                                      : 00;
-                              characterSettingProvider.characterMinute =
-                                  _minuteController.text.isNotEmpty
-                                      ? int.parse(_minuteController.text)
-                                      : 00;
+                            if (_hourController.text.isNotEmpty || _minuteController.text.isNotEmpty) {
+                              characterSettingProvider.characterHour = _hourController.text.isNotEmpty
+                              ? int.parse(_hourController.text)
+                              : 00;
+                              characterSettingProvider.characterMinute = _minuteController.text.isNotEmpty
+                              ? int.parse(_minuteController.text)
+                              : 00;
 
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>
-                                      const CharacterSettingInfo(),
+                                  builder: (context) => const CharacterSettingInfo(),
                                 ),
                               );
                             }
@@ -290,24 +282,22 @@ class _CharacterAlarmSettingState extends State<CharacterAlarmSetting> {
                             width: 112.w,
                             height: 42.h,
                             decoration: BoxDecoration(
-                                color: _hourController.text.isNotEmpty ||
-                                        _minuteController.text.isNotEmpty
-                                    ? const Color.fromRGBO(255, 255, 255, 1)
-                                    : Colors.transparent,
-                                borderRadius: BorderRadius.circular(21.w),
-                                border: Border.all(
-                                  color: const Color.fromRGBO(255, 255, 255, 1),
-                                )),
+                              color: _hourController.text.isNotEmpty || _minuteController.text.isNotEmpty
+                              ? const Color.fromRGBO(255, 255, 255, 1)
+                              : Colors.transparent,
+                              borderRadius: BorderRadius.circular(21.w),
+                              border: Border.all(
+                                color: const Color.fromRGBO(255, 255, 255, 1),
+                              )
+                            ),
                             alignment: Alignment.center,
                             child: Text(
                               '다음',
                               textScaleFactor: 1.0,
                               style: TextStyle(
-                                color: _hourController.text.isNotEmpty ||
-                                        _minuteController.text.isNotEmpty
-                                    ? squirrelCharacter[characterSettingProvider
-                                        .characterIdx]['character_color']
-                                    : const Color.fromRGBO(255, 255, 255, 1),
+                                color: _hourController.text.isNotEmpty || _minuteController.text.isNotEmpty
+                                ? squirrelCharacter[characterSettingProvider.characterIdx]['character_color']
+                                : const Color.fromRGBO(255, 255, 255, 1),
                                 fontSize: 20.sp,
                                 fontWeight: FontWeight.w800,
                               ),
