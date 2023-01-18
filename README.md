@@ -1,6 +1,6 @@
 # todo_squirrel
 
-A new Flutter project.
+플러터를 활용한 투두리스트 프로젝트
 
 ## Getting Started
 
