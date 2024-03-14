@@ -9,7 +9,7 @@ import 'package:todo_squirrel/providers/home_provider.dart';
 import 'screens/prologue/splash_page.dart';
 
 void main() {
-  KakaoSdk.init(nativeAppKey: '313453dcd00af72db1ed29fa43ba57e5');
+  KakaoSdk.init(nativeAppKey: '');
   runApp(
     MultiProvider(
       providers: [
